@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "title": "观星台 · 郭洋的个人网站",
+    "description": "全栈工程师 · 偏爱把复杂系统做薄"
+  },
+  "common": {
+    "backHome": "回到星图",
+    "comingSoon": "这一页在下一轮设计中，先回星图看看别处吧。"
+  },
+  "nav": {
+    "brand": "观星台",
+    "brandSub": "GY · OBSERVATORY",
+    "menuLabel": "主导航",
+    "home": "首页",
+    "about": "关于",
+    "projects": "项目",
+    "writing": "写作",
+    "toolkit": "工具箱",
+    "contact": "联系",
+    "langButton": "中 / EN",
+    "switchLang": "Switch to English",
+    "switchTheme": "切换日夜主题"
+  },
+  "home": {
+    "coord": "N 31°14′ · E 121°28′ · 本地时 UTC+8",
+    "name": "郭 洋",
+    "role": "全栈工程师 · 偏爱把复杂系统做薄",
+    "bio1": "我用 <strong>TypeScript、Next.js 和 PostgreSQL</strong> 把想法做成能跑在生产环境里的东西。过去几年主要在做内容系统、权限模型和一些需要真扛住流量的后端服务。",
+    "bio2": "喜欢在交付之前把边界情况想清楚，也喜欢在页面上留一点只有自己知道为什么的小机关。",
+    "statusTitle": "正在找新机会，也接外包",
+    "statusBody": "目前接受远程全职与中小型项目承接。右侧星图里任选一颗，或者直接从联系页找我。",
+    "chartLabel": "星座图导航",
+    "plate": "观星台导航图",
+    "nodes": {
+      "about": "关于",
+      "projects": "项目",
+      "writing": "写作",
+      "toolkit": "工具箱",
+      "contact": "联系"
+    }
+  },
+  "about": {
+    "title": "我是谁，在做什么",
+    "p1": "我是郭洋，一个写了七年代码的全栈工程师。职业生涯大部分时间在做<strong>内容驱动的产品</strong>——CMS、权限系统、搜索与推荐，这类东西前端要好用，后端要扛得住，数据模型一开始就不能将就。",
+    "p2": "技术上我偏实用主义：<strong>Next.js 做端到端</strong>，Hono 处理需要独立伸缩的 API，Prisma + PostgreSQL 管数据。该上 Redis 和队列的地方上，不该上的地方绝不提前抽象。",
+    "p3": "工作之外我在写技术文章，维护一个自己用的工具箱，偶尔做点动效实验。这个网站本身就是其中一个。",
+    "f1k": "经验",
+    "f1v": "7 年全栈",
+    "f2k": "主力栈",
+    "f2v": "TypeScript",
+    "f3k": "所在地",
+    "f3v": "上海 · 可远程",
+    "f4k": "状态",
+    "f4v": "开放中",
+    "fireLabel": "篝火装饰，移动鼠标可让火焰摆动，点击可让火更旺"
+  },
+  "projects": {
+    "title": "项目案例"
+  },
+  "writing": {
+    "title": "写作",
+    "subTitle": "订阅更新",
+    "subBody": "新文章发布时发一封邮件，一个月一两次，不发别的。",
+    "subPlaceholder": "你的邮箱",
+    "subButton": "订阅",
+    "subNote": "也可以用 RSS。随时退订。",
+    "archiveTitle": "归档",
+    "archiveBody": "2026 年 12 篇 · 2025 年 23 篇 · 2024 年 18 篇"
+  },
+  "toolkit": {
+    "title": "工具箱",
+    "searchPlaceholder": "搜名称、介绍或标签",
+    "empty": "没有匹配的条目。"
+  },
+  "contact": {
+    "title": "联系",
+    "email": "邮件",
+    "x": "X / 推特",
+    "jike": "即刻",
+    "jikeName": "郭洋",
+    "noteTitle": "关于外包",
+    "note": "适合我的是前后端一起交付的中小型项目：内容站、管理后台、需要接第三方登录和权限的系统。按项目或按周都可以谈。如果你已经有设计稿和明确范围，可以直接把它发给我。"
+  }
+}

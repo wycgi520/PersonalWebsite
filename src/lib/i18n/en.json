@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "title": "Observatory · Guo Yang",
+    "description": "Full-stack engineer · I make complex systems thin"
+  },
+  "common": {
+    "backHome": "Back to the chart",
+    "comingSoon": "This page comes in the next round. Head back to the chart for now."
+  },
+  "nav": {
+    "brand": "Observatory",
+    "brandSub": "GY · OBSERVATORY",
+    "menuLabel": "Main navigation",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "writing": "Writing",
+    "toolkit": "Toolkit",
+    "contact": "Contact",
+    "langButton": "EN / 中",
+    "switchLang": "切换到中文",
+    "switchTheme": "Toggle day / night theme"
+  },
+  "home": {
+    "coord": "N 31°14′ · E 121°28′ · Local UTC+8",
+    "name": "Guo Yang",
+    "role": "Full-stack engineer · I make complex systems thin",
+    "bio1": "I build things that survive production with <strong>TypeScript, Next.js and PostgreSQL</strong>. Mostly content systems, permission models, and backends that have to hold up under real traffic.",
+    "bio2": "I like settling the edge cases before shipping, and leaving one small mechanism on a page that only I know the reason for.",
+    "statusTitle": "Open to roles and freelance work",
+    "statusBody": "Available for remote full-time and small-to-mid projects. Pick any star on the chart, or find me on the contact page.",
+    "chartLabel": "Constellation navigation",
+    "plate": "Observatory chart",
+    "nodes": {
+      "about": "About",
+      "projects": "Projects",
+      "writing": "Writing",
+      "toolkit": "Toolkit",
+      "contact": "Contact"
+    }
+  },
+  "about": {
+    "title": "Who I am, what I am building",
+    "p1": "I am Guo Yang, a full-stack engineer seven years in. Most of that time went into <strong>content-driven products</strong> — CMS, permissions, search and ranking. The kind of work where the frontend has to feel good, the backend has to hold, and the data model cannot be sloppy on day one.",
+    "p2": "I am pragmatic about the stack: <strong>Next.js end to end</strong>, Hono where an API needs to scale on its own, Prisma with PostgreSQL for data. Redis and queues where they earn their place, and no abstraction before it is needed.",
+    "p3": "Outside work I write, maintain a toolkit I actually use, and run the occasional motion experiment. This site is one of them.",
+    "f1k": "Experience",
+    "f1v": "7 years",
+    "f2k": "Core stack",
+    "f2v": "TypeScript",
+    "f3k": "Based in",
+    "f3v": "Shanghai · remote",
+    "f4k": "Status",
+    "f4v": "Open",
+    "fireLabel": "Decorative campfire. Move the mouse to sway the flames, click to stoke it."
+  },
+  "projects": {
+    "title": "Selected work"
+  },
+  "writing": {
+    "title": "Writing",
+    "subTitle": "Get new posts",
+    "subBody": "One email when something new goes up. Once or twice a month, nothing else.",
+    "subPlaceholder": "Your email",
+    "subButton": "Subscribe",
+    "subNote": "RSS works too. Unsubscribe any time.",
+    "archiveTitle": "Archive",
+    "archiveBody": "12 posts in 2026 · 23 in 2025 · 18 in 2024"
+  },
+  "toolkit": {
+    "title": "Toolkit",
+    "searchPlaceholder": "Search name, description or tag",
+    "empty": "Nothing matches that."
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Email",
+    "x": "X / Twitter",
+    "jike": "Jike",
+    "jikeName": "Guo Yang",
+    "noteTitle": "About freelance work",
+    "note": "The best fit is a small-to-mid project delivered end to end: a content site, an admin dashboard, or a system that needs third-party login and permissions. Per project or per week both work. If you already have designs and a defined scope, send them over."
+  }
+}

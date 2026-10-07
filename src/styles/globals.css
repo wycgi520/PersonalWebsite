@@ -15,8 +15,9 @@
     --text: #E9EFF8;
     --ember: #F2A24B;
 
-    --serif: "Cormorant Garamond", "Noto Serif SC", Georgia, "Songti SC", serif;
-    --sans: "Inter", "Helvetica Neue", -apple-system, "PingFang SC", sans-serif;
+    /* next/font 注入的变量在前，系统字体兜底 */
+    --serif: var(--font-cormorant), var(--font-noto-serif-sc), Georgia, "Songti SC", serif;
+    --sans: var(--font-inter), "Helvetica Neue", -apple-system, "PingFang SC", sans-serif;
     --t-scene: 760ms;
     --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
   }
@@ -65,8 +66,61 @@
   }
 }
 
+@layer components {
+  /* ---------- 首页左侧 ---------- */
+  .ident-bio strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ---------- 星图（SVG 属性/伪状态，用类比 Tailwind 更直观） ---------- */
+  .cgrid { stroke: var(--grid); stroke-width: 0.6; fill: none; }
+  .ctick { stroke: var(--line); stroke-width: 1; }
+  .cframe { stroke: var(--line); stroke-width: 1; fill: none; }
+  .cedge {
+    stroke: var(--glow); stroke-width: 0.9; opacity: 0.26; fill: none;
+    transition: opacity 0.4s var(--ease);
+  }
+  .cedge.hot { opacity: 0.75; }
+  .node { cursor: pointer; }
+  .node:focus { outline: none; }
+  .node .halo { opacity: 0; transition: opacity 0.45s var(--ease); }
+  .node .ring {
+    fill: none; stroke: var(--glow); stroke-width: 0.8; opacity: 0;
+    transition: opacity 0.4s var(--ease);
+  }
+  .node .star { fill: var(--text); transition: fill 0.3s var(--ease), r 0.3s var(--ease); }
+  .node .lbl {
+    font-family: var(--serif); font-size: 17px; fill: var(--text);
+    letter-spacing: 0.02em; transition: fill 0.3s var(--ease);
+  }
+  .node .sub { font-family: var(--sans); font-size: 9.5px; fill: var(--dim); letter-spacing: 0.1em; }
+  .node:hover .halo, .node:focus-visible .halo { opacity: 0.22; }
+  .node:hover .ring, .node:focus-visible .ring { opacity: 0.6; }
+  .node:hover .star, .node:focus-visible .star { fill: var(--glow); r: 5.4; }
+  .node:hover .lbl, .node:focus-visible .lbl { fill: var(--glow); }
+  /* 键盘聚焦时给出明确的焦点环（SVG 内无法使用 outline） */
+  .node:focus-visible .ring { stroke-width: 1.4; opacity: 0.9; }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

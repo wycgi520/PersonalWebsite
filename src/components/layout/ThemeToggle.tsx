@@ -2,35 +2,33 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Moon, Sun } from 'lucide-react';
 
+const BTN =
+  'grid h-8 w-8 place-items-center rounded-[3px] border border-line text-dim transition-colors duration-300 ease-scene hover:border-glow hover:text-glow';
+
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const t = useTranslations('nav');
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <button
-        className="w-8 h-8 grid place-items-center text-sm border border-line rounded-sm text-dim transition-all duration-300"
-        aria-label="切换主题"
-      >
-        <Moon size={14} />
-      </button>
-    );
-  }
+  // 服务端不知道用户选的主题，挂载前渲染同尺寸占位，避免 hydration 不一致
+  const isDark = !mounted || resolvedTheme !== 'light';
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="w-8 h-8 grid place-items-center text-sm border border-line rounded-sm text-dim hover:text-glow hover:border-glow transition-all duration-300"
-      aria-label="切换日夜主题"
-      title="切换主题"
+      type="button"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className={BTN}
+      aria-label={t('switchTheme')}
+      title={t('switchTheme')}
     >
-      {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
+      {isDark ? <Moon size={14} aria-hidden="true" /> : <Sun size={14} aria-hidden="true" />}
     </button>
   );
 }

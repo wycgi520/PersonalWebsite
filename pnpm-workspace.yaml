@@ -1,2 +1,5 @@
 allowBuilds:
   unrs-resolver: true
+  # 均为 next-intl 实验性文案提取器的依赖；本项目未使用 next-intl/plugin（见 next.config.js）
+  '@swc/core': false
+  '@parcel/watcher': false

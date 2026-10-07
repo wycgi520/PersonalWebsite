@@ -1,58 +1,81 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/navigation';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
-  { href: '/', label: '首页', labelEn: 'Home' },
-  { href: '/about', label: '关于', labelEn: 'About' },
-  { href: '/projects', label: '项目', labelEn: 'Projects' },
-  { href: '/writing', label: '写作', labelEn: 'Writing' },
-  { href: '/toolkit', label: '工具箱', labelEn: 'Toolkit' },
-  { href: '/contact', label: '联系', labelEn: 'Contact' },
-];
+  { href: '/', key: 'home' },
+  { href: '/about', key: 'about' },
+  { href: '/projects', key: 'projects' },
+  { href: '/writing', key: 'writing' },
+  { href: '/toolkit', key: 'toolkit' },
+  { href: '/contact', key: 'contact' },
+] as const;
 
 export default function Navigation() {
+  const t = useTranslations('nav');
+  // next-intl 的 usePathname 已去掉语言前缀
   const pathname = usePathname();
 
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
-    <nav className="nav fixed top-0 left-0 right-0 z-40 flex items-center justify-between gap-6 px-10 py-5 bg-gradient-to-b from-[var(--ink)] via-[var(--ink)] to-transparent">
-      <Link href="/" className="brand flex items-baseline gap-2.5 font-serif text-[21px] tracking-wide">
-        <i className="mark w-[9px] h-[9px] rounded-full bg-glow shadow-[0_0_12px_var(--glow)] flex-none -translate-y-[3px]" />
-        <span>观星台</span>
-        <small className="font-sans text-[11px] text-dim tracking-[0.14em]">GY · OBSERVATORY</small>
+    <header
+      className={cn(
+        'fixed inset-x-0 top-0 z-40 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-[18px] pt-3',
+        'bg-[linear-gradient(to_bottom,var(--ink)_62%,transparent)]',
+        'min-[861px]:flex-nowrap min-[861px]:gap-6 min-[861px]:px-10 min-[861px]:py-5',
+        'min-[861px]:bg-[linear-gradient(to_bottom,var(--ink)_20%,transparent)]'
+      )}
+    >
+      <Link
+        href="/"
+        className="order-1 flex items-baseline gap-2.5 font-serif text-[19px] tracking-[0.02em] min-[861px]:text-[21px]"
+      >
+        <i
+          className="h-[9px] w-[9px] flex-none -translate-y-[3px] rounded-full bg-glow shadow-[0_0_12px_var(--glow)]"
+          aria-hidden="true"
+        />
+        <span>{t('brand')}</span>
+        <small className="hidden font-sans text-[11px] tracking-[0.14em] text-dim min-[861px]:inline">
+          {t('brandSub')}
+        </small>
       </Link>
 
-      <div className="menu flex gap-1" role="tablist">
+      <nav
+        aria-label={t('menuLabel')}
+        className="scrollbar-none order-3 flex w-full gap-0 overflow-x-auto pb-1 min-[861px]:order-2 min-[861px]:w-auto min-[861px]:gap-1 min-[861px]:overflow-visible min-[861px]:pb-0"
+      >
         {NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href;
+          const active = isActive(item.href);
           return (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={active ? 'page' : undefined}
               className={cn(
-                'relative px-3.5 py-2 text-[13.5px] font-normal tracking-wide rounded-sm transition-all duration-300',
-                'hover:text-[var(--text)] hover:bg-[var(--glow-soft)]',
-                isActive
-                  ? 'text-glow after:absolute after:left-3.5 after:right-3.5 after:bottom-[3px] after:h-px after:bg-glow'
+                'relative flex-none whitespace-nowrap rounded-[3px] px-3 py-[9px] text-[13px] font-normal tracking-[0.03em]',
+                'min-[861px]:px-3.5 min-[861px]:py-2 min-[861px]:text-[13.5px]',
+                'transition-colors duration-300 ease-scene hover:bg-[var(--glow-soft)] hover:text-[var(--text)]',
+                active
+                  ? 'text-glow after:absolute after:bottom-px after:left-3 after:right-3 after:h-px after:bg-glow min-[861px]:after:bottom-[3px] min-[861px]:after:left-3.5 min-[861px]:after:right-3.5'
                   : 'text-dim'
               )}
-              aria-current={isActive ? 'page' : undefined}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           );
         })}
-      </div>
+      </nav>
 
-      <div className="tools flex items-center gap-2">
-        <button className="px-3 h-8 text-xs tracking-wider border border-line rounded-sm text-dim hover:text-glow hover:border-glow transition-all duration-300">
-          中 / EN
-        </button>
+      <div className="order-2 ml-auto flex items-center gap-2 min-[861px]:order-3 min-[861px]:ml-0">
+        <LanguageToggle />
         <ThemeToggle />
       </div>
-    </nav>
+    </header>
   );
 }

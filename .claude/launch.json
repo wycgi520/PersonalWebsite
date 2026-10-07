@@ -8,10 +8,10 @@
       "port": 8731
     },
     {
-      "name": "ui-2",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8732", "--directory", "UI"],
-      "port": 8732
+      "name": "web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3000
     }
   ]
 }

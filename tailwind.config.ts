@@ -19,8 +19,8 @@ const config: Config = {
         ember: 'var(--ember)',
       },
       fontFamily: {
-        serif: ['var(--font-cormorant)', 'Noto Serif SC', 'Georgia', 'serif'],
-        sans: ['var(--font-inter)', 'PingFang SC', '-apple-system', 'sans-serif'],
+        serif: ['var(--serif)'],
+        sans: ['var(--sans)'],
       },
       transitionTimingFunction: {
         scene: 'cubic-bezier(0.22, 0.61, 0.24, 1)',

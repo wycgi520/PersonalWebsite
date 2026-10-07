@@ -21,61 +21,56 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-07 · 当前处于 **第一阶段（基础设施）后半 / 第二阶段（首页）初版**
+> 最后更新：2026-10-07 · **第一阶段（基础设施）✅ / 第二阶段（首页）✅**，下一步：第三阶段 About 页
 
 ### 已完成
 
 **工程配置**（手动创建，未使用 `create-next-app`）
-- `package.json`、`tsconfig.json`（`@/*` → `src/*`）、`tailwind.config.ts`、`postcss.config.js`、`next.config.js`、`.eslintrc.json`、`.gitignore`、`README.md`
-- 依赖已安装（pnpm）：next 15.5.27、react 18.3.1、framer-motion 11.18.2、next-themes 0.4.6、clsx、tailwind-merge、lucide-react；dev：typescript 5.9、tailwindcss 3.4.19、eslint 8 + eslint-config-next
-- 资源：`public/images/about-bg.webp`、`about-bg-light.webp`（从 `UI/assets` 复制）
+- 依赖（pnpm）：next 15.5.27、react 18.3.1、framer-motion、next-themes、**next-intl 4.14.9**、clsx、tailwind-merge、lucide-react
+- `next.config.js`：未使用 `next-intl/plugin`（它加载时会 require `@swc/core`，本机原生模块无法加载），改为手动配置 `next-intl/config` 别名（webpack + turbopack），效果等价
+- `pnpm-workspace.yaml`：`@swc/core`、`@parcel/watcher` 的构建脚本设为不执行（仅 next-intl 实验性文案提取器使用）
+- `.claude/launch.json` 新增 `web`（`pnpm dev`，端口 3000）
 
-**代码**
-| 文件 | 状态 | 说明 |
-|------|------|------|
-| `src/styles/globals.css` | ✅ | 迁移原型 CSS 变量（深/浅两套）、基础样式 |
-| `src/lib/utils.ts` | ✅ | `cn`、`clamp`、`seededRandom` |
-| `src/app/layout.tsx` | ✅ 初版 | `next/font` 加载三套字体，`ThemeProvider`（`attribute="data-theme"`，默认 dark），挂载星空背景与导航 |
-| `src/components/layout/Navigation.tsx` | ✅ 初版 | 品牌、六项路由导航（按 pathname 高亮）、工具区 |
-| `src/components/layout/ThemeToggle.tsx` | ✅ | 日/夜切换，处理了 hydration 前的占位 |
-| `src/components/home/SkyCanvas.tsx` | ✅ | 背景星野闪烁，支持 resize、reduced-motion、主题 |
-| `src/app/page.tsx` | ✅ 初版 | 首页左右分栏 |
-| `src/components/home/Identity.tsx` | ✅ 初版 | 首页左侧介绍（文案暂为硬编码中文） |
-| `src/components/home/StarMap.tsx` | 🟡 部分 | 网格、5 节点 + 6 连线、漂移动画、hover/focus 高亮、点击与键盘跳转 |
-| `src/lib/data/projects.ts` | ✅ | 4 个项目数据 + `Project` 类型 |
+**国际化（方案 A：next-intl + `/zh`、`/en` 路由）**
+- `src/i18n/routing.ts`：`locales: ['zh','en']`，默认 zh，`localePrefix: 'always'`
+- `src/middleware.ts`：`/` 按 cookie / Accept-Language 重定向到 `/zh` 或 `/en`，切换语言写入 `NEXT_LOCALE` cookie
+- `src/i18n/request.ts`、`navigation.ts`（带语言前缀的 `Link`/`useRouter`/`usePathname`）
+- `src/lib/i18n/zh.json`、`en.json`：已提取原型全部文案（按 meta/common/nav/home/about/projects/writing/toolkit/contact 分组）；`request.ts` 以 zh 为基准做类型校验，`global.d.ts` 为 `useTranslations` 提供 key 类型提示
+- `app/[locale]/layout.tsx`：`generateStaticParams` 预渲染两种语言、`generateMetadata` 本地化标题与 hreflang、`<html lang>` 随语言变化
+- `app/[locale]/not-found.tsx` + `[...rest]/page.tsx`：未实现页面显示本地化的"下一轮设计中"提示
+
+**组件**
+| 文件 | 说明 |
+|------|------|
+| `components/layout/Navigation.tsx` | 文案国际化；≤860px 时品牌/工具区一行、菜单横向滚动（与原型一致） |
+| `components/layout/LanguageToggle.tsx` | 切换语言并停留在当前页 |
+| `components/layout/ThemeToggle.tsx` | 使用 `resolvedTheme`，aria-label 国际化 |
+| `components/home/Identity.tsx` | 文案国际化（`t.rich` 处理 `<strong>`），响应式字号 |
+| `components/home/StarMap.tsx` | 边框 + 网格 + 刻度、连线 hover 高亮、节点改为 SVG `<a>`（无 JS 可跳转、原生聚焦、Ctrl/⌘ 点击新标签页）、扩大点击区域 |
+| `lib/hooks/useStarMap.ts` | 漂移（先算节点再更新连线）、流星、reduced-motion 实时响应 |
+| `app/[locale]/page.tsx` | 响应式内边距与 ≤1040px 单栏布局 |
+
+原"已知问题" 1–7 均已修复。另修正：`next/font` 的 Noto Serif SC 改为通过 `--font-noto-serif-sc` 变量引用（原写法字体名不匹配）。
 
 **验证情况**
-- `pnpm dev` 可启动，`curl http://localhost:3000` 返回 200
-- ⚠️ 尚未在浏览器中做视觉验证，也未运行 `pnpm build` / `tsc` / `lint`
-
-### 已知问题（下次开工先处理）
-
-1. **`layout.tsx` 属性拼写错误**：`suppressHydrationMismatch` 应为 `suppressHydrationWarning`，否则 next-themes 会产生 hydration 警告
-2. **StarMap 网格层多出一个无样式 `<rect className="cgrid">`**：`.cgrid` 类未定义，SVG 默认黑色填充会盖住网格，需删除或补样式
-3. **StarMap 缺少原型中的功能**：边框刻度线、流星效果、reduced-motion 下连线的初始位置正常但节点无 hover 以外的反馈（需确认）；漂移时每帧重复计算端点偏移，可改为先算出所有节点位置再更新连线（与原型 `driftAtlas` 一致）
-4. **Tailwind 无效类名**：`duration-400`、`duration-450` 不在默认刻度中，不生效，需改用 `duration-[400ms]` 等任意值写法
-5. **语言切换按钮仅为占位**：无点击逻辑；Identity、Navigation、StarMap 文案均为硬编码中文
-6. **首页内边距未做响应式**：原型在 ≤860px 时为 `118px 18px 40px`，目前固定 `px-10`
-7. **原型中的导航小屏布局**（菜单换行、横向滚动）尚未迁移
+- `tsc --noEmit`、`pnpm lint`、`pnpm build` 均通过；`/zh`、`/en` 为 SSG
+- 浏览器验证：`/` 重定向、语言切换（URL/文案/lang/cookie）、主题切换、节点 hover 高亮连线、点击跳转、移动端布局，控制台无警告
 
 ### 与原计划的偏差
 
-- **国际化方案未定**：计划中列出 `next-intl`，但尚未安装。原型的语言切换是纯客户端、不改 URL；`next-intl` 通常需要 `[locale]` 路由段。待决定：
-  - A. `next-intl` + `/zh`、`/en` 路由（SEO 更好，需调整 `app/` 目录结构）
-  - B. 轻量客户端方案（Zustand / Context + JSON 字典，与原型行为一致，实现更快）
-- **场景切换动画未实现**：计划使用 Framer Motion `AnimatePresence`，App Router 下 exit 动画需要额外处理（如 `template.tsx` 或冻结路由上下文），需在实现时验证可行性
+- **场景切换动画未实现**：计划使用 Framer Motion `AnimatePresence`，App Router 下 exit 动画需要额外处理（如 `template.tsx` 或冻结路由上下文），放在第三阶段与 About 页一起做
 
 ### 未开始
 
 - About 页（Biography、Campfire 篝火 Canvas、首访依次显现）
 - Projects / Writing / Toolkit / Contact 页面及组件
-- `lib/data/posts.ts`、`lib/data/tools.ts`、i18n 字典
+- `lib/data/posts.ts`、`lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
 - 场景切换光扫效果
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 所有新文件**尚未提交** git（`.claude/launch.json` 也有未提交修改，仍指向原型的 Python 静态服务器）
+- 改动均**尚未提交** git
 
 ---
 
