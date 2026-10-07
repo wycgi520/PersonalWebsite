@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ui",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8731", "--directory", "UI"],
+      "port": 8731
+    },
+    {
+      "name": "ui-2",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8732", "--directory", "UI"],
+      "port": 8732
+    }
+  ]
+}
