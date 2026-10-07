@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 深色主题 */
+    --ink: #070B14;
+    --panel: #0C1424;
+    --grid: #16233C;
+    --line: #1E2E4A;
+    --glow: #63D2E8;
+    --glow-soft: rgba(99, 210, 232, 0.18);
+    --dim: #8CA3C7;
+    --text: #E9EFF8;
+    --ember: #F2A24B;
+
+    --serif: "Cormorant Garamond", "Noto Serif SC", Georgia, "Songti SC", serif;
+    --sans: "Inter", "Helvetica Neue", -apple-system, "PingFang SC", sans-serif;
+    --t-scene: 760ms;
+    --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
+  }
+
+  [data-theme="light"] {
+    --ink: #EEF1F6;
+    --panel: #F7F9FC;
+    --grid: #D3DCE9;
+    --line: #C2CEDF;
+    --glow: #17708A;
+    --glow-soft: rgba(23, 112, 138, 0.14);
+    --dim: #55657E;
+    --text: #121B2B;
+    --ember: #B5610C;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background 0.5s var(--ease), color 0.5s var(--ease);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--glow);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
