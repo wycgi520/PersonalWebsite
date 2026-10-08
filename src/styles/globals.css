@@ -234,6 +234,21 @@
     display: block; position: static; width: auto; height: auto; max-height: none;
     margin-top: 26px; border: 1px solid var(--line); box-shadow: none; animation: none;
   }
+
+  /* ---------- Writing ---------- */
+  .wr-input {
+    flex: 1; min-width: 0;
+    background: var(--ink); border: 1px solid var(--line); color: var(--text);
+    font-family: var(--sans); font-size: 13px; padding: 9px 12px; border-radius: 3px;
+    transition: border-color 0.3s var(--ease);
+  }
+  .wr-input::placeholder { color: var(--dim); opacity: 0.75; }
+  .wr-input:focus { outline: none; border-color: var(--glow); }
+  /* 切换分类后文章依次浮现；评论区展开时轻微下落 */
+  .wr-rise { animation: rise-in 0.55s var(--ease) both; }
+  .wr-thread:not([hidden]) { animation: rise-in 0.4s var(--ease) both; }
+  /* 点赞时心形弹跳一下 */
+  .wr-pop { animation: heart-pop 0.45s var(--ease); }
 }
 
 @keyframes rise {
@@ -259,6 +274,15 @@
 }
 @keyframes fade-out {
   to { opacity: 0; }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.4); }
+  100% { transform: scale(1.12); }
 }
 
 @layer utilities {

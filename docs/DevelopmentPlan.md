@@ -21,7 +21,26 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects 页 ✅**，下一步：Writing 页
+> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects、Writing 页 ✅**，下一步：Toolkit 页
+
+### 第四阶段 · Writing 页
+
+| 文件 | 说明 |
+|------|------|
+| `app/[locale]/writing/page.tsx` | SSG，本地化 metadata 与 hreflang；页头沿用 Projects；双栏（文章 + 302px 侧栏，宽屏侧栏吸顶），≤1040px 单栏、侧栏两块并排；归档按文章数据逐年统计，不再写死 |
+| `components/writing/PostList.tsx` | 筛选 + 列表。当前分类记在 `?cat=tech`（replaceState，可分享、刷新保留）；切换分类后文章依次浮现，首屏不播放 |
+| `components/writing/CategoryFilter.tsx` | 切换按钮组（`aria-pressed`），每项带文章数 |
+| `components/writing/PostCard.tsx` | 分类、日期、阅读时长、标题、摘要；点赞（心形弹跳，`aria-pressed` + 带数量的 label）；评论区展开/收起（`aria-expanded`），可发表评论 |
+| `components/writing/Newsletter.tsx` | 订阅表单：配置 `NEXT_PUBLIC_NEWSLETTER_ENDPOINT` 时 POST `{ email }`；未配置时打开邮件客户端给站长发订阅邮件，不假装已订阅。无 JS 时表单 action 为 mailto |
+| `lib/hooks/usePostReactions.ts` | 点赞与访客评论存 `localStorage`（`gy-writing-likes`、`gy-writing-comments`），挂载后读取避免水合不一致，跨标签页同步 |
+| `lib/data/posts.ts` | 分类（新增分类只需追加一项）、文章数据、`localizePost()`、`archiveByYear()` |
+| `lib/data/site.ts` | 联系邮箱常量，供 Contact 页复用 |
+
+与原型的偏差：文章没有详情页，标题不再做成 `href="#"` 的假链接；去掉"也可以用 RSS"（RSS 尚未实现）；评论区注明"暂存在本机"。
+
+验证：`tsc`、`lint`、`build` 通过；浏览器验证点赞/取消、刷新后保留、展开评论自动聚焦、发表评论、分类筛选与 `?cat=` 直达、中英文、浅色主题、375px 无横向溢出，控制台无警告。
+
+未做：评论与订阅的真实后端（见"后续扩展"）、文章详情页（MDX）。
 
 ### 第四阶段 · Projects 页
 
@@ -39,7 +58,7 @@
 
 验证：`tsc`、`lint`、`build` 通过；浏览器验证打开/Esc/遮罩/关闭按钮/浏览器后退、`#site` 直达、中英文、浅色主题、375px 移动端无横向溢出，控制台无警告。
 
-未做：其他三个 Writing / Toolkit / Contact 页面（第四阶段剩余部分）。
+未做：Toolkit / Contact 页面（第四阶段剩余部分）。
 
 ### 第三阶段（About 页）
 
@@ -96,13 +115,13 @@
 
 ### 未开始
 
-- Writing / Toolkit / Contact 页面及组件
-- `lib/data/posts.ts`、`lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
+- Toolkit / Contact 页面及组件
+- `lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 第三、四阶段（About、Projects）均已提交 git
+- 第三、四阶段（About、Projects、Writing）均已提交 git
 
 ---
 
