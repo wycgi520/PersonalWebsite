@@ -36,8 +36,12 @@ export function spawnSpark(p: Particles, burst: boolean) {
   });
 }
 
-/** 按时间、密度随机生成新粒子；静止模式（减少动态效果）下不调用 */
-export function spawnParticles(p: Particles, f: FireState) {
+/**
+ * 按时间、密度随机生成新粒子；静止模式（减少动态效果）下不调用。
+ * density < 1 时按比例少生成（低帧率降级用）
+ */
+export function spawnParticles(p: Particles, f: FireState, density = 1) {
+  if (density < 1 && Math.random() > density) return;
   if (Math.random() < 0.12 * f.vigor) {
     p.licks.push({
       x: FX + (Math.random() - 0.5) * 60,

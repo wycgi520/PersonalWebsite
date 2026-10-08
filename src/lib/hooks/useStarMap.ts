@@ -1,25 +1,10 @@
 'use client';
 
 import { useEffect, type RefObject } from 'react';
+import { STAR_EDGES, STAR_NODES } from '@/lib/data/starmap';
+import { onMotionChange, prefersReducedMotion } from '@/lib/motion';
 
-export interface StarNode {
-  id: 'about' | 'projects' | 'writing' | 'toolkit' | 'contact';
-  mag: string;
-  x: number;
-  y: number;
-}
-
-export const STAR_NODES: StarNode[] = [
-  { id: 'about', mag: '1.4', x: 150, y: 128 },
-  { id: 'projects', mag: '0.8', x: 420, y: 90 },
-  { id: 'writing', mag: '1.9', x: 512, y: 330 },
-  { id: 'toolkit', mag: '2.3', x: 300, y: 450 },
-  { id: 'contact', mag: '1.1', x: 92, y: 338 },
-];
-
-export const STAR_EDGES: [number, number][] = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 0], [0, 3],
-];
+export { STAR_EDGES, STAR_NODES, type StarNode } from '@/lib/data/starmap';
 
 const SVGNS = 'http://www.w3.org/2000/svg';
 const METEOR_DURATION = 1150;
@@ -64,17 +49,17 @@ function stepMeteor(m: Meteor, now: number): boolean {
 /**
  * 星图动画：节点漂移 + 连线跟随 + 偶尔的流星。
  * 直接写 DOM 属性而非 setState，避免每帧触发 React 渲染。
- * prefers-reduced-motion 时节点停在基准位置，不出现流星。
+ * 减少动态效果时（系统设置或导航栏开关）节点停在基准位置，不出现流星；滚出视口时暂停。
  */
 export function useStarMap({ nodes, edges, meteors }: Refs) {
   useEffect(() => {
-    const mq = matchMedia('(prefers-reduced-motion: reduce)');
     const phases = STAR_NODES.map(() => Math.random() * Math.PI * 2);
     const pos: [number, number][] = STAR_NODES.map((n) => [n.x, n.y]);
     const active: Meteor[] = [];
     let nextMeteor = 2600;
     let last = performance.now();
     let rafId = 0;
+    let visible = true;
 
     const layout = (t: number, still: boolean) => {
       STAR_NODES.forEach((n, i) => {
@@ -136,22 +121,35 @@ export function useStarMap({ nodes, edges, meteors }: Refs) {
 
     const start = () => {
       cancelAnimationFrame(rafId);
+      rafId = 0;
       active.splice(0).forEach((m) => m.el.remove());
-      if (mq.matches) {
+      if (prefersReducedMotion()) {
         layout(0, true);
         return;
       }
+      // 滚出视口（窄屏时星图在介绍下方）就停在当前位置，回来再继续
+      if (!visible) return;
       last = performance.now();
       rafId = requestAnimationFrame(frame);
     };
 
+    const svg = meteors.current?.ownerSVGElement;
+    const io = svg
+      ? new IntersectionObserver(([entry]) => {
+          visible = entry.isIntersecting;
+          start();
+        })
+      : null;
+    if (svg) io?.observe(svg);
+
     start();
-    // 用户在系统里切换"减少动态效果"时实时生效
-    mq.addEventListener('change', start);
+    // 系统设置或导航栏开关切换"减少动态效果"时实时生效
+    const unsubscribe = onMotionChange(start);
 
     return () => {
       cancelAnimationFrame(rafId);
-      mq.removeEventListener('change', start);
+      io?.disconnect();
+      unsubscribe();
       active.forEach((m) => m.el.remove());
     };
   }, [nodes, edges, meteors]);

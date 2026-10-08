@@ -21,7 +21,31 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段（Projects、Writing、Toolkit、Contact 页）✅**，下一步：第五阶段优化
+> 最后更新：2026-10-09 · **第一 ~ 四阶段 ✅ / 第五阶段（动效降级、可访问性、SEO、触屏适配）✅**，剩余：真机 / 跨浏览器测试、Lighthouse 跑分（见下）
+
+### 第五阶段 · 优化
+
+| 文件 | 说明 |
+|------|------|
+| `lib/motion.ts` + `components/layout/MotionToggle.tsx` | 动态效果开关（导航栏，`aria-pressed`）：默认跟随系统"减少动态效果"，手动选择存 `localStorage`（`gy-motion`），写到 `<html data-motion>`；`layout` 里的内联脚本在绘制前恢复。CSS 的 reduced-motion 规则、星空、星图、篝火、About 依次显现都改读这里 |
+| `lib/hooks/useCampfire.ts` | 帧率自检：预热 30 帧后每 90 帧取平均，超过 36ms（约 28fps）降一档：完整 → 精简（画布 1x、粒子减半）→ 静止。只降不升，切后台 / 滚出视口的长帧不计入；当前档位写在 `canvas[data-quality]` 便于调试 |
+| `components/about/Campfire.tsx` | 画布包在按钮里：回车 / 空格也能添柴，静止时按钮禁用；说明文字走 `aria-describedby`；`touch-action: pan-y` 让触屏上竖向滑动仍能滚动页面 |
+| `components/home/SkyCanvas.tsx` | 减少动态效果时只画一帧，主题 / 尺寸变化时重画；标签页隐藏时停止 |
+| `lib/hooks/useStarMap.ts` | 星图滚出视口时暂停（窄屏时星图在介绍下方） |
+| `styles/globals.css` | 跳到正文链接（Tab 时出现）；≤640px 时星图标签放大、命中区域放大到约 82×44px，`:active` 给触屏即时反馈 |
+| `lib/seo.ts` | `pageMetadata()`：标题、描述、canonical、hreflang（含 x-default）、Open Graph、Twitter 卡片，六个页面共用 |
+| `app/sitemap.ts` / `app/robots.ts` / `app/icon.svg` | 12 条 URL 互标语言版本；站点图标 |
+| `app/[locale]/opengraph-image.tsx` | 分享图（1200×630，左侧站名、右侧星图），每种语言构建时生成一张。自带字体无中文字形，图上文字统一英文 |
+| `app/[locale]/page.tsx` | 首页 `Person` 结构化数据（JSON-LD） |
+| `app/[locale]/layout.tsx` | `metadataBase`、`themeColor`、`<main id="main">` |
+| `lib/data/site.ts` | `SITE_URL`，部署时用 `NEXT_PUBLIC_SITE_URL` 覆盖 |
+| `lib/data/starmap.ts` | 星图节点 / 连线从 hook 中抽出，供分享图使用 |
+
+注意：子页面自己的 `openGraph` 会整体覆盖上层，文件约定注入的分享图会丢失，所以 `pageMetadata()` 里显式引用 `/<locale>/opengraph-image`。
+
+验证：`tsc`、`lint`、`build` 通过（分享图、sitemap、robots 均为静态）；检查各页 canonical / hreflang / og:image / JSON-LD 输出；浏览器验证动态效果开关（状态、存储、篝火按钮禁用、CSS 时长）、模拟慢帧下篝火 1x → 静止降级、375px 星图标签与命中区域、导航栏三个按钮不换行、About 无横向溢出。
+
+未验证：跳到正文链接的聚焦样式（预览标签页处于后台，`:focus` 样式不重算，CSS 规则已确认生效）；Lighthouse、真机与跨浏览器测试需要在部署后进行。上线前把 `NEXT_PUBLIC_SITE_URL` 设为正式域名。
 
 ### 第四阶段 · Contact 页
 
@@ -145,7 +169,7 @@
 ### 未开始
 
 - 项目/文章/工具内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
-- 响应式、性能降级、可访问性、SEO（第五阶段）
+- 真机 / 跨浏览器测试、Lighthouse 跑分（部署后）
 
 ### 其他状态
 

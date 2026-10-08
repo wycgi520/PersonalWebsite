@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef } from 'react';
+import { prefersReducedMotion } from '@/lib/motion';
 
 const SEEN_KEY = 'gy-about-seen';
 const SEQ_MS = 2400; // 最后一个元素的延迟 + 动画时长之后切到常显
 
 // 首屏直出时在解析阶段就决定是否播放依次显现，避免先闪一下全文再隐藏。
 // 客户端路由进入时 React 不会执行这段脚本，由下面的 layout effect 接手。
-const DECIDE = `(function(){try{var g=document.currentScript.parentElement;var s=localStorage.getItem('${SEEN_KEY}')||matchMedia('(prefers-reduced-motion: reduce)').matches;g.setAttribute('data-reveal',s?'shown':'seq')}catch(e){}})()`;
+// data-motion 已由 layout 里更早的脚本写好（导航栏的动态效果开关），逻辑同 prefersReducedMotion()
+const DECIDE = `(function(){try{var g=document.currentScript.parentElement;var m=document.documentElement.getAttribute('data-motion');var r=m?m==='reduced':matchMedia('(prefers-reduced-motion: reduce)').matches;var s=localStorage.getItem('${SEEN_KEY}')||r;g.setAttribute('data-reveal',s?'shown':'seq')}catch(e){}})()`;
 
 const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
@@ -17,7 +19,7 @@ function decide(): 'seq' | 'shown' {
   } catch {
     // 存储不可用（隐私模式等）时每次都播放
   }
-  return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'shown' : 'seq';
+  return prefersReducedMotion() ? 'shown' : 'seq';
 }
 
 /**

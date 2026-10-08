@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import ThemeToggle from './ThemeToggle';
 import LanguageToggle from './LanguageToggle';
+import MotionToggle from './MotionToggle';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
@@ -74,6 +75,7 @@ export default function Navigation() {
 
       <div className="order-2 ml-auto flex items-center gap-2 min-[861px]:order-3 min-[861px]:ml-0">
         <LanguageToggle />
+        <MotionToggle />
         <ThemeToggle />
       </div>
     </header>

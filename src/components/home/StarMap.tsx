@@ -134,8 +134,8 @@ export default function StarMap() {
                   }}
                   transform={`translate(${node.x},${node.y})`}
                 >
-                  {/* 扩大触摸/点击命中区域，覆盖标签文字 */}
-                  <rect x={-22} y={-22} width={110} height={48} fill="transparent" />
+                  {/* 扩大触摸/点击命中区域，覆盖标签文字；窄屏尺寸由 CSS 几何属性放大（属性值兜底） */}
+                  <rect className="hit" x={-22} y={-22} width={110} height={48} fill="transparent" />
                   <circle className="halo" r={34} fill="url(#hg)" />
                   <circle className="ring" r={13} />
                   <circle className="star" r={4.2} />

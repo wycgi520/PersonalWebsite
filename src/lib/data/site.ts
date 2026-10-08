@@ -1,3 +1,6 @@
+/** 站点根地址：canonical、hreflang、sitemap、Open Graph 都基于它。部署时用环境变量覆盖 */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://guoyang.dev').replace(/\/+$/, '');
+
 // 站点级的联系信息，Writing（订阅兜底）与 Contact 页共用
 export const CONTACT_EMAIL = 'hi@guoyang.dev';
 

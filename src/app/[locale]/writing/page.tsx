@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing, HTML_LANG, type Locale } from '@/i18n/routing';
+import type { Locale } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/seo';
 import { posts, localizePost, localizeCategories, archiveByYear } from '@/lib/data/posts';
 import BackLink from '@/components/layout/BackLink';
 import PostList from '@/components/writing/PostList';
@@ -12,15 +13,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: 'writing' });
-  const tm = await getTranslations({ locale: locale as Locale, namespace: 'meta' });
-  return {
-    title: `${t('metaTitle')} · ${tm('title')}`,
-    description: t('metaDescription'),
-    alternates: {
-      languages: Object.fromEntries(routing.locales.map((l) => [HTML_LANG[l], `/${l}/writing`])),
-    },
-  };
+  return pageMetadata(locale as Locale, 'writing');
 }
 
 export default async function WritingPage({ params }: Props) {

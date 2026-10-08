@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ArrowRight } from 'lucide-react';
-import { routing, HTML_LANG, type Locale } from '@/i18n/routing';
+import type { Locale } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/seo';
 import { CONTACT_EMAIL } from '@/lib/data/site';
 import BackLink from '@/components/layout/BackLink';
 import ContactGrid from '@/components/contact/ContactGrid';
@@ -12,15 +13,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: 'contact' });
-  const tm = await getTranslations({ locale: locale as Locale, namespace: 'meta' });
-  return {
-    title: `${t('metaTitle')} · ${tm('title')}`,
-    description: t('metaDescription'),
-    alternates: {
-      languages: Object.fromEntries(routing.locales.map((l) => [HTML_LANG[l], `/${l}/contact`])),
-    },
-  };
+  return pageMetadata(locale as Locale, 'contact');
 }
 
 export default async function ContactPage({ params }: Props) {

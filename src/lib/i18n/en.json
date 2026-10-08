@@ -5,7 +5,8 @@
   },
   "common": {
     "backHome": "Back to the chart",
-    "comingSoon": "This page comes in the next round. Head back to the chart for now."
+    "comingSoon": "This page comes in the next round. Head back to the chart for now.",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "brand": "Observatory",
@@ -19,7 +20,10 @@
     "contact": "Contact",
     "langButton": "EN / 中",
     "switchLang": "切换到中文",
-    "switchTheme": "Toggle day / night theme"
+    "switchTheme": "Toggle day / night theme",
+    "motionLabel": "Animations",
+    "motionOn": "Turn animations on",
+    "motionOff": "Turn animations off"
   },
   "home": {
     "coord": "N 31°14′ · E 121°28′ · Local UTC+8",
@@ -55,6 +59,7 @@
     "f4k": "Status",
     "f4v": "Open",
     "fireLabel": "Decorative campfire. Move the mouse to sway the flames, click to stoke it.",
+    "stokeFire": "Stoke the fire",
     "portraitLabel": "Portrait of Guo Yang"
   },
   "projects": {

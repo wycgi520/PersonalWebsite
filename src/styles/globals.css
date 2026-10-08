@@ -64,6 +64,15 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+
+  /* 跳到正文：平时移出视口，Tab 聚焦时出现在左上角导航之上 */
+  .skip-link {
+    position: fixed; left: 12px; top: 10px; z-index: 60;
+    padding: 8px 14px; border: 1px solid var(--glow); border-radius: 3px;
+    background: var(--panel); color: var(--glow); font-size: 13px;
+    transform: translateY(-160%);
+  }
+  .skip-link:focus { transform: none; }
 }
 
 @layer components {
@@ -101,6 +110,17 @@
   .node:hover .lbl, .node:focus-visible .lbl { fill: var(--glow); }
   /* 键盘聚焦时给出明确的焦点环（SVG 内无法使用 outline） */
   .node:focus-visible .ring { stroke-width: 1.4; opacity: 0.9; }
+  /* 命中区域：覆盖星点和标签 */
+  .node .hit { x: -22px; y: -22px; width: 110px; height: 48px; }
+  /* 窄屏时 SVG 整体缩小到约 0.6 倍：放大标签保证可读，命中区域放大到约 44px 触摸尺寸 */
+  @media (max-width: 640px) {
+    .node .lbl { font-size: 24px; }
+    .node .sub { font-size: 13px; }
+    .node .hit { x: -36px; y: -38px; width: 150px; height: 80px; }
+  }
+  /* 触屏没有 hover：按下时给出即时反馈 */
+  .node:active .halo { opacity: 0.22; }
+  .node:active .star { fill: var(--glow); }
 
   /* ---------- 场景切换：新场景淡入 + 光扫（template.tsx） ---------- */
   .scene-enter { animation: scene-in var(--t-scene) var(--ease) both; }
@@ -342,12 +362,21 @@
   }
 }
 
+/* 减少动态效果：跟随系统设置，导航栏开关写入的 data-motion 可覆盖（lib/motion.ts）。
+   时长压到近 0 而不是 none，依赖 animationend 的逻辑（详情抽屉关闭）照常触发 */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html:not([data-motion="full"]) *,
+  html:not([data-motion="full"]) *::before,
+  html:not([data-motion="full"]) *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }

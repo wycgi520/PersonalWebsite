@@ -5,7 +5,8 @@
   },
   "common": {
     "backHome": "回到星图",
-    "comingSoon": "这一页在下一轮设计中，先回星图看看别处吧。"
+    "comingSoon": "这一页在下一轮设计中，先回星图看看别处吧。",
+    "skipToContent": "跳到正文"
   },
   "nav": {
     "brand": "观星台",
@@ -19,7 +20,10 @@
     "contact": "联系",
     "langButton": "中 / EN",
     "switchLang": "Switch to English",
-    "switchTheme": "切换日夜主题"
+    "switchTheme": "切换日夜主题",
+    "motionLabel": "动态效果",
+    "motionOn": "开启动态效果",
+    "motionOff": "关闭动态效果"
   },
   "home": {
     "coord": "N 31°14′ · E 121°28′ · 本地时 UTC+8",
@@ -55,6 +59,7 @@
     "f4k": "状态",
     "f4v": "开放中",
     "fireLabel": "篝火装饰，移动鼠标可让火焰摆动，点击可让火更旺",
+    "stokeFire": "添柴，让火更旺",
     "portraitLabel": "郭洋的头像"
   },
   "projects": {
