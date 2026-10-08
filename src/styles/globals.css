@@ -183,6 +183,57 @@
   [data-theme="light"] .campfire::before {
     background: radial-gradient(closest-side, rgba(240, 150, 60, 0.22), rgba(240, 150, 60, 0.07) 45%, transparent);
   }
+
+  /* ---------- Projects ---------- */
+  /* 程序化缩略图：深色底上的星点与连线，色相由 --hue 决定；hover 时轻微推近、连线变亮 */
+  .pj-shot {
+    position: absolute; inset: 0;
+    background: linear-gradient(145deg, #132038, #0A1120);
+  }
+  .pj-shot svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    transition: transform 0.9s var(--ease);
+  }
+  .pj-shot-dots { fill: hsl(var(--hue) 70% 72%); }
+  .pj-shot-lines {
+    stroke: hsl(var(--hue) 65% 60%); stroke-width: 0.7; opacity: 0.3;
+    transition: opacity 0.5s var(--ease);
+  }
+  [data-theme="light"] .pj-shot { background: linear-gradient(145deg, #E3EAF4, #D5DFEC); }
+  [data-theme="light"] .pj-shot-dots { fill: hsl(var(--hue) 60% 38%); }
+  [data-theme="light"] .pj-shot-lines { stroke: hsl(var(--hue) 55% 40%); }
+  .pj-card:hover .pj-shot svg,
+  .pj-card:focus-visible .pj-shot svg { transform: scale(1.045); }
+  .pj-card:hover .pj-shot-lines,
+  .pj-card:focus-visible .pj-shot-lines { opacity: 0.6; }
+
+  /* 详情抽屉：从右侧滑入的 <dialog> */
+  .pj-drawer {
+    position: fixed; inset: 0 0 0 auto; margin: 0;
+    width: min(620px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh;
+    padding: 0; border: 0; border-left: 1px solid var(--line);
+    background: var(--panel); color: var(--text);
+    overflow-y: auto; overscroll-behavior: contain;
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.35);
+  }
+  .pj-drawer[open] { animation: drawer-in 0.52s var(--ease) both; }
+  .pj-drawer[data-closing] { animation: drawer-out 0.32s var(--ease) both; }
+  /* ::backdrop 在旧浏览器里不继承自定义属性，缓动写字面值 */
+  .pj-drawer::backdrop {
+    background: rgba(4, 7, 13, 0.62);
+    backdrop-filter: blur(3px);
+    animation: fade-in 0.4s cubic-bezier(0.22, 0.61, 0.24, 1) both;
+  }
+  [data-theme="light"] .pj-drawer { box-shadow: -24px 0 60px rgba(18, 27, 43, 0.14); }
+  [data-theme="light"] .pj-drawer::backdrop { background: rgba(18, 27, 43, 0.28); }
+  .pj-drawer[data-closing]::backdrop { animation: fade-out 0.32s cubic-bezier(0.22, 0.61, 0.24, 1) both; }
+  html:has(.pj-drawer[open]) { overflow: hidden; }
+
+  /* 无 JS：点卡片跳到 #id，:target 让对应详情以普通块的形式出现在网格下方 */
+  .pj-root:not([data-js]) .pj-drawer:target {
+    display: block; position: static; width: auto; height: auto; max-height: none;
+    margin-top: 26px; border: 1px solid var(--line); box-shadow: none; animation: none;
+  }
 }
 
 @keyframes rise {
@@ -195,6 +246,19 @@
 @keyframes warp-flash {
   0%, 100% { opacity: 0; }
   40% { opacity: 1; }
+}
+@keyframes drawer-in {
+  from { transform: translateX(48px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes drawer-out {
+  to { transform: translateX(48px); opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes fade-out {
+  to { opacity: 0; }
 }
 
 @layer utilities {

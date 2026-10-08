@@ -58,7 +58,20 @@
     "portraitLabel": "Portrait of Guo Yang"
   },
   "projects": {
-    "title": "Selected work"
+    "metaTitle": "Projects",
+    "metaDescription": "Selected work: a content platform, a permission service, a notification queue, and this website — architecture, key tradeoffs and outcomes.",
+    "title": "Selected work",
+    "lede": "Four systems I have built. Open a card for the architecture, the tradeoff that shaped it, and how it turned out.",
+    "count": "{count} projects",
+    "open": "View details",
+    "architecture": "Architecture",
+    "tradeoff": "Key tradeoff",
+    "outcome": "Outcome",
+    "demo": "Live demo",
+    "source": "Source",
+    "close": "Close",
+    "closeLabel": "Close project details",
+    "privateNote": "Internal company work, so there is no public demo or source. Happy to go into detail in a conversation."
   },
   "writing": {
     "title": "Writing",

@@ -13,8 +13,46 @@ export interface Project {
   tradeEn: string;
   resZh: string;
   resEn: string;
+  /** 站内路径（以 / 开头，走带语言前缀的 Link）或外部 URL */
   demoUrl?: string;
   repoUrl?: string;
+}
+
+/** 按语言取好的项目字段，供客户端组件使用（只把当前语言的文案传过去） */
+export interface LocalizedProject {
+  id: string;
+  index: number;
+  year: string;
+  hue: number;
+  seed: number;
+  tags: string[];
+  title: string;
+  summary: string;
+  architecture: string;
+  tradeoff: string;
+  outcome: string;
+  demoUrl?: string;
+  repoUrl?: string;
+}
+
+export function localizeProject(p: Project, index: number, locale: 'zh' | 'en'): LocalizedProject {
+  const zh = locale === 'zh';
+  return {
+    id: p.id,
+    index,
+    year: p.year,
+    hue: p.hue,
+    // 与原型一致的缩略图种子，保证每张卡片的几何图案固定
+    seed: index * 7919 + 13,
+    tags: p.tags,
+    title: zh ? p.zh : p.en,
+    summary: zh ? p.sumZh : p.sumEn,
+    architecture: zh ? p.archZh : p.archEn,
+    tradeoff: zh ? p.tradeZh : p.tradeEn,
+    outcome: zh ? p.resZh : p.resEn,
+    demoUrl: p.demoUrl,
+    repoUrl: p.repoUrl,
+  };
 }
 
 export const projects: Project[] = [
@@ -81,5 +119,7 @@ export const projects: Project[] = [
     tradeEn: 'The chart is the centerpiece but cannot be the only way in. The top nav always works, star nodes take keyboard focus, and every self-starting animation stops under reduced-motion. Creative interaction needs a fallback.',
     resZh: '首屏 LCP 1.2 秒，Lighthouse 可访问性 100。',
     resEn: 'LCP of 1.2s, Lighthouse accessibility 100.',
+    demoUrl: '/',
+    // repoUrl：仓库公开后填入
   },
 ];

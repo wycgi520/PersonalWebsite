@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import BackLink from '@/components/layout/BackLink';
 
 const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
@@ -13,17 +13,10 @@ const FACTS = [
 // 带 .rv 的元素在首次访问时依次显现（见 AboutStage 与 globals.css）
 export default function Biography() {
   const t = useTranslations('about');
-  const tc = useTranslations('common');
 
   return (
     <div className="about-bio max-w-[60ch]">
-      <Link
-        href="/"
-        className="mb-7 inline-flex items-center gap-[9px] text-[12.5px] tracking-[0.08em] text-dim transition-colors duration-300 ease-scene hover:text-glow"
-      >
-        <span className="inline-block h-px w-[18px] bg-current" aria-hidden="true" />
-        {tc('backHome')}
-      </Link>
+      <BackLink className="mb-7" />
 
       <div
         className="rv mb-[22px] grid h-[76px] w-[76px] place-items-center rounded-full border border-line bg-[radial-gradient(circle_at_34%_30%,#2A3C5C,#0E1726_70%)] font-serif text-[30px] text-glow shadow-[0_0_0_6px_rgba(99,210,232,0.05)]"

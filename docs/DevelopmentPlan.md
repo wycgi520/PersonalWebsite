@@ -21,7 +21,25 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅**，下一步：第四阶段 Projects 等页面
+> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects 页 ✅**，下一步：Writing 页
+
+### 第四阶段 · Projects 页
+
+| 文件 | 说明 |
+|------|------|
+| `app/[locale]/projects/page.tsx` | SSG，本地化 metadata 与 hreflang；页头（标题 + 引言）沿用原型 `.phead`；服务端按语言取好项目字段再传给客户端组件 |
+| `components/projects/ProjectGallery.tsx` | 卡片网格（≤980px 单列）+ 详情状态。打开的项目记在 URL hash（`/projects#atlas`）：可分享、刷新仍打开；站内打开时 pushState，关闭走 `history.back()`，直达链接关闭时只替换掉 hash |
+| `components/projects/ProjectCard.tsx` | 卡片是指向 `#id` 的 `<a>`：编号、年份、标题、摘要、标签、"查看详情"；hover 上浮+描边、缩略图推近；保留 Ctrl/⌘ 新标签页 |
+| `components/projects/ProjectDetail.tsx` | 详情抽屉：原生 `<dialog>` 模态（焦点限制、Esc、焦点归还），右侧滑入/滑出，点遮罩关闭，打开时锁定页面滚动；内容为架构 / 关键取舍 / 结果 + 链接。没有公开链接的项目显示"公司内部项目"说明，不放假链接 |
+| `components/projects/ProjectThumb.tsx` | 程序化 SVG 缩略图，与原型相同的种子与取数顺序；颜色走 CSS 变量，深浅主题各一套 |
+| `components/layout/BackLink.tsx` | "回到星图"抽成公共组件，About 页同步改用 |
+| `lib/data/projects.ts` | 新增 `LocalizedProject` / `localizeProject()`；"这个网站"的演示链接指向首页，`repoUrl` 待仓库公开后填入 |
+
+渐进增强：无 JS 时点卡片跳到 `#id`，`:target` 让对应详情以普通块显示在网格下方；详情内容随页面预渲染，可被抓取。
+
+验证：`tsc`、`lint`、`build` 通过；浏览器验证打开/Esc/遮罩/关闭按钮/浏览器后退、`#site` 直达、中英文、浅色主题、375px 移动端无横向溢出，控制台无警告。
+
+未做：其他三个 Writing / Toolkit / Contact 页面（第四阶段剩余部分）。
 
 ### 第三阶段（About 页）
 
@@ -78,13 +96,13 @@
 
 ### 未开始
 
-- Projects / Writing / Toolkit / Contact 页面及组件
+- Writing / Toolkit / Contact 页面及组件
 - `lib/data/posts.ts`、`lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 第三阶段改动**尚未提交** git
+- 第三、四阶段（About、Projects）均已提交 git
 
 ---
 

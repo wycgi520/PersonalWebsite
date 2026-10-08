@@ -58,7 +58,20 @@
     "portraitLabel": "郭洋的头像"
   },
   "projects": {
-    "title": "项目案例"
+    "metaTitle": "项目",
+    "metaDescription": "精选项目案例：内容中台、权限服务、通知队列，以及这个网站本身的技术架构与关键取舍。",
+    "title": "项目案例",
+    "lede": "四个做过的系统。点开卡片看技术架构、当时的关键取舍和上线后的结果。",
+    "count": "共 {count} 项",
+    "open": "查看详情",
+    "architecture": "技术架构",
+    "tradeoff": "关键取舍",
+    "outcome": "结果",
+    "demo": "在线演示",
+    "source": "源码",
+    "close": "收起",
+    "closeLabel": "关闭项目详情",
+    "privateNote": "公司内部项目，演示与代码不公开；可以在沟通时展开细节。"
   },
   "writing": {
     "title": "写作",

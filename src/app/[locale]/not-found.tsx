@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
-// 尚未实现的页面（Projects / Writing …）与未知路径都落到这里
+// 尚未实现的页面（Writing / Toolkit …）与未知路径都落到这里
 export default function NotFound() {
   const t = useTranslations('common');
 
