@@ -45,7 +45,8 @@ export default async function WritingPage({ params }: Props) {
         <div className="grid grid-cols-1 items-start gap-[34px] min-[1041px]:grid-cols-[1fr_302px] min-[1041px]:gap-[46px]">
           <PostList posts={items} categories={categories} />
           <aside className="flex flex-row flex-wrap gap-5 min-[1041px]:sticky min-[1041px]:top-[104px] min-[1041px]:flex-col">
-            <div className="min-w-[min(270px,100%)] flex-1 min-[1041px]:flex-none">
+            {/* Contact 页的"订阅"条目链接到这里；scroll-mt 让出固定导航栏 */}
+            <div id="newsletter" className="min-w-[min(270px,100%)] flex-1 scroll-mt-[120px] min-[1041px]:flex-none">
               <Newsletter />
             </div>
             <div className="min-w-[min(270px,100%)] flex-1 border border-line bg-panel p-[21px] min-[1041px]:flex-none">

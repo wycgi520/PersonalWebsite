@@ -273,6 +273,27 @@
   /* 统一用自己的清除按钮 */
   .tk-search::-webkit-search-cancel-button,
   .tk-search::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+
+  /* ---------- Contact ---------- */
+  .ct-cell { transition: background-color 0.35s var(--ease); }
+  .ct-cell:hover,
+  .ct-cell:focus-within { background: var(--panel); }
+  .ct-value { padding-right: 34px; transition: color 0.35s var(--ease); }
+  .ct-cell:hover .ct-value,
+  .ct-link:focus-visible .ct-value { color: var(--glow); }
+  /* 焦点环画在格子内侧，不被相邻格子盖住 */
+  .ct-link:focus-visible { box-shadow: inset 0 0 0 2px var(--glow); }
+  .ct-cell:hover .ct-arrow-out,
+  .ct-cell:focus-within .ct-arrow-out { transform: translate(1px, -1px); }
+  .ct-cell:hover .ct-arrow-in,
+  .ct-cell:focus-within .ct-arrow-in { transform: translateX(2px); }
+  .ct-arrow-in, .ct-arrow-out { transition: transform 0.3s var(--ease); }
+  /* 复制成功时对勾弹一下 */
+  .ct-pop { animation: heart-pop 0.45s var(--ease); }
+  .ct-note {
+    border: 1px solid var(--line); border-left: 2px solid var(--glow);
+    background: var(--panel);
+  }
 }
 
 @keyframes rise {

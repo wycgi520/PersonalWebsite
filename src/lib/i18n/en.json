@@ -122,12 +122,25 @@
     "reset": "Clear filters"
   },
   "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Email, GitHub and social accounts. Open to remote full-time roles and small-to-mid projects delivered end to end.",
     "title": "Contact",
+    "lede": "Email is fastest; I usually reply within a day or two. You can also find me elsewhere.",
+    "listLabel": "Ways to reach me",
     "email": "Email",
     "x": "X / Twitter",
     "jike": "Jike",
     "jikeName": "Guo Yang",
+    "newsletter": "Newsletter",
+    "newsletterValue": "New posts by email",
+    "opensInNewTab": "(opens in a new tab)",
+    "copy": "Copy email address",
+    "copied": "Copied",
+    "copyFailed": "Copy failed, select it manually",
     "noteTitle": "About freelance work",
-    "note": "The best fit is a small-to-mid project delivered end to end: a content site, an admin dashboard, or a system that needs third-party login and permissions. Per project or per week both work. If you already have designs and a defined scope, send them over."
+    "note": "The best fit is a small-to-mid project delivered end to end: a content site, an admin dashboard, or a system that needs third-party login and permissions. Per project or per week both work. If you already have designs and a defined scope, send them over.",
+    "noteCta": "Email me about a project",
+    "projectMailSubject": "Project inquiry",
+    "projectMailBody": "Hi Guo Yang,\n\nWhat the project is:\nScope / timeline:\nBudget range:\nExisting material (designs, docs):\n"
   }
 }

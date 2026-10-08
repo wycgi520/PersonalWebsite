@@ -21,7 +21,22 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects、Writing、Toolkit 页 ✅**，下一步：Contact 页
+> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段（Projects、Writing、Toolkit、Contact 页）✅**，下一步：第五阶段优化
+
+### 第四阶段 · Contact 页
+
+| 文件 | 说明 |
+|------|------|
+| `app/[locale]/contact/page.tsx` | SSG，本地化 metadata 与 hreflang；页头沿用其他内页（标题 + 引言）；联系网格 + "关于外包"说明，说明里的"写邮件聊聊项目"打开预填主题和要点（项目简介、范围/时间、预算、已有材料）的邮件 |
+| `components/contact/ContactGrid.tsx` | 服务端组件。1px 间隙当分隔线（原型 `.clist`），三列 → 两列（≤900px）→ 单列（≤560px），六项始终排满；整格是链接，hover/聚焦时底色变 panel、值变强调色、箭头轻移；焦点环画在格内侧；外链新标签页 + `noopener noreferrer` + 读屏提示；原型的 `<dl>` 包 `<a>` 不合法，改为 `<ul>` |
+| `components/contact/CopyEmail.tsx` | 邮件格右上角的复制按钮（与链接同级，不嵌套）。挂载后确认剪贴板 API 可用才渲染；成功/失败文字由 `role="status"` 播报，2.2s 后清除 |
+| `lib/data/site.ts` | 新增 `CONTACT_LINKS`：标签/值是固定文本（品牌名）或文案 key |
+
+与原型的偏差：RSS 尚未实现，第六格换成"订阅"，链接到 `/writing#newsletter`（Writing 侧栏订阅框加了 `id` 与 `scroll-mt`）；社交链接从站点首页改为按账号拼出的主页地址；即刻的个人主页是 `/u/<uuid>`，账号确定前先指向 `web.okjike.com`（`site.ts` 中有 TODO）。
+
+验证：`tsc`、`lint`、`build` 通过（`/zh/contact`、`/en/contact` 为 SSG）；浏览器验证复制邮箱（写入剪贴板、"已复制"提示后清除）、外链属性、项目咨询邮件的编码、订阅格跳转、中英文与 metadata、浅色主题、窄屏单列无横向溢出，控制台无警告。
+
+注意：GitHub / LinkedIn / X 账号沿用原型中的示例账号，上线前需替换为真实账号。
 
 ### 第四阶段 · Toolkit 页
 
@@ -129,13 +144,12 @@
 
 ### 未开始
 
-- Contact 页面及组件
 - 项目/文章/工具内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 第三、四阶段（About、Projects、Writing、Toolkit）均已提交 git
+- 第三、四阶段（About、Projects、Writing、Toolkit、Contact）均已提交 git
 
 ---
 
