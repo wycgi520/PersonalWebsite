@@ -101,6 +101,100 @@
   .node:hover .lbl, .node:focus-visible .lbl { fill: var(--glow); }
   /* 键盘聚焦时给出明确的焦点环（SVG 内无法使用 outline） */
   .node:focus-visible .ring { stroke-width: 1.4; opacity: 0.9; }
+
+  /* ---------- 场景切换：新场景淡入 + 光扫（template.tsx） ---------- */
+  .scene-enter { animation: scene-in var(--t-scene) var(--ease) both; }
+  .scene-warp {
+    position: fixed; inset: 0; z-index: 30; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle at 60% 50%, var(--glow-soft), transparent 55%);
+    animation: warp-flash 660ms var(--ease);
+  }
+
+  /* ---------- About ---------- */
+  .about-bio strong { color: var(--text); font-weight: 500; }
+
+  /* 首次访问依次显现；无 JS 时没有 data-reveal，内容直接可见 */
+  [data-reveal="seq"] .rv { opacity: 0; transform: translateY(14px); animation: rise 0.9s var(--ease) forwards; }
+  [data-reveal="seq"] .about-bio > :nth-child(2) { animation-delay: 0.15s; }
+  [data-reveal="seq"] .about-bio > :nth-child(3) { animation-delay: 0.4s; }
+  [data-reveal="seq"] .about-bio > :nth-child(4) { animation-delay: 0.65s; }
+  [data-reveal="seq"] .about-bio > :nth-child(5) { animation-delay: 0.9s; }
+  [data-reveal="seq"] .about-bio > :nth-child(6) { animation-delay: 1.15s; }
+  [data-reveal="seq"] .about-bio > :nth-child(7) { animation-delay: 1.4s; }
+
+  /* 背景：深浅两张营地照片交叉淡入淡出，文字一侧用渐变压暗/提亮保证可读。
+     照片的地面只占底部约 20%，图层只铺到 80% 高度并底部对齐，让篝火落在空地上 */
+  .about-scene::before,
+  .about-scene::after {
+    content: ""; position: absolute; inset: 0 0 auto; height: 80%; z-index: -1; pointer-events: none;
+    transition: opacity 0.5s var(--ease);
+  }
+  /* 暗色：夜间营地，篝火落在帐篷右侧的空地上 */
+  .about-scene::before {
+    background:
+      linear-gradient(to bottom, var(--ink) 0, rgba(7, 11, 20, 0.55) 14%, transparent 32%, transparent 84%, var(--ink) 100%),
+      linear-gradient(to right, rgba(7, 11, 20, 0.94) 0, rgba(7, 11, 20, 0.78) 38%, rgba(7, 11, 20, 0.25) 62%, rgba(7, 11, 20, 0.1) 100%),
+      url("/images/about-bg.webp") 43% 100% / cover no-repeat;
+  }
+  [data-theme="light"] .about-scene::before { opacity: 0; }
+  /* 浅色：黄昏营地，水平镜像后大松枝落到文字一侧被提亮遮住（渐变方向随之反转） */
+  .about-scene::after {
+    transform: scaleX(-1);
+    background:
+      linear-gradient(to bottom, var(--ink) 0, rgba(238, 241, 246, 0.5) 14%, transparent 32%, transparent 84%, var(--ink) 100%),
+      linear-gradient(to left, rgba(238, 241, 246, 0.98) 0, rgba(238, 241, 246, 0.93) 40%, rgba(238, 241, 246, 0.5) 60%, rgba(238, 241, 246, 0.15) 100%),
+      url("/images/about-bg-light.webp") 24% 100% / cover no-repeat;
+    opacity: 0;
+  }
+  [data-theme="light"] .about-scene::after { opacity: 1; }
+  /* 窄屏时篝火在文字上方：照片只铺到篝火这一段，地面对齐石圈，下面淡出 */
+  @media (max-width: 1040px) {
+    .about-scene::before,
+    .about-scene::after { bottom: auto; height: calc(140px + min(100vw, 560px) * 0.8); }
+    .about-scene::before {
+      background:
+        linear-gradient(to bottom, var(--ink) 0, transparent 30%, transparent 78%, var(--ink) 100%),
+        linear-gradient(rgba(7, 11, 20, 0.35), rgba(7, 11, 20, 0.35)),
+        url("/images/about-bg.webp") 70% 100% / cover no-repeat;
+    }
+    .about-scene::after {
+      background:
+        linear-gradient(to bottom, var(--ink) 0, transparent 30%, transparent 78%, var(--ink) 100%),
+        linear-gradient(rgba(238, 241, 246, 0.3), rgba(238, 241, 246, 0.3)),
+        url("/images/about-bg-light.webp") 55% 100% / cover no-repeat;
+    }
+  }
+
+  /* 火光：两层径向光晕从火堆向外扩散，亮度跟随 useCampfire 写入的 --fire */
+  .campfire { --fire: 0.8; }
+  .campfire::before,
+  .campfire::after {
+    content: ""; position: absolute; pointer-events: none; z-index: -1; border-radius: 50%;
+    transform: translate(-50%, -50%); opacity: var(--fire);
+  }
+  .campfire::before {
+    left: 50%; top: 62%; width: 170%; aspect-ratio: 1.5;
+    background: radial-gradient(closest-side, rgba(255, 170, 70, 0.2), rgba(255, 140, 50, 0.08) 45%, transparent);
+  }
+  .campfire::after {
+    left: 50%; top: 76%; width: 120%; aspect-ratio: 3.2;
+    background: radial-gradient(closest-side, rgba(255, 150, 60, 0.22), transparent);
+  }
+  [data-theme="light"] .campfire::before {
+    background: radial-gradient(closest-side, rgba(240, 150, 60, 0.22), rgba(240, 150, 60, 0.07) 45%, transparent);
+  }
+}
+
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}
+@keyframes scene-in {
+  from { opacity: 0; transform: scale(0.985); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes warp-flash {
+  0%, 100% { opacity: 0; }
+  40% { opacity: 1; }
 }
 
 @layer utilities {

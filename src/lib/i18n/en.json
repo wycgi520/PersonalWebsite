@@ -40,6 +40,8 @@
     }
   },
   "about": {
+    "metaTitle": "About",
+    "metaDescription": "Guo Yang, a full-stack engineer seven years in, building content-driven products: CMS, permissions, search and ranking.",
     "title": "Who I am, what I am building",
     "p1": "I am Guo Yang, a full-stack engineer seven years in. Most of that time went into <strong>content-driven products</strong> — CMS, permissions, search and ranking. The kind of work where the frontend has to feel good, the backend has to hold, and the data model cannot be sloppy on day one.",
     "p2": "I am pragmatic about the stack: <strong>Next.js end to end</strong>, Hono where an API needs to scale on its own, Prisma with PostgreSQL for data. Redis and queues where they earn their place, and no abstraction before it is needed.",
@@ -52,7 +54,8 @@
     "f3v": "Shanghai · remote",
     "f4k": "Status",
     "f4v": "Open",
-    "fireLabel": "Decorative campfire. Move the mouse to sway the flames, click to stoke it."
+    "fireLabel": "Decorative campfire. Move the mouse to sway the flames, click to stoke it.",
+    "portraitLabel": "Portrait of Guo Yang"
   },
   "projects": {
     "title": "Selected work"

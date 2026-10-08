@@ -21,9 +21,24 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-07 · **第一阶段（基础设施）✅ / 第二阶段（首页）✅**，下一步：第三阶段 About 页
+> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅**，下一步：第四阶段 Projects 等页面
 
-### 已完成
+### 第三阶段（About 页）
+
+| 文件 | 说明 |
+|------|------|
+| `app/[locale]/about/page.tsx` | SSG 双栏布局（≤1040px 单栏、篝火在上），本地化 metadata 与 hreflang；背景为深浅两张营地照片交叉淡入（`.about-scene` 伪元素） |
+| `components/about/Biography.tsx` | 返回链接、头像、标题、三段介绍、事实格（2/4 列，不出现落单格） |
+| `components/about/AboutStage.tsx` | 首次打开依次显现，之后直接显示：`localStorage` 键 `gy-about-seen`；首屏由内联脚本在绘制前决定，客户端路由由 layout effect 决定；无 JS / reduced-motion 时直接可见 |
+| `components/about/Campfire.tsx` + `lib/hooks/useCampfire.ts` | Canvas 篝火：弹簧跟随 + 甩动"风"、点击增火并爆火星、按主题重绘静态层、滚出视口/标签页隐藏时暂停、reduced-motion 时只画静止一帧 |
+| `lib/campfire/geometry.ts` / `staticLayers.ts` / `render.ts` | 从原型迁移：固定种子几何（石、柴、炭、火舌）、离屏静态层、逐帧绘制与粒子 |
+| `app/[locale]/template.tsx` | 场景切换（原第二阶段偏差项）：路由切换时新场景淡入+去模糊+光扫；首屏直出不播放。仅进场动画，无退场动画 |
+
+验证：`tsc`、`lint`、`build` 通过；浏览器验证首访依次显现/再访直接显示、reduced-motion 降级、中英切换、深浅主题、宽窄布局，控制台无警告。
+
+未做（留给第五阶段）：帧率检测自动降级、手动关闭动画开关。
+
+### 已完成（第一、二阶段）
 
 **工程配置**（手动创建，未使用 `create-next-app`）
 - 依赖（pnpm）：next 15.5.27、react 18.3.1、framer-motion、next-themes、**next-intl 4.14.9**、clsx、tailwind-merge、lucide-react
@@ -58,19 +73,18 @@
 
 ### 与原计划的偏差
 
-- **场景切换动画未实现**：计划使用 Framer Motion `AnimatePresence`，App Router 下 exit 动画需要额外处理（如 `template.tsx` 或冻结路由上下文），放在第三阶段与 About 页一起做
+- **场景切换动画**：未用 Framer Motion `AnimatePresence`（App Router 下 exit 动画需冻结路由上下文），改为 `template.tsx` + CSS 关键帧实现进场动画与光扫（第三阶段完成）
+- **About 页头像**：原型 About 区没有头像，按需求补上，样式与首页一致
 
 ### 未开始
 
-- About 页（Biography、Campfire 篝火 Canvas、首访依次显现）
 - Projects / Writing / Toolkit / Contact 页面及组件
 - `lib/data/posts.ts`、`lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
-- 场景切换光扫效果
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 改动均**尚未提交** git
+- 第三阶段改动**尚未提交** git
 
 ---
 
