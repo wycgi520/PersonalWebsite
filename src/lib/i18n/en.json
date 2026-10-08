@@ -106,9 +106,20 @@
     "archiveYear": "{count, plural, one {# post} other {# posts}} in {year}"
   },
   "toolkit": {
+    "metaTitle": "Toolkit",
+    "metaDescription": "The dev, design and ops tools I use day to day, plus books worth rereading, each with a note on why it stays.",
     "title": "Toolkit",
+    "lede": "Tools, bookmarks and books I actually use. Each one says why it stays, and when I last checked it still does.",
     "searchPlaceholder": "Search name, description or tag",
-    "empty": "Nothing matches that."
+    "searchLabel": "Search the toolkit",
+    "clearSearch": "Clear search",
+    "filterLabel": "Filter by tag",
+    "all": "All",
+    "resultCount": "{count} of {total}",
+    "checked": "checked",
+    "opensInNewTab": "(opens in a new tab)",
+    "empty": "Nothing matches that.",
+    "reset": "Clear filters"
   },
   "contact": {
     "title": "Contact",

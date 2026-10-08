@@ -249,6 +249,30 @@
   .wr-thread:not([hidden]) { animation: rise-in 0.4s var(--ease) both; }
   /* 点赞时心形弹跳一下 */
   .wr-pop { animation: heart-pop 0.45s var(--ease); }
+
+  /* ---------- Toolkit ---------- */
+  .tk-card {
+    transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+  .tk-card:hover,
+  .tk-card:focus-within {
+    border-color: var(--glow); transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px var(--glow-soft);
+  }
+  /* 整张卡片可点：标题链接的伪元素铺满卡片；焦点环画在伪元素上，框住整张卡片 */
+  .tk-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+  .tk-link:focus-visible { outline: none; }
+  .tk-link:focus-visible::after { outline: 2px solid var(--glow); outline-offset: 3px; }
+  .tk-card:hover .tk-tag,
+  .tk-card:focus-within .tk-tag { color: var(--glow); border-color: var(--glow); }
+  .tk-tag { transition: color 0.35s var(--ease), border-color 0.35s var(--ease); }
+  .tk-mark {
+    background: var(--glow-soft); color: var(--text);
+    border-radius: 2px; box-shadow: 0 0 0 1px var(--glow-soft);
+  }
+  /* 统一用自己的清除按钮 */
+  .tk-search::-webkit-search-cancel-button,
+  .tk-search::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
 }
 
 @keyframes rise {

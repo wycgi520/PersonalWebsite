@@ -106,9 +106,20 @@
     "archiveYear": "{year} 年 {count} 篇"
   },
   "toolkit": {
+    "metaTitle": "工具箱",
+    "metaDescription": "日常在用的开发、设计、运维工具和值得反复读的书，每一条都写了为什么留着它。",
     "title": "工具箱",
+    "lede": "真正在用的工具、书签和书。每条写了留着它的理由，和最后一次确认还在用的时间。",
     "searchPlaceholder": "搜名称、介绍或标签",
-    "empty": "没有匹配的条目。"
+    "searchLabel": "搜索工具箱",
+    "clearSearch": "清空搜索",
+    "filterLabel": "按标签筛选",
+    "all": "全部",
+    "resultCount": "{count} / {total} 条",
+    "checked": "最后确认",
+    "opensInNewTab": "（在新标签页打开）",
+    "empty": "没有匹配的条目。",
+    "reset": "清空条件"
   },
   "contact": {
     "title": "联系",

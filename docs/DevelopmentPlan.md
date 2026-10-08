@@ -21,7 +21,21 @@
 
 ## 进度记录
 
-> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects、Writing 页 ✅**，下一步：Toolkit 页
+> 最后更新：2026-10-08 · **第一阶段 ✅ / 第二阶段 ✅ / 第三阶段（About 页）✅ / 第四阶段 Projects、Writing、Toolkit 页 ✅**，下一步：Contact 页
+
+### 第四阶段 · Toolkit 页
+
+| 文件 | 说明 |
+|------|------|
+| `app/[locale]/toolkit/page.tsx` | SSG，本地化 metadata 与 hreflang；页头沿用 Projects / Writing（标题 + 引言） |
+| `components/toolkit/ToolExplorer.tsx` | 搜索 + 标签筛选 + 卡片网格（`auto-fill, minmax(240px)`，宽屏四列自动减列）。状态记在 `?q=…&tag=dev`：可分享、刷新保留；输入防抖 300ms 后 replaceState。标签上的数字随当前搜索变化；`aria-live` 播报结果数；无结果时给"清空条件"按钮。切换标签时卡片依次浮现，打字时不重播 |
+| `components/toolkit/ToolSearch.tsx` | `type="search"` 输入框：按 `/` 聚焦、Esc 清空（已空时失焦）、自定义清除按钮 |
+| `components/toolkit/ToolCard.tsx` | 名称（外链，新标签页，`noopener noreferrer`）、标签、介绍、域名、最后确认时间；标题链接伪元素铺满整卡，焦点环框住整张卡片；搜索关键词在名称和介绍中高亮 |
+| `lib/data/tools.ts` | 标签（新增只需追加一项）、工具数据、`localizeTool()`、`queryTerms()` / `matchesTerms()` |
+
+搜索：多关键词按空白拆分、全部命中（AND）；匹配两种语言的名称、介绍、标签和域名，中文界面搜 "reverse proxy" 也能找到 Caddy。
+
+验证：`tsc`、`lint`、`build` 通过（`/zh/toolkit`、`/en/toolkit` 为 SSG）；浏览器验证实时搜索与高亮、跨语言搜索、标签计数、`?q=` / `?tag=` 直达、空结果与清空条件、`/` 快捷键、中英文、浅色主题、窄屏无横向溢出，控制台无警告。
 
 ### 第四阶段 · Writing 页
 
@@ -115,13 +129,13 @@
 
 ### 未开始
 
-- Toolkit / Contact 页面及组件
-- `lib/data/tools.ts`；项目/文章内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
+- Contact 页面及组件
+- 项目/文章/工具内容的双语数据目前仍在数据文件中（`zh`/`en` 字段），未进字典
 - 响应式、性能降级、可访问性、SEO（第五阶段）
 
 ### 其他状态
 
-- 第三、四阶段（About、Projects、Writing）均已提交 git
+- 第三、四阶段（About、Projects、Writing、Toolkit）均已提交 git
 
 ---
 
