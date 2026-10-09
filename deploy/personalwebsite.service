@@ -1,0 +1,28 @@
+[Unit]
+Description=PersonalWebsite Next.js standalone server
+After=network.target
+ConditionPathExists=/www/wwwroot/personalwebsite-app/current/server.js
+
+[Service]
+Type=simple
+User=personalwebsite
+Group=personalwebsite
+WorkingDirectory=/www/wwwroot/personalwebsite-app/current
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=3100
+ExecStart=/www/server/nodejs/v24.21.0/bin/node server.js
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+KillSignal=SIGTERM
+UMask=0022
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/www/wwwroot/personalwebsite-app/releases
+
+[Install]
+WantedBy=multi-user.target

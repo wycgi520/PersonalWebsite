@@ -60,6 +60,7 @@ src/
 
 ## 文档
 
+- [服务器自动部署](./docs/Deployment.md) - GitHub Actions、SSH Secrets、systemd 和宝塔 Nginx 配置
 - [开发计划](./docs/DevelopmentPlan.md) - 完整的开发计划和实现细节
 - [需求文档](./docs/Requirements.md) - 项目需求和功能定义
 - [技术栈](./docs/Tech.md) - 技术选型和工具清单

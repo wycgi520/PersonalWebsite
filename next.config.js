@@ -10,6 +10,7 @@ const I18N_REQUEST = './src/i18n/request.ts';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   images: {
     formats: ['image/webp'],

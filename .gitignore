@@ -12,6 +12,8 @@
 
 # production
 /build
+/.deploy-bundle/
+/deploy.tar.gz
 
 # misc
 .DS_Store
