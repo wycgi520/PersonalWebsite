@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import ProfilePortrait from '@/components/ProfilePortrait';
 
 const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
@@ -12,12 +13,7 @@ export default function Identity() {
         <span className="h-px flex-1 bg-line" aria-hidden="true" />
       </div>
 
-      <div
-        className="mb-[22px] grid h-[76px] w-[76px] place-items-center rounded-full border border-line bg-[radial-gradient(circle_at_34%_30%,#2A3C5C,#0E1726_70%)] font-serif text-[30px] text-glow shadow-[0_0_0_6px_rgba(99,210,232,0.05)]"
-        aria-hidden="true"
-      >
-        GY
-      </div>
+      <ProfilePortrait />
 
       <h1 className="mb-1.5 font-serif text-[clamp(38px,4.4vw,60px)] font-medium leading-[1.08] tracking-[-0.01em]">
         {t('name')}

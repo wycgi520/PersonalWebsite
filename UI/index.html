@@ -1,1478 +1,3236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN" data-theme="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>观星台 · 个人网站 UI 原型</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#070B14;
-  --panel:#0C1424;
-  --grid:#16233C;
-  --line:#1E2E4A;
-  --glow:#63D2E8;
-  --glow-soft:rgba(99,210,232,.18);
-  --dim:#8CA3C7;
-  --text:#E9EFF8;
-  --ember:#F2A24B;
-  --serif:"Cormorant Garamond","Noto Serif SC",Georgia,"Songti SC",serif;
-  --sans:"Inter","Helvetica Neue",-apple-system,"PingFang SC",sans-serif;
-  --t-scene:760ms;
-  --ease:cubic-bezier(.22,.61,.24,1);
-}
-html[data-theme="light"]{
-  --ink:#EEF1F6;
-  --panel:#F7F9FC;
-  --grid:#D3DCE9;
-  --line:#C2CEDF;
-  --glow:#17708A;
-  --glow-soft:rgba(23,112,138,.14);
-  --dim:#55657E;
-  --text:#121B2B;
-  --ember:#B5610C;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;background:var(--ink);color:var(--text);
-  font-family:var(--sans);font-weight:300;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  transition:background .5s var(--ease),color .5s var(--ease);
-}
-#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--glow);outline-offset:3px;border-radius:2px}
-/* ---------- 导航栏 ---------- */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:40;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:24px;padding:20px 40px;
-  background:linear-gradient(to bottom,var(--ink) 20%,transparent);
-}
-.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--serif);font-size:21px;letter-spacing:.02em}
-.brand .mark{
-  width:9px;height:9px;border-radius:50%;background:var(--glow);
-  box-shadow:0 0 12px var(--glow);flex:none;transform:translateY(-3px)
-}
-.brand small{font-family:var(--sans);font-size:11px;color:var(--dim);letter-spacing:.14em}
-.menu{display:flex;gap:4px}
-.menu button{
-  background:none;border:0;cursor:pointer;color:var(--dim);
-  font-family:var(--sans);font-size:13.5px;font-weight:400;letter-spacing:.03em;
-  padding:8px 14px;border-radius:3px;position:relative;
-  transition:color .3s var(--ease),background .3s var(--ease);
-}
-.menu button:hover{color:var(--text);background:var(--glow-soft)}
-.menu button[aria-current="true"]{color:var(--glow)}
-.menu button[aria-current="true"]::after{
-  content:"";position:absolute;left:14px;right:14px;bottom:3px;height:1px;background:var(--glow)
-}
-.tools{display:flex;align-items:center;gap:8px}
-.tools button{
-  background:transparent;border:1px solid var(--line);color:var(--dim);
-  height:32px;border-radius:3px;cursor:pointer;font-family:var(--sans);
-  font-size:12px;letter-spacing:.06em;padding:0 11px;
-  transition:border-color .3s var(--ease),color .3s var(--ease),background .3s var(--ease);
-}
-.tools button:hover{color:var(--glow);border-color:var(--glow)}
-.tools .ico{width:32px;padding:0;display:grid;place-items:center;font-size:14px}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>观星台 · 个人网站 UI 原型</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #070b14;
+        --panel: #0c1424;
+        --grid: #16233c;
+        --line: #1e2e4a;
+        --glow: #63d2e8;
+        --glow-soft: rgba(99, 210, 232, 0.18);
+        --dim: #8ca3c7;
+        --text: #e9eff8;
+        --ember: #f2a24b;
+        --serif:
+          "Cormorant Garamond", "Noto Serif SC", Georgia, "Songti SC", serif;
+        --sans:
+          "Inter", "Helvetica Neue", -apple-system, "PingFang SC", sans-serif;
+        --t-scene: 760ms;
+        --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
+      }
+      html[data-theme="light"] {
+        --ink: #eef1f6;
+        --panel: #f7f9fc;
+        --grid: #d3dce9;
+        --line: #c2cedf;
+        --glow: #17708a;
+        --glow-soft: rgba(23, 112, 138, 0.14);
+        --dim: #55657e;
+        --text: #121b2b;
+        --ember: #b5610c;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--text);
+        font-family: var(--sans);
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        transition:
+          background 0.5s var(--ease),
+          color 0.5s var(--ease);
+      }
+      #sky {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      :focus-visible {
+        outline: 2px solid var(--glow);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+      /* ---------- 导航栏 ---------- */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 20px 40px;
+        background: linear-gradient(to bottom, var(--ink) 20%, transparent);
+      }
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        font-family: var(--serif);
+        font-size: 21px;
+        letter-spacing: 0.02em;
+      }
+      .brand .mark {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--glow);
+        box-shadow: 0 0 12px var(--glow);
+        flex: none;
+        transform: translateY(-3px);
+      }
+      .brand small {
+        font-family: var(--sans);
+        font-size: 11px;
+        color: var(--dim);
+        letter-spacing: 0.14em;
+      }
+      .menu {
+        display: flex;
+        gap: 4px;
+      }
+      .menu button {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        color: var(--dim);
+        font-family: var(--sans);
+        font-size: 13.5px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        padding: 8px 14px;
+        border-radius: 3px;
+        position: relative;
+        transition:
+          color 0.3s var(--ease),
+          background 0.3s var(--ease);
+      }
+      .menu button:hover {
+        color: var(--text);
+        background: var(--glow-soft);
+      }
+      .menu button[aria-current="true"] {
+        color: var(--glow);
+      }
+      .menu button[aria-current="true"]::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 3px;
+        height: 1px;
+        background: var(--glow);
+      }
+      .tools {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tools button {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--dim);
+        height: 32px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        padding: 0 11px;
+        transition:
+          border-color 0.3s var(--ease),
+          color 0.3s var(--ease),
+          background 0.3s var(--ease);
+      }
+      .tools button:hover {
+        color: var(--glow);
+        border-color: var(--glow);
+      }
+      .tools .ico {
+        width: 32px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+      }
 
-/* ---------- 场景容器 ---------- */
-.stage{position:relative;z-index:10;min-height:100vh}
-.scene{
-  position:absolute;inset:0;min-height:100vh;
-  padding:104px 40px 48px;
-  opacity:0;visibility:hidden;pointer-events:none;
-  transform:scale(.985);filter:blur(6px);
-  transition:opacity var(--t-scene) var(--ease),transform var(--t-scene) var(--ease),filter var(--t-scene) var(--ease),visibility var(--t-scene);
-}
-.scene.on{opacity:1;visibility:visible;pointer-events:auto;transform:none;filter:none;position:relative}
-/* 场景切换时的光扫 */
-#warp{
-  position:fixed;inset:0;z-index:30;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 60% 50%,var(--glow-soft),transparent 55%);
-  transition:opacity 320ms var(--ease);
-}
-#warp.flash{opacity:1}
-/* ---------- 首页 ---------- */
-.home{
-  display:grid;grid-template-columns:minmax(300px,38%) 1fr;
-  gap:56px;align-items:center;max-width:1440px;margin:0 auto;min-height:calc(100vh - 152px);
-}
-.ident{max-width:46ch}
-.ident .coord{
-  font-size:11.5px;color:var(--dim);letter-spacing:.12em;
-  display:flex;align-items:center;gap:10px;margin-bottom:26px;
-}
-.ident .coord::after{content:"";height:1px;flex:1;background:var(--line)}
-.portrait{
-  width:76px;height:76px;border-radius:50%;margin-bottom:22px;
-  background:
-    radial-gradient(circle at 34% 30%,#2A3C5C,#0E1726 70%);
-  border:1px solid var(--line);
-  display:grid;place-items:center;
-  font-family:var(--serif);font-size:30px;color:var(--glow);
-  box-shadow:0 0 0 6px rgba(99,210,232,.05);
-}
-h1{
-  font-family:var(--serif);font-weight:500;
-  font-size:clamp(38px,4.4vw,60px);line-height:1.08;margin:0 0 6px;
-  letter-spacing:-.01em;
-}
-.role{
-  font-family:var(--serif);font-style:italic;font-size:clamp(19px,1.7vw,23px);
-  color:var(--glow);margin:0 0 24px;font-weight:400;
-}
-.ident p.bio{font-size:15px;line-height:1.85;color:var(--dim);margin:0 0 14px}
-.ident p.bio strong{color:var(--text);font-weight:500}
-.status{
-  margin-top:30px;padding:14px 16px;border:1px solid var(--line);
-  border-left:2px solid var(--glow);border-radius:0 3px 3px 0;
-  background:var(--panel);font-size:13px;line-height:1.7;color:var(--dim);
-}
-.status b{display:block;color:var(--text);font-weight:500;margin-bottom:3px;font-size:13.5px}
+      /* ---------- 场景容器 ---------- */
+      .stage {
+        position: relative;
+        z-index: 10;
+        min-height: 100vh;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        min-height: 100vh;
+        padding: 104px 40px 48px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: scale(0.985);
+        filter: blur(6px);
+        transition:
+          opacity var(--t-scene) var(--ease),
+          transform var(--t-scene) var(--ease),
+          filter var(--t-scene) var(--ease),
+          visibility var(--t-scene);
+      }
+      .scene.on {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        filter: none;
+        position: relative;
+      }
+      /* 场景切换时的光扫 */
+      #warp {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(
+          circle at 60% 50%,
+          var(--glow-soft),
+          transparent 55%
+        );
+        transition: opacity 320ms var(--ease);
+      }
+      #warp.flash {
+        opacity: 1;
+      }
+      /* ---------- 首页 ---------- */
+      .home {
+        display: grid;
+        grid-template-columns: minmax(300px, 38%) 1fr;
+        gap: 56px;
+        align-items: center;
+        max-width: 1440px;
+        margin: 0 auto;
+        min-height: calc(100vh - 152px);
+      }
+      .ident {
+        max-width: 46ch;
+      }
+      .ident .coord {
+        font-size: 11.5px;
+        color: var(--dim);
+        letter-spacing: 0.12em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 26px;
+      }
+      .ident .coord::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: var(--line);
+      }
+      .portrait {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        margin-bottom: 22px;
+        background: radial-gradient(circle at 34% 30%, #2a3c5c, #0e1726 70%);
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        font-family: var(--serif);
+        font-size: 30px;
+        color: var(--glow);
+        box-shadow: 0 0 0 6px rgba(99, 210, 232, 0.05);
+      }
+      h1 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(38px, 4.4vw, 60px);
+        line-height: 1.08;
+        margin: 0 0 6px;
+        letter-spacing: -0.01em;
+      }
+      .role {
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: clamp(19px, 1.7vw, 23px);
+        color: var(--glow);
+        margin: 0 0 24px;
+        font-weight: 400;
+      }
+      .ident p.bio {
+        font-size: 15px;
+        line-height: 1.85;
+        color: var(--dim);
+        margin: 0 0 14px;
+      }
+      .ident p.bio strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .status {
+        margin-top: 30px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-left: 2px solid var(--glow);
+        border-radius: 0 3px 3px 0;
+        background: var(--panel);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--dim);
+      }
+      .status b {
+        display: block;
+        color: var(--text);
+        font-weight: 500;
+        margin-bottom: 3px;
+        font-size: 13.5px;
+      }
 
-/* ---------- 星图 ---------- */
-.chart{position:relative;aspect-ratio:1/.92;max-height:72vh;margin-inline:auto;width:100%}
-.chart svg{width:100%;height:100%;overflow:visible;display:block}
-.cgrid{stroke:var(--grid);stroke-width:.6;fill:none}
-.ctick{stroke:var(--line);stroke-width:1}
-.cedge{stroke:var(--glow);stroke-width:.9;opacity:.26;fill:none;transition:opacity .4s var(--ease)}
-.cedge.hot{opacity:.75}
-.node{cursor:pointer}
-.node .halo{fill:var(--glow);opacity:0;transition:opacity .45s var(--ease),r .45s var(--ease)}
-.node .star{fill:var(--text);transition:fill .3s var(--ease),r .3s var(--ease)}
-.node .ring{fill:none;stroke:var(--glow);stroke-width:.8;opacity:0;transition:opacity .4s var(--ease),r .5s var(--ease)}
-.node .lbl{
-  font-family:var(--serif);font-size:17px;fill:var(--text);
-  letter-spacing:.02em;transition:fill .3s var(--ease)
-}
-.node .sub{font-family:var(--sans);font-size:9.5px;fill:var(--dim);letter-spacing:.1em}
-.node:hover .halo,.node:focus-visible .halo{opacity:.22}
-.node:hover .ring,.node:focus-visible .ring{opacity:.6}
-.node:hover .star,.node:focus-visible .star{fill:var(--glow);r:5.4}
-.node:hover .lbl,.node:focus-visible .lbl{fill:var(--glow)}
-.node:focus{outline:none}
-.chart .frame{stroke:var(--line);stroke-width:1;fill:none}
-.chart .plate{
-  position:absolute;left:0;bottom:-6px;font-size:10.5px;color:var(--dim);
-  letter-spacing:.1em;font-family:var(--sans)
-}
-/* ---------- About ---------- */
-.about{
-  display:grid;grid-template-columns:1fr minmax(320px,44%);
-  gap:60px;align-items:center;max-width:1320px;margin:0 auto;
-  min-height:calc(100vh - 152px);
-}
-.about .back{
-  background:none;border:0;color:var(--dim);cursor:pointer;font-family:var(--sans);
-  font-size:12.5px;letter-spacing:.08em;padding:0;margin-bottom:28px;
-  display:flex;align-items:center;gap:9px;transition:color .3s var(--ease)
-}
-.about .back:hover{color:var(--glow)}
-.about .back span{display:inline-block;width:18px;height:1px;background:currentColor}
-.about h2{
-  font-family:var(--serif);font-weight:500;font-size:clamp(32px,3.4vw,46px);
-  margin:0 0 20px;line-height:1.14
-}
-.bioblock{max-width:60ch}
-.bioblock p{font-size:15px;line-height:1.9;color:var(--dim);margin:0 0 18px}
-.bioblock p strong{color:var(--text);font-weight:500}
-.facts{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px
-}
-.facts div{background:var(--ink);padding:15px 16px}
-.facts dt{font-size:11px;color:var(--dim);letter-spacing:.1em;margin-bottom:6px}
-.facts dd{margin:0;font-family:var(--serif);font-size:17px;color:var(--text)}
-/* 依次显现（仅首次） */
-.rv{opacity:0;transform:translateY(14px)}
-.about.seq .rv{animation:rise .9s var(--ease) forwards}
-.about.seq .rv:nth-child(2){animation-delay:.15s}
-.about.seq .rv:nth-child(3){animation-delay:.45s}
-.about.seq .rv:nth-child(4){animation-delay:.75s}
-.about.seq .rv:nth-child(5){animation-delay:1.05s}
-.about.seq .rv:nth-child(6){animation-delay:1.35s}
-.about.shown .rv{opacity:1;transform:none;animation:none}
-@keyframes rise{to{opacity:1;transform:none}}
-/* About 背景：深浅两张营地照片交叉淡入淡出，文字一侧用渐变压暗/提亮保证可读。
+      /* ---------- 星图 ---------- */
+      .chart {
+        position: relative;
+        aspect-ratio: 1/0.92;
+        max-height: 72vh;
+        margin-inline: auto;
+        width: 100%;
+      }
+      .chart svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        display: block;
+      }
+      .cgrid {
+        stroke: var(--grid);
+        stroke-width: 0.6;
+        fill: none;
+      }
+      .ctick {
+        stroke: var(--line);
+        stroke-width: 1;
+      }
+      .cedge {
+        stroke: var(--glow);
+        stroke-width: 0.9;
+        opacity: 0.26;
+        fill: none;
+        transition: opacity 0.4s var(--ease);
+      }
+      .cedge.hot {
+        opacity: 0.75;
+      }
+      .node {
+        cursor: pointer;
+      }
+      .node .halo {
+        fill: var(--glow);
+        opacity: 0;
+        transition:
+          opacity 0.45s var(--ease),
+          r 0.45s var(--ease);
+      }
+      .node .star {
+        fill: var(--text);
+        transition:
+          fill 0.3s var(--ease),
+          r 0.3s var(--ease);
+      }
+      .node .ring {
+        fill: none;
+        stroke: var(--glow);
+        stroke-width: 0.8;
+        opacity: 0;
+        transition:
+          opacity 0.4s var(--ease),
+          r 0.5s var(--ease);
+      }
+      .node .lbl {
+        font-family: var(--serif);
+        font-size: 17px;
+        fill: var(--text);
+        letter-spacing: 0.02em;
+        transition: fill 0.3s var(--ease);
+      }
+      .node .sub {
+        font-family: var(--sans);
+        font-size: 9.5px;
+        fill: var(--dim);
+        letter-spacing: 0.1em;
+      }
+      .node:hover .halo,
+      .node:focus-visible .halo {
+        opacity: 0.22;
+      }
+      .node:hover .ring,
+      .node:focus-visible .ring {
+        opacity: 0.6;
+      }
+      .node:hover .star,
+      .node:focus-visible .star {
+        fill: var(--glow);
+        r: 5.4;
+      }
+      .node:hover .lbl,
+      .node:focus-visible .lbl {
+        fill: var(--glow);
+      }
+      .node:focus {
+        outline: none;
+      }
+      .chart .frame {
+        stroke: var(--line);
+        stroke-width: 1;
+        fill: none;
+      }
+      .chart .plate {
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        font-size: 10.5px;
+        color: var(--dim);
+        letter-spacing: 0.1em;
+        font-family: var(--sans);
+      }
+      /* ---------- About ---------- */
+      .about {
+        display: grid;
+        grid-template-columns: 1fr minmax(320px, 44%);
+        gap: 60px;
+        align-items: center;
+        max-width: 1320px;
+        margin: 0 auto;
+        min-height: calc(100vh - 152px);
+      }
+      .about .back {
+        background: none;
+        border: 0;
+        color: var(--dim);
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        letter-spacing: 0.08em;
+        padding: 0;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        transition: color 0.3s var(--ease);
+      }
+      .about .back:hover {
+        color: var(--glow);
+      }
+      .about .back span {
+        display: inline-block;
+        width: 18px;
+        height: 1px;
+        background: currentColor;
+      }
+      .about h2 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(32px, 3.4vw, 46px);
+        margin: 0 0 20px;
+        line-height: 1.14;
+      }
+      .bioblock {
+        max-width: 60ch;
+      }
+      .bioblock p {
+        font-size: 15px;
+        line-height: 1.9;
+        color: var(--dim);
+        margin: 0 0 18px;
+      }
+      .bioblock p strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        margin-top: 34px;
+      }
+      .facts div {
+        background: var(--ink);
+        padding: 15px 16px;
+      }
+      .facts dt {
+        font-size: 11px;
+        color: var(--dim);
+        letter-spacing: 0.1em;
+        margin-bottom: 6px;
+      }
+      .facts dd {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 17px;
+        color: var(--text);
+      }
+      /* 依次显现（仅首次） */
+      .rv {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      .about.seq .rv {
+        animation: rise 0.9s var(--ease) forwards;
+      }
+      .about.seq .rv:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .about.seq .rv:nth-child(3) {
+        animation-delay: 0.45s;
+      }
+      .about.seq .rv:nth-child(4) {
+        animation-delay: 0.75s;
+      }
+      .about.seq .rv:nth-child(5) {
+        animation-delay: 1.05s;
+      }
+      .about.seq .rv:nth-child(6) {
+        animation-delay: 1.35s;
+      }
+      .about.shown .rv {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      /* About 背景：深浅两张营地照片交叉淡入淡出，文字一侧用渐变压暗/提亮保证可读。
    两张照片的地面都只占底部约 20%，所以图层只铺到 80% 高度并底部对齐，让篝火落在空地上，再往下淡出到底色 */
-#scene-about{isolation:isolate;overflow-x:clip}
-#scene-about::before,#scene-about::after{
-  content:"";position:absolute;inset:0 0 auto;height:80%;z-index:-1;pointer-events:none;
-  transition:opacity .5s var(--ease);
-}
-/* 暗色：夜间营地，篝火落在帐篷右侧的空地上 */
-#scene-about::before{
-  background:
-    linear-gradient(to bottom,var(--ink) 0,rgba(7,11,20,.55) 14%,transparent 32%,transparent 84%,var(--ink) 100%),
-    linear-gradient(to right,rgba(7,11,20,.94) 0,rgba(7,11,20,.78) 38%,rgba(7,11,20,.25) 62%,rgba(7,11,20,.1) 100%),
-    url("assets/about-bg.webp") 43% 100%/cover no-repeat;
-}
-html[data-theme="light"] #scene-about::before{opacity:0}
-/* 浅色：黄昏营地。水平镜像后大松枝落到文字一侧被提亮遮住，空地正好在篝火下方（镜像后渐变方向也随之反转） */
-#scene-about::after{
-  transform:scaleX(-1);
-  background:
-    linear-gradient(to bottom,var(--ink) 0,rgba(238,241,246,.5) 14%,transparent 32%,transparent 84%,var(--ink) 100%),
-    linear-gradient(to left,rgba(238,241,246,.98) 0,rgba(238,241,246,.93) 40%,rgba(238,241,246,.5) 60%,rgba(238,241,246,.15) 100%),
-    url("assets/about-bg-light.webp") 24% 100%/cover no-repeat;
-  opacity:0;
-}
-html[data-theme="light"] #scene-about::after{opacity:1}
-/* 窄屏时篝火在文字上方：照片只铺到篝火这一段，地面对齐石圈，下面淡出 */
-@media (max-width:1040px){
-  #scene-about::before,#scene-about::after{bottom:auto;height:calc(140px + min(100vw,560px) * .8)}
-  #scene-about::before{
-    background:
-      linear-gradient(to bottom,var(--ink) 0,transparent 30%,transparent 78%,var(--ink) 100%),
-      linear-gradient(rgba(7,11,20,.35),rgba(7,11,20,.35)),
-      url("assets/about-bg.webp") 70% 100%/cover no-repeat;
-  }
-  #scene-about::after{
-    background:
-      linear-gradient(to bottom,var(--ink) 0,transparent 30%,transparent 78%,var(--ink) 100%),
-      linear-gradient(rgba(238,241,246,.3),rgba(238,241,246,.3)),
-      url("assets/about-bg-light.webp") 55% 100%/cover no-repeat;
-  }
-}
-.fire{position:relative;align-self:center;isolation:isolate;--fire:.8}
-/* 火光：去掉画框，用两层径向光晕从火堆向外自然扩散，亮度跟随 JS 的闪烁值 */
-.fire::before,.fire::after{content:"";position:absolute;pointer-events:none;z-index:-1;border-radius:50%}
-.fire::before{
-  left:50%;top:62%;width:170%;aspect-ratio:1.5;transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side,rgba(255,170,70,.20),rgba(255,140,50,.08) 45%,transparent);
-  opacity:var(--fire);
-}
-.fire::after{
-  left:50%;top:76%;width:120%;aspect-ratio:3.2;transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side,rgba(255,150,60,.22),transparent);
-  opacity:var(--fire);
-}
-html[data-theme="light"] .fire::before{background:radial-gradient(closest-side,rgba(240,150,60,.22),rgba(240,150,60,.07) 45%,transparent)}
-.fire canvas{width:100%;height:auto;display:block;cursor:pointer}
-.fire .hint{
-  margin-top:11px;font-size:11.5px;color:var(--dim);letter-spacing:.06em;
-  display:flex;justify-content:space-between;gap:12px
-}
+      #scene-about {
+        isolation: isolate;
+        overflow-x: clip;
+      }
+      #scene-about::before,
+      #scene-about::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 80%;
+        z-index: -1;
+        pointer-events: none;
+        transition: opacity 0.5s var(--ease);
+      }
+      /* 暗色：夜间营地，篝火落在帐篷右侧的空地上 */
+      #scene-about::before {
+        background:
+          linear-gradient(
+            to bottom,
+            var(--ink) 0,
+            rgba(7, 11, 20, 0.55) 14%,
+            transparent 32%,
+            transparent 84%,
+            var(--ink) 100%
+          ),
+          linear-gradient(
+            to right,
+            rgba(7, 11, 20, 0.94) 0,
+            rgba(7, 11, 20, 0.78) 38%,
+            rgba(7, 11, 20, 0.25) 62%,
+            rgba(7, 11, 20, 0.1) 100%
+          ),
+          url("assets/about-bg.webp") 43% 100% / cover no-repeat;
+      }
+      html[data-theme="light"] #scene-about::before {
+        opacity: 0;
+      }
+      /* 浅色：黄昏营地。水平镜像后大松枝落到文字一侧被提亮遮住，空地正好在篝火下方（镜像后渐变方向也随之反转） */
+      #scene-about::after {
+        transform: scaleX(-1);
+        background:
+          linear-gradient(
+            to bottom,
+            var(--ink) 0,
+            rgba(238, 241, 246, 0.5) 14%,
+            transparent 32%,
+            transparent 84%,
+            var(--ink) 100%
+          ),
+          linear-gradient(
+            to left,
+            rgba(238, 241, 246, 0.98) 0,
+            rgba(238, 241, 246, 0.93) 40%,
+            rgba(238, 241, 246, 0.5) 60%,
+            rgba(238, 241, 246, 0.15) 100%
+          ),
+          url("assets/about-bg-light.webp") 24% 100% / cover no-repeat;
+        opacity: 0;
+      }
+      html[data-theme="light"] #scene-about::after {
+        opacity: 1;
+      }
+      /* 窄屏时篝火在文字上方：照片只铺到篝火这一段，地面对齐石圈，下面淡出 */
+      @media (max-width: 1040px) {
+        #scene-about::before,
+        #scene-about::after {
+          bottom: auto;
+          height: calc(140px + min(100vw, 560px) * 0.8);
+        }
+        #scene-about::before {
+          background:
+            linear-gradient(
+              to bottom,
+              var(--ink) 0,
+              transparent 30%,
+              transparent 78%,
+              var(--ink) 100%
+            ),
+            linear-gradient(rgba(7, 11, 20, 0.35), rgba(7, 11, 20, 0.35)),
+            url("assets/about-bg.webp") 70% 100% / cover no-repeat;
+        }
+        #scene-about::after {
+          background:
+            linear-gradient(
+              to bottom,
+              var(--ink) 0,
+              transparent 30%,
+              transparent 78%,
+              var(--ink) 100%
+            ),
+            linear-gradient(rgba(238, 241, 246, 0.3), rgba(238, 241, 246, 0.3)),
+            url("assets/about-bg-light.webp") 55% 100% / cover no-repeat;
+        }
+      }
+      .fire {
+        position: relative;
+        align-self: center;
+        isolation: isolate;
+        --fire: 0.8;
+      }
+      /* 火光：去掉画框，用两层径向光晕从火堆向外自然扩散，亮度跟随 JS 的闪烁值 */
+      .fire::before,
+      .fire::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        z-index: -1;
+        border-radius: 50%;
+      }
+      .fire::before {
+        left: 50%;
+        top: 62%;
+        width: 170%;
+        aspect-ratio: 1.5;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          closest-side,
+          rgba(255, 170, 70, 0.2),
+          rgba(255, 140, 50, 0.08) 45%,
+          transparent
+        );
+        opacity: var(--fire);
+      }
+      .fire::after {
+        left: 50%;
+        top: 76%;
+        width: 120%;
+        aspect-ratio: 3.2;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          closest-side,
+          rgba(255, 150, 60, 0.22),
+          transparent
+        );
+        opacity: var(--fire);
+      }
+      html[data-theme="light"] .fire::before {
+        background: radial-gradient(
+          closest-side,
+          rgba(240, 150, 60, 0.22),
+          rgba(240, 150, 60, 0.07) 45%,
+          transparent
+        );
+      }
+      .fire canvas {
+        width: 100%;
+        height: auto;
+        display: block;
+        cursor: pointer;
+      }
+      .fire .hint {
+        margin-top: 11px;
+        font-size: 11.5px;
+        color: var(--dim);
+        letter-spacing: 0.06em;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
 
-/* ---------- 内页通用 ---------- */
-.page{max-width:1180px;margin:0 auto}
-.back{
-  background:none;border:0;color:var(--dim);cursor:pointer;font-family:var(--sans);
-  font-size:12.5px;letter-spacing:.08em;padding:0;margin-bottom:26px;
-  display:flex;align-items:center;gap:9px;transition:color .3s var(--ease)
-}
-.back:hover{color:var(--glow)}
-.back span{display:inline-block;width:18px;height:1px;background:currentColor}
-.phead{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  gap:28px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:34px
-}
-.phead h2{
-  font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.2vw,42px);
-  margin:0;line-height:1.12
-}
-.phead .lede{font-size:13.5px;color:var(--dim);line-height:1.7;max-width:42ch;margin:0}
+      /* ---------- 内页通用 ---------- */
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .back {
+        background: none;
+        border: 0;
+        color: var(--dim);
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        letter-spacing: 0.08em;
+        padding: 0;
+        margin-bottom: 26px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        transition: color 0.3s var(--ease);
+      }
+      .back:hover {
+        color: var(--glow);
+      }
+      .back span {
+        display: inline-block;
+        width: 18px;
+        height: 1px;
+        background: currentColor;
+      }
+      .phead {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 34px;
+      }
+      .phead h2 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(30px, 3.2vw, 42px);
+        margin: 0;
+        line-height: 1.12;
+      }
+      .phead .lede {
+        font-size: 13.5px;
+        color: var(--dim);
+        line-height: 1.7;
+        max-width: 42ch;
+        margin: 0;
+      }
 
-/* ---------- Projects ---------- */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:24px}
-@media (max-width:980px){.pgrid{grid-template-columns:1fr}}
-.card{
-  border:1px solid var(--line);background:var(--panel);cursor:pointer;
-  display:flex;flex-direction:column;text-align:left;padding:0;color:inherit;
-  font-family:inherit;transition:border-color .35s var(--ease),transform .35s var(--ease)
-}
-.card:hover{border-color:var(--glow);transform:translateY(-3px)}
-.card .shot{
-  aspect-ratio:16/9;border-bottom:1px solid var(--line);position:relative;overflow:hidden;
-  background:linear-gradient(145deg,#132038,#0A1120)
-}
-.card .shot svg{position:absolute;inset:0;width:100%;height:100%}
-.card .body{padding:17px 19px 19px}
-.card h3{font-family:var(--serif);font-weight:500;font-size:20px;margin:0 0 7px}
-.card p{font-size:13.5px;line-height:1.72;color:var(--dim);margin:0 0 13px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tags i{
-  font-style:normal;font-size:11px;color:var(--dim);letter-spacing:.04em;
-  border:1px solid var(--line);padding:3px 8px;border-radius:2px
-}
-/* 项目详情 */
-.detail{border:1px solid var(--line);background:var(--panel);padding:30px 32px;margin-bottom:26px}
-.detail.hide{display:none}
-.detail h3{font-family:var(--serif);font-weight:500;font-size:27px;margin:0 0 4px}
-.detail .meta{font-size:12px;color:var(--dim);letter-spacing:.06em;margin-bottom:22px}
-.detail dl{display:grid;grid-template-columns:120px 1fr;gap:14px 22px;margin:0 0 24px}
-.detail dt{font-size:12px;color:var(--dim);letter-spacing:.08em;padding-top:3px}
-.detail dd{margin:0;font-size:14px;line-height:1.78}
-.detail .links{display:flex;gap:10px;flex-wrap:wrap}
-.btn{
-  border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;
-  font-family:var(--sans);font-size:13px;padding:9px 17px;border-radius:3px;
-  transition:border-color .3s var(--ease),color .3s var(--ease),background .3s var(--ease)
-}
-.btn:hover{border-color:var(--glow);color:var(--glow)}
-.btn.key{border-color:var(--glow);color:var(--glow);background:var(--glow-soft)}
-.btn.key:hover{background:transparent}
-/* ---------- Writing ---------- */
-.wrap2{display:grid;grid-template-columns:1fr 302px;gap:46px;align-items:start}
-.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
-.chip{
-  background:transparent;border:1px solid var(--line);color:var(--dim);cursor:pointer;
-  font-family:var(--sans);font-size:12.5px;padding:6px 13px;border-radius:999px;
-  transition:border-color .3s var(--ease),color .3s var(--ease),background .3s var(--ease)
-}
-.chip:hover{color:var(--text)}
-.chip[aria-pressed="true"]{border-color:var(--glow);color:var(--glow);background:var(--glow-soft)}
-.post{padding:24px 0;border-bottom:1px solid var(--line)}
-.post .top{display:flex;align-items:center;gap:11px;font-size:11.5px;color:var(--dim);margin-bottom:9px;letter-spacing:.05em}
-.post .cat{color:var(--glow);border:1px solid var(--glow);border-radius:2px;padding:2px 7px;font-size:10.5px}
-.post h3{font-family:var(--serif);font-weight:500;font-size:22px;margin:0 0 8px;line-height:1.3}
-.post h3 a:hover{color:var(--glow)}
-.post p{font-size:14px;line-height:1.78;color:var(--dim);margin:0 0 14px;max-width:68ch}
-.pact{display:flex;align-items:center;gap:16px}
-.like,.cmt{
-  background:none;border:0;cursor:pointer;color:var(--dim);font-family:var(--sans);
-  font-size:12.5px;display:flex;align-items:center;gap:6px;padding:4px 0;
-  transition:color .3s var(--ease)
-}
-.like:hover,.cmt:hover{color:var(--glow)}
-.like[aria-pressed="true"]{color:var(--ember)}
-.like .heart{transition:transform .35s var(--ease)}
-.like[aria-pressed="true"] .heart{transform:scale(1.22)}
-.thread{margin:16px 0 0;padding:16px 0 0;border-top:1px dashed var(--line)}
-.thread.hide{display:none}
-.thread .c{display:flex;gap:12px;margin-bottom:14px}
-.thread .av{
-  width:29px;height:29px;border-radius:50%;flex:none;display:grid;place-items:center;
-  background:var(--grid);color:var(--glow);font-size:11.5px;font-family:var(--serif)
-}
-.thread .c div{font-size:13px;line-height:1.7;color:var(--dim)}
-.thread .c b{color:var(--text);font-weight:500;font-size:12.5px;display:block;margin-bottom:2px}
-.cbox{display:flex;gap:9px;margin-top:4px}
-input[type=text],input[type=email]{
-  flex:1;min-width:0;background:var(--ink);border:1px solid var(--line);color:var(--text);
-  font-family:var(--sans);font-size:13px;padding:9px 12px;border-radius:3px
-}
-input::placeholder{color:var(--dim);opacity:.75}
-input:focus{outline:none;border-color:var(--glow)}
-/* 侧栏订阅区 */
-.aside{position:sticky;top:104px;display:flex;flex-direction:column;gap:20px}
-.sub{border:1px solid var(--line);border-top:2px solid var(--glow);background:var(--panel);padding:21px}
-.sub h4{font-family:var(--serif);font-weight:500;font-size:19px;margin:0 0 7px}
-.sub p{font-size:12.5px;line-height:1.7;color:var(--dim);margin:0 0 15px}
-.sub form{display:flex;flex-direction:column;gap:9px}
-.sub .note{font-size:11px;color:var(--dim);margin:0}
-.ok{color:var(--glow);font-size:12.5px;margin:0}
+      /* ---------- Projects ---------- */
+      .pgrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+        gap: 24px;
+      }
+      @media (max-width: 980px) {
+        .pgrid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        padding: 0;
+        color: inherit;
+        font-family: inherit;
+        transition:
+          border-color 0.35s var(--ease),
+          transform 0.35s var(--ease);
+      }
+      .card:hover {
+        border-color: var(--glow);
+        transform: translateY(-3px);
+      }
+      .card .shot {
+        aspect-ratio: 16/9;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(145deg, #132038, #0a1120);
+      }
+      .card .shot svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .card .body {
+        padding: 17px 19px 19px;
+      }
+      .card h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 20px;
+        margin: 0 0 7px;
+      }
+      .card p {
+        font-size: 13.5px;
+        line-height: 1.72;
+        color: var(--dim);
+        margin: 0 0 13px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tags i {
+        font-style: normal;
+        font-size: 11px;
+        color: var(--dim);
+        letter-spacing: 0.04em;
+        border: 1px solid var(--line);
+        padding: 3px 8px;
+        border-radius: 2px;
+      }
+      /* 项目详情 */
+      .detail {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        padding: 30px 32px;
+        margin-bottom: 26px;
+      }
+      .detail.hide {
+        display: none;
+      }
+      .detail h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 27px;
+        margin: 0 0 4px;
+      }
+      .detail .meta {
+        font-size: 12px;
+        color: var(--dim);
+        letter-spacing: 0.06em;
+        margin-bottom: 22px;
+      }
+      .detail dl {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 14px 22px;
+        margin: 0 0 24px;
+      }
+      .detail dt {
+        font-size: 12px;
+        color: var(--dim);
+        letter-spacing: 0.08em;
+        padding-top: 3px;
+      }
+      .detail dd {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.78;
+      }
+      .detail .links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: 13px;
+        padding: 9px 17px;
+        border-radius: 3px;
+        transition:
+          border-color 0.3s var(--ease),
+          color 0.3s var(--ease),
+          background 0.3s var(--ease);
+      }
+      .btn:hover {
+        border-color: var(--glow);
+        color: var(--glow);
+      }
+      .btn.key {
+        border-color: var(--glow);
+        color: var(--glow);
+        background: var(--glow-soft);
+      }
+      .btn.key:hover {
+        background: transparent;
+      }
+      /* ---------- Writing ---------- */
+      .wrap2 {
+        display: grid;
+        grid-template-columns: 1fr 302px;
+        gap: 46px;
+        align-items: start;
+      }
+      .filters {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .chip {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--dim);
+        cursor: pointer;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        padding: 6px 13px;
+        border-radius: 999px;
+        transition:
+          border-color 0.3s var(--ease),
+          color 0.3s var(--ease),
+          background 0.3s var(--ease);
+      }
+      .chip:hover {
+        color: var(--text);
+      }
+      .chip[aria-pressed="true"] {
+        border-color: var(--glow);
+        color: var(--glow);
+        background: var(--glow-soft);
+      }
+      .post {
+        padding: 24px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .post .top {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        font-size: 11.5px;
+        color: var(--dim);
+        margin-bottom: 9px;
+        letter-spacing: 0.05em;
+      }
+      .post .cat {
+        color: var(--glow);
+        border: 1px solid var(--glow);
+        border-radius: 2px;
+        padding: 2px 7px;
+        font-size: 10.5px;
+      }
+      .post h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 22px;
+        margin: 0 0 8px;
+        line-height: 1.3;
+      }
+      .post h3 a:hover {
+        color: var(--glow);
+      }
+      .post p {
+        font-size: 14px;
+        line-height: 1.78;
+        color: var(--dim);
+        margin: 0 0 14px;
+        max-width: 68ch;
+      }
+      .pact {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .like,
+      .cmt {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        color: var(--dim);
+        font-family: var(--sans);
+        font-size: 12.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 0;
+        transition: color 0.3s var(--ease);
+      }
+      .like:hover,
+      .cmt:hover {
+        color: var(--glow);
+      }
+      .like[aria-pressed="true"] {
+        color: var(--ember);
+      }
+      .like .heart {
+        transition: transform 0.35s var(--ease);
+      }
+      .like[aria-pressed="true"] .heart {
+        transform: scale(1.22);
+      }
+      .thread {
+        margin: 16px 0 0;
+        padding: 16px 0 0;
+        border-top: 1px dashed var(--line);
+      }
+      .thread.hide {
+        display: none;
+      }
+      .thread .c {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .thread .av {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        flex: none;
+        display: grid;
+        place-items: center;
+        background: var(--grid);
+        color: var(--glow);
+        font-size: 11.5px;
+        font-family: var(--serif);
+      }
+      .thread .c div {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--dim);
+      }
+      .thread .c b {
+        color: var(--text);
+        font-weight: 500;
+        font-size: 12.5px;
+        display: block;
+        margin-bottom: 2px;
+      }
+      .cbox {
+        display: flex;
+        gap: 9px;
+        margin-top: 4px;
+      }
+      input[type="text"],
+      input[type="email"] {
+        flex: 1;
+        min-width: 0;
+        background: var(--ink);
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 13px;
+        padding: 9px 12px;
+        border-radius: 3px;
+      }
+      input::placeholder {
+        color: var(--dim);
+        opacity: 0.75;
+      }
+      input:focus {
+        outline: none;
+        border-color: var(--glow);
+      }
+      /* 侧栏订阅区 */
+      .aside {
+        position: sticky;
+        top: 104px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .sub {
+        border: 1px solid var(--line);
+        border-top: 2px solid var(--glow);
+        background: var(--panel);
+        padding: 21px;
+      }
+      .sub h4 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 19px;
+        margin: 0 0 7px;
+      }
+      .sub p {
+        font-size: 12.5px;
+        line-height: 1.7;
+        color: var(--dim);
+        margin: 0 0 15px;
+      }
+      .sub form {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+      .sub .note {
+        font-size: 11px;
+        color: var(--dim);
+        margin: 0;
+      }
+      .ok {
+        color: var(--glow);
+        font-size: 12.5px;
+        margin: 0;
+      }
 
-/* ---------- Toolkit ---------- */
-.tsearch{display:flex;gap:9px;margin-bottom:18px;max-width:420px}
-/* 卡片网格：宽屏四列，随宽度自动减列 */
-.tools-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:10px}
-.tool{
-  position:relative;display:flex;flex-direction:column;gap:12px;
-  padding:20px 22px 18px;background:var(--panel);
-  border:1px solid var(--line);border-radius:8px;
-  transition:border-color .35s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease)
-}
-.tool:hover{border-color:var(--glow);transform:translateY(-2px);box-shadow:0 8px 24px -12px var(--glow-soft)}
-.tool .head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.tool h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0;line-height:1.3}
-/* 整张卡片可点：链接的伪元素铺满卡片 */
-.tool h3 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
-.tool:hover h3 a{color:var(--glow)}
-.tool .tag{
-  flex:none;font-style:normal;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 10px;
-  font-family:ui-monospace,"SF Mono",Consolas,monospace;white-space:nowrap;
-  transition:color .35s var(--ease),border-color .35s var(--ease)
-}
-.tool:hover .tag{color:var(--glow);border-color:var(--glow)}
-.tool p{font-size:13.5px;line-height:1.7;color:var(--dim);margin:0;flex:1}
-.tool .upd{font-size:11px;color:var(--dim);letter-spacing:.05em;opacity:.8}
-.empty{padding:30px 2px;color:var(--dim);font-size:13.5px}
-.empty.hide{display:none}
+      /* ---------- Toolkit ---------- */
+      .tsearch {
+        display: flex;
+        gap: 9px;
+        margin-bottom: 18px;
+        max-width: 420px;
+      }
+      /* 卡片网格：宽屏四列，随宽度自动减列 */
+      .tools-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 10px;
+      }
+      .tool {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px 22px 18px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        transition:
+          border-color 0.35s var(--ease),
+          transform 0.35s var(--ease),
+          box-shadow 0.35s var(--ease);
+      }
+      .tool:hover {
+        border-color: var(--glow);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px -12px var(--glow-soft);
+      }
+      .tool .head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .tool h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 19px;
+        margin: 0;
+        line-height: 1.3;
+      }
+      /* 整张卡片可点：链接的伪元素铺满卡片 */
+      .tool h3 a::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+      }
+      .tool:hover h3 a {
+        color: var(--glow);
+      }
+      .tool .tag {
+        flex: none;
+        font-style: normal;
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--dim);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 3px 10px;
+        font-family: ui-monospace, "SF Mono", Consolas, monospace;
+        white-space: nowrap;
+        transition:
+          color 0.35s var(--ease),
+          border-color 0.35s var(--ease);
+      }
+      .tool:hover .tag {
+        color: var(--glow);
+        border-color: var(--glow);
+      }
+      .tool p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: var(--dim);
+        margin: 0;
+        flex: 1;
+      }
+      .tool .upd {
+        font-size: 11px;
+        color: var(--dim);
+        letter-spacing: 0.05em;
+        opacity: 0.8;
+      }
+      .empty {
+        padding: 30px 2px;
+        color: var(--dim);
+        font-size: 13.5px;
+      }
+      .empty.hide {
+        display: none;
+      }
 
-/* ---------- Contact ---------- */
-/* 六个条目：三列排满两行，不留空格子 */
-.clist{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-@media (max-width:900px){.clist{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.clist{grid-template-columns:1fr}}
-.clist a{
-  background:var(--ink);padding:21px 22px;display:block;
-  transition:background .35s var(--ease)
-}
-.clist a:hover{background:var(--panel)}
-.clist dt{font-size:11.5px;color:var(--dim);letter-spacing:.1em;margin-bottom:8px}
-.clist dd{margin:0;font-family:var(--serif);font-size:19px}
-.clist a:hover dd{color:var(--glow)}
-.cnote{
-  margin-top:30px;padding:20px 22px;border:1px solid var(--line);border-left:2px solid var(--glow);
-  background:var(--panel);font-size:13.5px;line-height:1.8;color:var(--dim);max-width:70ch
-}
-.cnote b{color:var(--text);font-weight:500}
-@media (max-width:1040px){
-  .wrap2{grid-template-columns:1fr;gap:34px}
-  .aside{position:static;flex-direction:row;flex-wrap:wrap}
-  .sub{flex:1;min-width:270px}
-}
-@media (max-width:720px){
-  .phead{flex-direction:column;align-items:flex-start;gap:12px}
-  .detail{padding:22px 19px}
-  .detail dl{grid-template-columns:1fr;gap:4px 0}
-  .detail dt{padding-top:12px}
-}
+      /* ---------- Contact ---------- */
+      /* 六个条目：三列排满两行，不留空格子 */
+      .clist {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+      }
+      @media (max-width: 900px) {
+        .clist {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .clist {
+          grid-template-columns: 1fr;
+        }
+      }
+      .clist a {
+        background: var(--ink);
+        padding: 21px 22px;
+        display: block;
+        transition: background 0.35s var(--ease);
+      }
+      .clist a:hover {
+        background: var(--panel);
+      }
+      .clist dt {
+        font-size: 11.5px;
+        color: var(--dim);
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+      }
+      .clist dd {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 19px;
+      }
+      .clist a:hover dd {
+        color: var(--glow);
+      }
+      .cnote {
+        margin-top: 30px;
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-left: 2px solid var(--glow);
+        background: var(--panel);
+        font-size: 13.5px;
+        line-height: 1.8;
+        color: var(--dim);
+        max-width: 70ch;
+      }
+      .cnote b {
+        color: var(--text);
+        font-weight: 500;
+      }
+      @media (max-width: 1040px) {
+        .wrap2 {
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+        .aside {
+          position: static;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .sub {
+          flex: 1;
+          min-width: 270px;
+        }
+      }
+      @media (max-width: 720px) {
+        .phead {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .detail {
+          padding: 22px 19px;
+        }
+        .detail dl {
+          grid-template-columns: 1fr;
+          gap: 4px 0;
+        }
+        .detail dt {
+          padding-top: 12px;
+        }
+      }
 
-@media (max-width:1040px){
-  .home,.about{grid-template-columns:1fr;gap:40px;padding-block:20px}
-  .chart{max-height:none;aspect-ratio:1/1;max-width:560px}
-  .about .fire{order:-1;max-width:560px;margin-inline:auto;width:100%}
-}
-@media (max-width:860px){
-  .nav{
-    flex-wrap:wrap;padding:12px 18px 0;gap:8px 12px;
-    background:linear-gradient(to bottom,var(--ink) 62%,transparent)
-  }
-  .brand{font-size:19px;order:1}
-  .brand small{display:none}
-  .tools{order:2;margin-left:auto}
-  .menu{
-    order:3;width:100%;overflow-x:auto;gap:0;
-    padding-bottom:4px;scrollbar-width:none
-  }
-  .menu::-webkit-scrollbar{display:none}
-  .menu button{padding:9px 12px;font-size:13px;white-space:nowrap;flex:none}
-  .menu button[aria-current="true"]::after{left:12px;right:12px;bottom:1px}
-  .scene{padding:118px 18px 40px}
-  .home,.about{min-height:0}
-  .ident p.bio,.bioblock p{font-size:14.5px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .rv{opacity:1;transform:none}
-}
-</style>
-</head>
-<body>
-<canvas id="sky" aria-hidden="true"></canvas>
-<div id="warp" aria-hidden="true"></div>
-<nav class="nav">
-  <a class="brand" href="#" data-go="home">
-    <i class="mark"></i>
-    <span data-i18n="brand">观星台</span>
-    <small data-i18n="brandSub">GY · OBSERVATORY</small>
-  </a>
-  <div class="menu" role="tablist">
-    <button data-go="home" aria-current="true" data-i18n="navHome">首页</button>
-    <button data-go="about" data-i18n="navAbout">关于</button>
-    <button data-go="projects" data-i18n="navProjects">项目</button>
-    <button data-go="writing" data-i18n="navWriting">写作</button>
-    <button data-go="toolkit" data-i18n="navToolkit">工具箱</button>
-    <button data-go="contact" data-i18n="navContact">联系</button>
-  </div>
-  <div class="tools">
-    <button id="lang" title="切换语言">中 / EN</button>
-    <button id="theme" class="ico" title="切换主题" aria-label="切换日夜主题">☾</button>
-  </div>
-</nav>
-
-<main class="stage">
-  <!-- ============ 首页 ============ -->
-  <section class="scene on" id="scene-home">
-    <div class="home">
-      <div class="ident">
-        <div class="coord" data-i18n="coord">N 31°14′ · E 121°28′ · 本地时 UTC+8</div>
-        <div class="portrait">GY</div>
-        <h1 data-i18n="name">郭 洋</h1>
-        <p class="role" data-i18n="role">全栈工程师 · 偏爱把复杂系统做薄</p>
-        <p class="bio" data-i18n="bio1">我用 <strong>TypeScript、Next.js 和 PostgreSQL</strong> 把想法做成能跑在生产环境里的东西。过去几年主要在做内容系统、权限模型和一些需要真扛住流量的后端服务。</p>
-        <p class="bio" data-i18n="bio2">喜欢在交付之前把边界情况想清楚，也喜欢在页面上留一点只有自己知道为什么的小机关。</p>
-        <div class="status">
-          <b data-i18n="statusTitle">正在找新机会，也接外包</b>
-          <span data-i18n="statusBody">目前接受远程全职与中小型项目承接。右侧星图里任选一颗，或者直接从联系页找我。</span>
-        </div>
+      @media (max-width: 1040px) {
+        .home,
+        .about {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          padding-block: 20px;
+        }
+        .chart {
+          max-height: none;
+          aspect-ratio: 1/1;
+          max-width: 560px;
+        }
+        .about .fire {
+          order: -1;
+          max-width: 560px;
+          margin-inline: auto;
+          width: 100%;
+        }
+      }
+      @media (max-width: 860px) {
+        .nav {
+          flex-wrap: wrap;
+          padding: 12px 18px 0;
+          gap: 8px 12px;
+          background: linear-gradient(to bottom, var(--ink) 62%, transparent);
+        }
+        .brand {
+          font-size: 19px;
+          order: 1;
+        }
+        .brand small {
+          display: none;
+        }
+        .tools {
+          order: 2;
+          margin-left: auto;
+        }
+        .menu {
+          order: 3;
+          width: 100%;
+          overflow-x: auto;
+          gap: 0;
+          padding-bottom: 4px;
+          scrollbar-width: none;
+        }
+        .menu::-webkit-scrollbar {
+          display: none;
+        }
+        .menu button {
+          padding: 9px 12px;
+          font-size: 13px;
+          white-space: nowrap;
+          flex: none;
+        }
+        .menu button[aria-current="true"]::after {
+          left: 12px;
+          right: 12px;
+          bottom: 1px;
+        }
+        .scene {
+          padding: 118px 18px 40px;
+        }
+        .home,
+        .about {
+          min-height: 0;
+        }
+        .ident p.bio,
+        .bioblock p {
+          font-size: 14.5px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .rv {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div id="warp" aria-hidden="true"></div>
+    <nav class="nav">
+      <a class="brand" href="#" data-go="home">
+        <i class="mark"></i>
+        <span data-i18n="brand">观星台</span>
+        <small data-i18n="brandSub">GY · OBSERVATORY</small>
+      </a>
+      <div class="menu" role="tablist">
+        <button data-go="home" aria-current="true" data-i18n="navHome">
+          首页
+        </button>
+        <button data-go="about" data-i18n="navAbout">关于</button>
+        <button data-go="projects" data-i18n="navProjects">项目</button>
+        <button data-go="writing" data-i18n="navWriting">写作</button>
+        <button data-go="toolkit" data-i18n="navToolkit">工具箱</button>
+        <button data-go="contact" data-i18n="navContact">联系</button>
       </div>
+      <div class="tools">
+        <button id="lang" title="切换语言">中 / EN</button>
+        <button
+          id="theme"
+          class="ico"
+          title="切换主题"
+          aria-label="切换日夜主题"
+        >
+          ☾
+        </button>
+      </div>
+    </nav>
 
-      <div class="chart">
-        <svg id="atlas" viewBox="0 0 620 580" role="group" aria-label="星座图导航">
-          <defs>
-            <radialGradient id="hg">
-              <stop offset="0%" stop-color="var(--glow)" stop-opacity=".55"/>
-              <stop offset="100%" stop-color="var(--glow)" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="var(--glow)" stop-opacity="0"/>
-              <stop offset="100%" stop-color="var(--glow)" stop-opacity=".9"/>
-            </linearGradient>
-          </defs>
-          <g id="gridlayer"></g>
-          <g id="edgelayer"></g>
-          <g id="meteorlayer"></g>
-          <g id="nodelayer"></g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ About ============ -->
-  <section class="scene" id="scene-about">
-    <div class="about" id="aboutGrid">
-      <div class="bioblock">
-        <button class="back" data-go="home"><span></span><i data-i18n="backHome">回到星图</i></button>
-        <h2 class="rv" data-i18n="aboutH">我是谁，在做什么</h2>
-        <p class="rv" data-i18n="ab1">我是郭洋，一个写了七年代码的全栈工程师。职业生涯大部分时间在做<strong>内容驱动的产品</strong>——CMS、权限系统、搜索与推荐，这类东西前端要好用，后端要扛得住，数据模型一开始就不能将就。</p>
-        <p class="rv" data-i18n="ab2">技术上我偏实用主义：<strong>Next.js 做端到端</strong>，Hono 处理需要独立伸缩的 API，Prisma + PostgreSQL 管数据。该上 Redis 和队列的地方上，不该上的地方绝不提前抽象。</p>
-        <p class="rv" data-i18n="ab3">工作之外我在写技术文章，维护一个自己用的工具箱，偶尔做点动效实验。这个网站本身就是其中一个。</p>
-        <dl class="facts rv">
-          <div><dt data-i18n="f1k">经验</dt><dd data-i18n="f1v">7 年全栈</dd></div>
-          <div><dt data-i18n="f2k">主力栈</dt><dd>TypeScript</dd></div>
-          <div><dt data-i18n="f3k">所在地</dt><dd data-i18n="f3v">上海 · 可远程</dd></div>
-          <div><dt data-i18n="f4k">状态</dt><dd data-i18n="f4v">开放中</dd></div>
-        </dl>
-      </div>
-      <div class="fire">
-        <canvas id="bonfire" width="620" height="480" aria-label="篝火装饰，移动鼠标可让火焰摆动，点击可让火更旺"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Projects ============ -->
-  <section class="scene" id="scene-projects">
-    <div class="page">
-      <button class="back" data-go="home"><span></span><i data-i18n="backHome2">回到星图</i></button>
-      <div class="phead">
-        <h2 data-i18n="pjH">项目案例</h2>
-      </div>
-      <div class="detail hide" id="pjDetail"></div>
-      <div class="pgrid" id="pjGrid"></div>
-    </div>
-  </section>
-
-  <!-- ============ Writing ============ -->
-  <section class="scene" id="scene-writing">
-    <div class="page">
-      <button class="back" data-go="home"><span></span><i data-i18n="backHome3">回到星图</i></button>
-      <div class="phead">
-        <h2 data-i18n="wrH">写作</h2>
-      </div>
-      <div class="wrap2">
-        <div>
-          <div class="filters" id="wrFilters"></div>
-          <div id="wrList"></div>
-        </div>
-        <aside class="aside">
-          <div class="sub">
-            <h4 data-i18n="subH">订阅更新</h4>
-            <p data-i18n="subP">新文章发布时发一封邮件，一个月一两次，不发别的。</p>
-            <form id="subForm">
-              <input type="email" required data-i18n-ph="subPh" placeholder="你的邮箱">
-              <button class="btn key" type="submit" data-i18n="subBtn">订阅</button>
-              <p class="note" data-i18n="subNote">也可以用 RSS。随时退订。</p>
-            </form>
+    <main class="stage">
+      <!-- ============ 首页 ============ -->
+      <section class="scene on" id="scene-home">
+        <div class="home">
+          <div class="ident">
+            <div class="coord" data-i18n="coord">
+              N 31°14′ · E 121°28′ · 本地时 UTC+8
+            </div>
+            <div class="portrait">GY</div>
+            <h1 data-i18n="name">国 易</h1>
+            <p class="role" data-i18n="role">全栈工程师 · 偏爱把复杂系统做薄</p>
+            <p class="bio" data-i18n="bio1">
+              我用
+              <strong>TypeScript、Next.js 和 PostgreSQL</strong>
+              把想法做成能跑在生产环境里的东西。过去几年主要在做内容系统、权限模型和一些需要真扛住流量的后端服务。
+            </p>
+            <p class="bio" data-i18n="bio2">
+              喜欢在交付之前把边界情况想清楚，也喜欢在页面上留一点只有自己知道为什么的小机关。
+            </p>
+            <div class="status">
+              <b data-i18n="statusTitle">正在找新机会，也接外包</b>
+              <span data-i18n="statusBody"
+                >目前接受远程全职与中小型项目承接。右侧星图里任选一颗，或者直接从联系页找我。</span
+              >
+            </div>
           </div>
-          <div class="sub" style="border-top-color:var(--line)">
-            <h4 data-i18n="arcH">归档</h4>
-            <p data-i18n="arcP" style="margin:0">2026 年 12 篇 · 2025 年 23 篇 · 2024 年 18 篇</p>
+
+          <div class="chart">
+            <svg
+              id="atlas"
+              viewBox="0 0 620 580"
+              role="group"
+              aria-label="星座图导航"
+            >
+              <defs>
+                <radialGradient id="hg">
+                  <stop
+                    offset="0%"
+                    stop-color="var(--glow)"
+                    stop-opacity=".55"
+                  />
+                  <stop
+                    offset="100%"
+                    stop-color="var(--glow)"
+                    stop-opacity="0"
+                  />
+                </radialGradient>
+                <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="var(--glow)" stop-opacity="0" />
+                  <stop
+                    offset="100%"
+                    stop-color="var(--glow)"
+                    stop-opacity=".9"
+                  />
+                </linearGradient>
+              </defs>
+              <g id="gridlayer"></g>
+              <g id="edgelayer"></g>
+              <g id="meteorlayer"></g>
+              <g id="nodelayer"></g>
+            </svg>
           </div>
-        </aside>
-      </div>
-    </div>
-  </section>
+        </div>
+      </section>
 
-  <!-- ============ Toolkit ============ -->
-  <section class="scene" id="scene-toolkit">
-    <div class="page">
-      <button class="back" data-go="home"><span></span><i data-i18n="backHome4">回到星图</i></button>
-      <div class="phead">
-        <h2 data-i18n="tkH">工具箱</h2>
-      </div>
-      <div class="tsearch">
-        <input type="text" id="tkQ" data-i18n-ph="tkPh" placeholder="搜名称、介绍或标签">
-      </div>
-      <div class="filters" id="tkFilters"></div>
-      <div class="tools-list" id="tkList"></div>
-      <p class="empty hide" id="tkEmpty" data-i18n="tkEmpty">没有匹配的条目。</p>
-    </div>
-  </section>
+      <!-- ============ About ============ -->
+      <section class="scene" id="scene-about">
+        <div class="about" id="aboutGrid">
+          <div class="bioblock">
+            <button class="back" data-go="home">
+              <span></span><i data-i18n="backHome">回到星图</i>
+            </button>
+            <h2 class="rv" data-i18n="aboutH">我是谁，在做什么</h2>
+            <p class="rv" data-i18n="ab1">
+              我是国易，一个写了七年代码的全栈工程师。职业生涯大部分时间在做<strong>内容驱动的产品</strong>——CMS、权限系统、搜索与推荐，这类东西前端要好用，后端要扛得住，数据模型一开始就不能将就。
+            </p>
+            <p class="rv" data-i18n="ab2">
+              技术上我偏实用主义：<strong>Next.js 做端到端</strong>，Hono
+              处理需要独立伸缩的 API，Prisma + PostgreSQL 管数据。该上 Redis
+              和队列的地方上，不该上的地方绝不提前抽象。
+            </p>
+            <p class="rv" data-i18n="ab3">
+              工作之外我在写技术文章，维护一个自己用的工具箱，偶尔做点动效实验。这个网站本身就是其中一个。
+            </p>
+            <dl class="facts rv">
+              <div>
+                <dt data-i18n="f1k">经验</dt>
+                <dd data-i18n="f1v">7 年全栈</dd>
+              </div>
+              <div>
+                <dt data-i18n="f2k">主力栈</dt>
+                <dd>TypeScript</dd>
+              </div>
+              <div>
+                <dt data-i18n="f3k">所在地</dt>
+                <dd data-i18n="f3v">上海 · 可远程</dd>
+              </div>
+              <div>
+                <dt data-i18n="f4k">状态</dt>
+                <dd data-i18n="f4v">开放中</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="fire">
+            <canvas
+              id="bonfire"
+              width="620"
+              height="480"
+              aria-label="篝火装饰，移动鼠标可让火焰摆动，点击可让火更旺"
+            ></canvas>
+          </div>
+        </div>
+      </section>
 
-  <!-- ============ Contact ============ -->
-  <section class="scene" id="scene-contact">
-    <div class="page">
-      <button class="back" data-go="home"><span></span><i data-i18n="backHome5">回到星图</i></button>
-      <div class="phead">
-        <h2 data-i18n="ctH">联系</h2>
-      </div>
-      <dl class="clist">
-        <a href="mailto:hi@guoyang.dev"><dt data-i18n="ct1k">邮件</dt><dd>hi@guoyang.dev</dd></a>
-        <a href="https://github.com" target="_blank" rel="noopener"><dt>GitHub</dt><dd>@guoyang</dd></a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener"><dt>LinkedIn</dt><dd>in/guoyang</dd></a>
-        <a href="https://x.com" target="_blank" rel="noopener"><dt data-i18n="ct4k">X / 推特</dt><dd>@guoyang_dev</dd></a>
-        <a href="https://okjike.com" target="_blank" rel="noopener"><dt data-i18n="ct5k">即刻</dt><dd data-i18n="ct5v">郭洋</dd></a>
-        <a href="/rss.xml"><dt>RSS</dt><dd>/rss.xml</dd></a>
-      </dl>
-      <p class="cnote">
-        <b data-i18n="ctNoteB">关于外包</b><br>
-        <span data-i18n="ctNote">适合我的是前后端一起交付的中小型项目：内容站、管理后台、需要接第三方登录和权限的系统。按项目或按周都可以谈。如果你已经有设计稿和明确范围，可以直接把它发给我。</span>
-      </p>
-    </div>
-  </section>
-</main>
-<script>
-const RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
-const $ = s => document.querySelector(s);
-const SVGNS = 'http://www.w3.org/2000/svg';
-const mk = (n, a = {}) => { const e = document.createElementNS(SVGNS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+      <!-- ============ Projects ============ -->
+      <section class="scene" id="scene-projects">
+        <div class="page">
+          <button class="back" data-go="home">
+            <span></span><i data-i18n="backHome2">回到星图</i>
+          </button>
+          <div class="phead">
+            <h2 data-i18n="pjH">项目案例</h2>
+          </div>
+          <div class="detail hide" id="pjDetail"></div>
+          <div class="pgrid" id="pjGrid"></div>
+        </div>
+      </section>
 
-/* ---------------- 背景星野 ---------------- */
-const sky = $('#sky'), sx = sky.getContext('2d');
-let stars = [], dpr = Math.min(devicePixelRatio || 1, 2);
-function initSky() {
-  sky.width = innerWidth * dpr; sky.height = innerHeight * dpr;
-  sky.style.width = innerWidth + 'px'; sky.style.height = innerHeight + 'px';
-  sx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const n = Math.round(innerWidth * innerHeight / 9000);
-  stars = Array.from({ length: n }, () => ({
-    x: Math.random() * innerWidth, y: Math.random() * innerHeight,
-    r: Math.random() * 1.1 + .25, p: Math.random() * 6.28, s: Math.random() * .9 + .25
-  }));
-}
-function drawSky(t) {
-  sx.clearRect(0, 0, innerWidth, innerHeight);
-  const light = document.documentElement.dataset.theme === 'light';
-  for (const s of stars) {
-    const tw = RM ? .7 : (Math.sin(t / 1000 * s.s + s.p) * .5 + .5) * .75 + .22;
-    sx.globalAlpha = light ? tw * .33 : tw;
-    sx.fillStyle = light ? '#44576F' : '#D5E3F5';
-    sx.beginPath(); sx.arc(s.x, s.y, s.r, 0, 6.2832); sx.fill();
-  }
-  sx.globalAlpha = 1;
-}
+      <!-- ============ Writing ============ -->
+      <section class="scene" id="scene-writing">
+        <div class="page">
+          <button class="back" data-go="home">
+            <span></span><i data-i18n="backHome3">回到星图</i>
+          </button>
+          <div class="phead">
+            <h2 data-i18n="wrH">写作</h2>
+          </div>
+          <div class="wrap2">
+            <div>
+              <div class="filters" id="wrFilters"></div>
+              <div id="wrList"></div>
+            </div>
+            <aside class="aside">
+              <div class="sub">
+                <h4 data-i18n="subH">订阅更新</h4>
+                <p data-i18n="subP">
+                  新文章发布时发一封邮件，一个月一两次，不发别的。
+                </p>
+                <form id="subForm">
+                  <input
+                    type="email"
+                    required
+                    data-i18n-ph="subPh"
+                    placeholder="你的邮箱"
+                  />
+                  <button class="btn key" type="submit" data-i18n="subBtn">
+                    订阅
+                  </button>
+                  <p class="note" data-i18n="subNote">
+                    也可以用 RSS。随时退订。
+                  </p>
+                </form>
+              </div>
+              <div class="sub" style="border-top-color: var(--line)">
+                <h4 data-i18n="arcH">归档</h4>
+                <p data-i18n="arcP" style="margin: 0">
+                  2026 年 12 篇 · 2025 年 23 篇 · 2024 年 18 篇
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
 
-/* ---------------- 星图导航 ---------------- */
-const NODES = [
-  { id: 'about',    zh: '关于',   en: 'About',    mag: '1.4', x: 150, y: 128, r: 20 },
-  { id: 'projects', zh: '项目',   en: 'Projects', mag: '0.8', x: 420, y: 90,  r: 26 },
-  { id: 'writing',  zh: '写作',   en: 'Writing',  mag: '1.9', x: 512, y: 330, r: 18 },
-  { id: 'toolkit',  zh: '工具箱', en: 'Toolkit',  mag: '2.3', x: 300, y: 450, r: 22 },
-  { id: 'contact',  zh: '联系',   en: 'Contact',  mag: '1.1', x: 92,  y: 338, r: 16 },
-];
-const EDGES = [[0,1],[1,2],[2,3],[3,4],[4,0],[0,3]];
-const gridL = $('#gridlayer'), edgeL = $('#edgelayer'), nodeL = $('#nodelayer'), metL = $('#meteorlayer');
+      <!-- ============ Toolkit ============ -->
+      <section class="scene" id="scene-toolkit">
+        <div class="page">
+          <button class="back" data-go="home">
+            <span></span><i data-i18n="backHome4">回到星图</i>
+          </button>
+          <div class="phead">
+            <h2 data-i18n="tkH">工具箱</h2>
+          </div>
+          <div class="tsearch">
+            <input
+              type="text"
+              id="tkQ"
+              data-i18n-ph="tkPh"
+              placeholder="搜名称、介绍或标签"
+            />
+          </div>
+          <div class="filters" id="tkFilters"></div>
+          <div class="tools-list" id="tkList"></div>
+          <p class="empty hide" id="tkEmpty" data-i18n="tkEmpty">
+            没有匹配的条目。
+          </p>
+        </div>
+      </section>
 
-/* 星图图版：赤经赤纬网格 + 边框刻度 */
-(function buildPlate(){
-  gridL.appendChild(mk('rect',{x:28,y:28,width:564,height:500,class:'frame'}));
-  for(let i=1;i<6;i++){
-    const x=28+564*i/6;
-    gridL.appendChild(mk('line',{x1:x,y1:28,x2:x,y2:528,class:'cgrid'}));
-  }
-  for(let i=1;i<5;i++){
-    const y=28+500*i/5;
-    gridL.appendChild(mk('line',{x1:28,y1:y,x2:592,y2:y,class:'cgrid'}));
-  }
-  for(let i=0;i<=24;i++){
-    const x=28+564*i/24;
-    gridL.appendChild(mk('line',{x1:x,y1:528,x2:x,y2:528-(i%4?4:8),class:'ctick'}));
-    gridL.appendChild(mk('line',{x1:x,y1:28,x2:x,y2:28+(i%4?4:8),class:'ctick'}));
-  }
-  for(let i=0;i<=20;i++){
-    const y=28+500*i/20;
-    gridL.appendChild(mk('line',{x1:28,y1:y,x2:28+(i%4?4:8),y2:y,class:'ctick'}));
-    gridL.appendChild(mk('line',{x1:592,y1:y,x2:592-(i%4?4:8),y2:y,class:'ctick'}));
-  }
-})();
+      <!-- ============ Contact ============ -->
+      <section class="scene" id="scene-contact">
+        <div class="page">
+          <button class="back" data-go="home">
+            <span></span><i data-i18n="backHome5">回到星图</i>
+          </button>
+          <div class="phead">
+            <h2 data-i18n="ctH">联系</h2>
+          </div>
+          <dl class="clist">
+            <a href="mailto:hi@guoyi.dev"
+              ><dt data-i18n="ct1k">邮件</dt>
+              <dd>hi@guoyi.dev</dd></a
+            >
+            <a href="https://github.com" target="_blank" rel="noopener"
+              ><dt>GitHub</dt>
+              <dd>@guoyi</dd></a
+            >
+            <a href="https://linkedin.com" target="_blank" rel="noopener"
+              ><dt>LinkedIn</dt>
+              <dd>in/guoyi</dd></a
+            >
+            <a href="https://x.com" target="_blank" rel="noopener"
+              ><dt data-i18n="ct4k">X / 推特</dt>
+              <dd>@guoyi_dev</dd></a
+            >
+            <a href="https://okjike.com" target="_blank" rel="noopener"
+              ><dt data-i18n="ct5k">即刻</dt>
+              <dd data-i18n="ct5v">国易</dd></a
+            >
+            <a href="/rss.xml"
+              ><dt>RSS</dt>
+              <dd>/rss.xml</dd></a
+            >
+          </dl>
+          <p class="cnote">
+            <b data-i18n="ctNoteB">关于外包</b><br />
+            <span data-i18n="ctNote"
+              >适合我的是前后端一起交付的中小型项目：内容站、管理后台、需要接第三方登录和权限的系统。按项目或按周都可以谈。如果你已经有设计稿和明确范围，可以直接把它发给我。</span
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+    <script>
+      const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+      const $ = (s) => document.querySelector(s);
+      const SVGNS = "http://www.w3.org/2000/svg";
+      const mk = (n, a = {}) => {
+        const e = document.createElementNS(SVGNS, n);
+        for (const k in a) e.setAttribute(k, a[k]);
+        return e;
+      };
 
-const nodeEls = NODES.map((n, i) => {
-  const g = mk('g', { class: 'node', tabindex: '0', role: 'link', 'aria-label': n.zh });
-  g.appendChild(mk('circle', { class: 'halo', r: 34, fill: 'url(#hg)' }));
-  g.appendChild(mk('circle', { class: 'ring', r: 13 }));
-  const st = mk('circle', { class: 'star', r: 4.2 }); g.appendChild(st);
-  const lbl = mk('text', { class: 'lbl', x: 20, y: 5 }); lbl.textContent = n.zh; g.appendChild(lbl);
-  const sub = mk('text', { class: 'sub', x: 20, y: 20 }); sub.textContent = 'mag ' + n.mag; g.appendChild(sub);
-  g.addEventListener('click', () => go(n.id));
-  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(n.id); } });
-  g.addEventListener('mouseenter', () => hot(i, true));
-  g.addEventListener('mouseleave', () => hot(i, false));
-  g.addEventListener('focus', () => hot(i, true));
-  g.addEventListener('blur', () => hot(i, false));
-  nodeL.appendChild(g);
-  return { g, lbl, data: n, ph: Math.random() * 6.28 };
-});
-const edgeEls = EDGES.map(() => { const l = mk('line', { class: 'cedge' }); edgeL.appendChild(l); return l; });
-function hot(i, on) {
-  EDGES.forEach((e, k) => { if (e[0] === i || e[1] === i) edgeEls[k].classList.toggle('hot', on); });
-}
-/* 自然环绕漂移 */
-function driftAtlas(t) {
-  const pos = nodeEls.map((n, i) => {
-    const a = RM ? 0 : 1;
-    const dx = Math.sin(t / 4200 + n.ph) * 9 * a + Math.cos(t / 7100 + n.ph) * 4 * a;
-    const dy = Math.cos(t / 3700 + n.ph * 1.7) * 8 * a + Math.sin(t / 8300 + n.ph) * 3 * a;
-    const x = n.data.x + dx, y = n.data.y + dy;
-    n.g.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
-    return [x, y];
-  });
-  EDGES.forEach((e, k) => {
-    const [a, b] = [pos[e[0]], pos[e[1]]];
-    edgeEls[k].setAttribute('x1', a[0]); edgeEls[k].setAttribute('y1', a[1]);
-    edgeEls[k].setAttribute('x2', b[0]); edgeEls[k].setAttribute('y2', b[1]);
-  });
-}
-/* 偶尔的流星 */
-let nextMeteor = 2600;
-function meteors(t, dt) {
-  if (RM) return;
-  nextMeteor -= dt;
-  if (nextMeteor > 0) return;
-  nextMeteor = 5200 + Math.random() * 7000;
-  const x = 60 + Math.random() * 380, y = 40 + Math.random() * 150;
-  const len = 110 + Math.random() * 90;
-  const l = mk('line', { x1: x, y1: y, x2: x, y2: y, stroke: 'url(#mg)', 'stroke-width': 1.6, 'stroke-linecap': 'round' });
-  metL.appendChild(l);
-  const t0 = performance.now(), dur = 1150;
-  (function step(now) {
-    const k = Math.min((now - t0) / dur, 1);
-    const e = k * k * (3 - 2 * k);
-    const hx = x + (len + 150) * e, hy = y + (len + 150) * e * .62;
-    const tx = hx - len * (1 - k * .55), ty = hy - len * .62 * (1 - k * .55);
-    l.setAttribute('x1', tx); l.setAttribute('y1', ty);
-    l.setAttribute('x2', hx); l.setAttribute('y2', hy);
-    l.setAttribute('opacity', k < .15 ? k / .15 : 1 - (k - .15) / .85);
-    if (k < 1) requestAnimationFrame(step); else l.remove();
-  })(t0);
-}
-/* ---------------- 篝火 ----------------
+      /* ---------------- 背景星野 ---------------- */
+      const sky = $("#sky"),
+        sx = sky.getContext("2d");
+      let stars = [],
+        dpr = Math.min(devicePixelRatio || 1, 2);
+      function initSky() {
+        sky.width = innerWidth * dpr;
+        sky.height = innerHeight * dpr;
+        sky.style.width = innerWidth + "px";
+        sky.style.height = innerHeight + "px";
+        sx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const n = Math.round((innerWidth * innerHeight) / 9000);
+        stars = Array.from({ length: n }, () => ({
+          x: Math.random() * innerWidth,
+          y: Math.random() * innerHeight,
+          r: Math.random() * 1.1 + 0.25,
+          p: Math.random() * 6.28,
+          s: Math.random() * 0.9 + 0.25,
+        }));
+      }
+      function drawSky(t) {
+        sx.clearRect(0, 0, innerWidth, innerHeight);
+        const light = document.documentElement.dataset.theme === "light";
+        for (const s of stars) {
+          const tw = RM
+            ? 0.7
+            : (Math.sin((t / 1000) * s.s + s.p) * 0.5 + 0.5) * 0.75 + 0.22;
+          sx.globalAlpha = light ? tw * 0.33 : tw;
+          sx.fillStyle = light ? "#44576F" : "#D5E3F5";
+          sx.beginPath();
+          sx.arc(s.x, s.y, s.r, 0, 6.2832);
+          sx.fill();
+        }
+        sx.globalAlpha = 1;
+      }
+
+      /* ---------------- 星图导航 ---------------- */
+      const NODES = [
+        {
+          id: "about",
+          zh: "关于",
+          en: "About",
+          mag: "1.4",
+          x: 150,
+          y: 128,
+          r: 20,
+        },
+        {
+          id: "projects",
+          zh: "项目",
+          en: "Projects",
+          mag: "0.8",
+          x: 420,
+          y: 90,
+          r: 26,
+        },
+        {
+          id: "writing",
+          zh: "写作",
+          en: "Writing",
+          mag: "1.9",
+          x: 512,
+          y: 330,
+          r: 18,
+        },
+        {
+          id: "toolkit",
+          zh: "工具箱",
+          en: "Toolkit",
+          mag: "2.3",
+          x: 300,
+          y: 450,
+          r: 22,
+        },
+        {
+          id: "contact",
+          zh: "联系",
+          en: "Contact",
+          mag: "1.1",
+          x: 92,
+          y: 338,
+          r: 16,
+        },
+      ];
+      const EDGES = [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 0],
+        [0, 3],
+      ];
+      const gridL = $("#gridlayer"),
+        edgeL = $("#edgelayer"),
+        nodeL = $("#nodelayer"),
+        metL = $("#meteorlayer");
+
+      /* 星图图版：赤经赤纬网格 + 边框刻度 */
+      (function buildPlate() {
+        gridL.appendChild(
+          mk("rect", { x: 28, y: 28, width: 564, height: 500, class: "frame" }),
+        );
+        for (let i = 1; i < 6; i++) {
+          const x = 28 + (564 * i) / 6;
+          gridL.appendChild(
+            mk("line", { x1: x, y1: 28, x2: x, y2: 528, class: "cgrid" }),
+          );
+        }
+        for (let i = 1; i < 5; i++) {
+          const y = 28 + (500 * i) / 5;
+          gridL.appendChild(
+            mk("line", { x1: 28, y1: y, x2: 592, y2: y, class: "cgrid" }),
+          );
+        }
+        for (let i = 0; i <= 24; i++) {
+          const x = 28 + (564 * i) / 24;
+          gridL.appendChild(
+            mk("line", {
+              x1: x,
+              y1: 528,
+              x2: x,
+              y2: 528 - (i % 4 ? 4 : 8),
+              class: "ctick",
+            }),
+          );
+          gridL.appendChild(
+            mk("line", {
+              x1: x,
+              y1: 28,
+              x2: x,
+              y2: 28 + (i % 4 ? 4 : 8),
+              class: "ctick",
+            }),
+          );
+        }
+        for (let i = 0; i <= 20; i++) {
+          const y = 28 + (500 * i) / 20;
+          gridL.appendChild(
+            mk("line", {
+              x1: 28,
+              y1: y,
+              x2: 28 + (i % 4 ? 4 : 8),
+              y2: y,
+              class: "ctick",
+            }),
+          );
+          gridL.appendChild(
+            mk("line", {
+              x1: 592,
+              y1: y,
+              x2: 592 - (i % 4 ? 4 : 8),
+              y2: y,
+              class: "ctick",
+            }),
+          );
+        }
+      })();
+
+      const nodeEls = NODES.map((n, i) => {
+        const g = mk("g", {
+          class: "node",
+          tabindex: "0",
+          role: "link",
+          "aria-label": n.zh,
+        });
+        g.appendChild(mk("circle", { class: "halo", r: 34, fill: "url(#hg)" }));
+        g.appendChild(mk("circle", { class: "ring", r: 13 }));
+        const st = mk("circle", { class: "star", r: 4.2 });
+        g.appendChild(st);
+        const lbl = mk("text", { class: "lbl", x: 20, y: 5 });
+        lbl.textContent = n.zh;
+        g.appendChild(lbl);
+        const sub = mk("text", { class: "sub", x: 20, y: 20 });
+        sub.textContent = "mag " + n.mag;
+        g.appendChild(sub);
+        g.addEventListener("click", () => go(n.id));
+        g.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            go(n.id);
+          }
+        });
+        g.addEventListener("mouseenter", () => hot(i, true));
+        g.addEventListener("mouseleave", () => hot(i, false));
+        g.addEventListener("focus", () => hot(i, true));
+        g.addEventListener("blur", () => hot(i, false));
+        nodeL.appendChild(g);
+        return { g, lbl, data: n, ph: Math.random() * 6.28 };
+      });
+      const edgeEls = EDGES.map(() => {
+        const l = mk("line", { class: "cedge" });
+        edgeL.appendChild(l);
+        return l;
+      });
+      function hot(i, on) {
+        EDGES.forEach((e, k) => {
+          if (e[0] === i || e[1] === i) edgeEls[k].classList.toggle("hot", on);
+        });
+      }
+      /* 自然环绕漂移 */
+      function driftAtlas(t) {
+        const pos = nodeEls.map((n, i) => {
+          const a = RM ? 0 : 1;
+          const dx =
+            Math.sin(t / 4200 + n.ph) * 9 * a +
+            Math.cos(t / 7100 + n.ph) * 4 * a;
+          const dy =
+            Math.cos(t / 3700 + n.ph * 1.7) * 8 * a +
+            Math.sin(t / 8300 + n.ph) * 3 * a;
+          const x = n.data.x + dx,
+            y = n.data.y + dy;
+          n.g.setAttribute(
+            "transform",
+            `translate(${x.toFixed(2)},${y.toFixed(2)})`,
+          );
+          return [x, y];
+        });
+        EDGES.forEach((e, k) => {
+          const [a, b] = [pos[e[0]], pos[e[1]]];
+          edgeEls[k].setAttribute("x1", a[0]);
+          edgeEls[k].setAttribute("y1", a[1]);
+          edgeEls[k].setAttribute("x2", b[0]);
+          edgeEls[k].setAttribute("y2", b[1]);
+        });
+      }
+      /* 偶尔的流星 */
+      let nextMeteor = 2600;
+      function meteors(t, dt) {
+        if (RM) return;
+        nextMeteor -= dt;
+        if (nextMeteor > 0) return;
+        nextMeteor = 5200 + Math.random() * 7000;
+        const x = 60 + Math.random() * 380,
+          y = 40 + Math.random() * 150;
+        const len = 110 + Math.random() * 90;
+        const l = mk("line", {
+          x1: x,
+          y1: y,
+          x2: x,
+          y2: y,
+          stroke: "url(#mg)",
+          "stroke-width": 1.6,
+          "stroke-linecap": "round",
+        });
+        metL.appendChild(l);
+        const t0 = performance.now(),
+          dur = 1150;
+        (function step(now) {
+          const k = Math.min((now - t0) / dur, 1);
+          const e = k * k * (3 - 2 * k);
+          const hx = x + (len + 150) * e,
+            hy = y + (len + 150) * e * 0.62;
+          const tx = hx - len * (1 - k * 0.55),
+            ty = hy - len * 0.62 * (1 - k * 0.55);
+          l.setAttribute("x1", tx);
+          l.setAttribute("y1", ty);
+          l.setAttribute("x2", hx);
+          l.setAttribute("y2", hy);
+          l.setAttribute(
+            "opacity",
+            k < 0.15 ? k / 0.15 : 1 - (k - 0.15) / 0.85,
+          );
+          if (k < 1) requestAnimationFrame(step);
+          else l.remove();
+        })(t0);
+      }
+      /* ---------------- 篝火 ----------------
    静态部分（石圈、柴堆、炭床）预渲染成"暗/亮"两套离屏层，每帧按火势闪烁混合；
    火焰本体是若干条贝塞尔火舌，尖端随时间抖动、随鼠标倾斜；火星、焰片、烟是粒子。 */
-const fc = $('#bonfire'), fx = fc.getContext('2d');
-const FW = 620, FH = 480, FX = 310, FY = 368;          // FY：火焰根部
-const RX = 158, RY = 46, RCY = 384;                     // 石圈椭圆
-const DPR = Math.min(devicePixelRatio || 1, 2);
-fc.width = FW * DPR; fc.height = FH * DPR;
-fx.setTransform(DPR, 0, 0, DPR, 0, 0);
-const TAU = Math.PI * 2;
-const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
-const rgb = (c, k = 1) => `rgb(${c[0] * k | 0},${c[1] * k | 0},${c[2] * k | 0})`;
-function rng(seed) {                                    // 固定种子，暗/亮两层形状一致
-  return () => (seed = (seed + 0x6D2B79F5) | 0,
-    ((t => (t ^= t + Math.imul(t ^ (t >>> 7), 61 | t), t ^ (t >>> 14)) >>> 0)(Math.imul(seed ^ (seed >>> 15), 1 | seed))) / 4294967296);
-}
+      const fc = $("#bonfire"),
+        fx = fc.getContext("2d");
+      const FW = 620,
+        FH = 480,
+        FX = 310,
+        FY = 368; // FY：火焰根部
+      const RX = 158,
+        RY = 46,
+        RCY = 384; // 石圈椭圆
+      const DPR = Math.min(devicePixelRatio || 1, 2);
+      fc.width = FW * DPR;
+      fc.height = FH * DPR;
+      fx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      const TAU = Math.PI * 2;
+      const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+      const rgb = (c, k = 1) =>
+        `rgb(${(c[0] * k) | 0},${(c[1] * k) | 0},${(c[2] * k) | 0})`;
+      function rng(seed) {
+        // 固定种子，暗/亮两层形状一致
+        return () => (
+          (seed = (seed + 0x6d2b79f5) | 0),
+          ((t) =>
+            ((t ^= t + Math.imul(t ^ (t >>> 7), 61 | t)), t ^ (t >>> 14)) >>>
+            0)(Math.imul(seed ^ (seed >>> 15), 1 | seed)) / 4294967296
+        );
+      }
 
-/* ---- 交互：弹簧跟随 + 鼠标速度带来的"风" ----
+      /* ---- 交互：弹簧跟随 + 鼠标速度带来的"风" ----
    手感调这里：
    FOLLOW  弹簧刚度，越大越快追上鼠标（0.02 很慢 … 0.09 很快）
    DAMP    阻尼，越大越"稳"不晃；比 FOLLOW 大 2~3 倍时只有轻微过冲
    GUST    鼠标甩动带来的额外推力（0 = 关闭）
    GUST_DECAY  推力每帧保留比例，越接近 1 风停得越慢 */
-const FOLLOW = .045, DAMP = .2, GUST = 1.6, GUST_DECAY = .92;
-let lean = 0, leanV = 0, leanTarget = 0, gust = 0, lastPX = null;
-let vigor = 1, vigorTarget = 1, fireT = 0, flick = 1;
-const aboutEl = $('#scene-about');
-aboutEl.addEventListener('pointermove', e => {
-  const r = fc.getBoundingClientRect();
-  // 整个 About 页都能影响火苗；离火越远影响越弱
-  const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-  leanTarget = clamp(dx, -1.6, 1.6) * 1.1;
-  if (lastPX !== null) gust = clamp(gust + (e.clientX - lastPX) / r.width * GUST, -1.2, 1.2);
-  lastPX = e.clientX;
-});
-aboutEl.addEventListener('pointerleave', () => { leanTarget = 0; lastPX = null; });
-fc.addEventListener('click', () => {
-  vigorTarget = Math.min(vigorTarget + .5, 2.8);
-  for (let i = 0; i < 26; i++) spawnSpark(true);
-});
+      const FOLLOW = 0.045,
+        DAMP = 0.2,
+        GUST = 1.6,
+        GUST_DECAY = 0.92;
+      let lean = 0,
+        leanV = 0,
+        leanTarget = 0,
+        gust = 0,
+        lastPX = null;
+      let vigor = 1,
+        vigorTarget = 1,
+        fireT = 0,
+        flick = 1;
+      const aboutEl = $("#scene-about");
+      aboutEl.addEventListener("pointermove", (e) => {
+        const r = fc.getBoundingClientRect();
+        // 整个 About 页都能影响火苗；离火越远影响越弱
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        leanTarget = clamp(dx, -1.6, 1.6) * 1.1;
+        if (lastPX !== null)
+          gust = clamp(
+            gust + ((e.clientX - lastPX) / r.width) * GUST,
+            -1.2,
+            1.2,
+          );
+        lastPX = e.clientX;
+      });
+      aboutEl.addEventListener("pointerleave", () => {
+        leanTarget = 0;
+        lastPX = null;
+      });
+      fc.addEventListener("click", () => {
+        vigorTarget = Math.min(vigorTarget + 0.5, 2.8);
+        for (let i = 0; i < 26; i++) spawnSpark(true);
+      });
 
-/* ---- 静态层：石头、木柴、炭 ---- */
-const mkLayer = () => {
-  const c = document.createElement('canvas');
-  c.width = FW * DPR; c.height = FH * DPR;
-  const x = c.getContext('2d'); x.setTransform(DPR, 0, 0, DPR, 0, 0);
-  return x;
-};
-const FL = { backD: mkLayer(), backL: mkLayer(), frontD: mkLayer(), frontL: mkLayer() };
+      /* ---- 静态层：石头、木柴、炭 ---- */
+      const mkLayer = () => {
+        const c = document.createElement("canvas");
+        c.width = FW * DPR;
+        c.height = FH * DPR;
+        const x = c.getContext("2d");
+        x.setTransform(DPR, 0, 0, DPR, 0, 0);
+        return x;
+      };
+      const FL = {
+        backD: mkLayer(),
+        backL: mkLayer(),
+        frontD: mkLayer(),
+        frontL: mkLayer(),
+      };
 
-const STONES = (() => {
-  const r = rng(7), out = [], N = 19;
-  for (let i = 0; i < N; i++) {
-    const a = i / N * TAU + (r() - .5) * .12;
-    const front = Math.sin(a);                           // 1 = 最靠前
-    const sc = .78 + front * .2;
-    out.push({
-      x: FX + Math.cos(a) * RX, y: RCY + Math.sin(a) * RY, a,
-      w: (24 + r() * 8) * sc * (.62 + .38 * Math.abs(front)),  // 侧面的石头被透视压窄
-      h: (14 + r() * 5) * sc,
-      rot: -Math.cos(a) * Math.sin(a) * .5 + (r() - .5) * .2,
-      tone: .82 + r() * .3, moss: r() < .2,
-      pts: Array.from({ length: 9 }, () => .86 + r() * .2)
-    });
-  }
-  return out.sort((p, q) => p.y - q.y);
-})();
+      const STONES = (() => {
+        const r = rng(7),
+          out = [],
+          N = 19;
+        for (let i = 0; i < N; i++) {
+          const a = (i / N) * TAU + (r() - 0.5) * 0.12;
+          const front = Math.sin(a); // 1 = 最靠前
+          const sc = 0.78 + front * 0.2;
+          out.push({
+            x: FX + Math.cos(a) * RX,
+            y: RCY + Math.sin(a) * RY,
+            a,
+            w: (24 + r() * 8) * sc * (0.62 + 0.38 * Math.abs(front)), // 侧面的石头被透视压窄
+            h: (14 + r() * 5) * sc,
+            rot: -Math.cos(a) * Math.sin(a) * 0.5 + (r() - 0.5) * 0.2,
+            tone: 0.82 + r() * 0.3,
+            moss: r() < 0.2,
+            pts: Array.from({ length: 9 }, () => 0.86 + r() * 0.2),
+          });
+        }
+        return out.sort((p, q) => p.y - q.y);
+      })();
 
-const STICKS = (() => {
-  const r = rng(23), out = [], N = 9;
-  const apexX = FX + 4, apexY = FY - 96;
-  for (let i = 0; i < N; i++) {
-    const a = i / N * TAU + .3 + (r() - .5) * .3;
-    const bx = FX + Math.cos(a) * (58 + r() * 12), by = FY + 6 + Math.sin(a) * 18;
-    const k = 1.03 + r() * .14;                          // 越过顶点交叉出去
-    out.push({
-      x1: bx, y1: by,
-      x2: bx + (apexX + (r() - .5) * 22 - bx) * k, y2: by + (apexY + (r() - .5) * 14 - by) * k,
-      w: 9 + r() * 4, split: r() < .55, depth: Math.sin(a)
-    });
-  }
-  // 两根平躺、伸向中心的粗柴
-  out.push({ x1: FX - 104, y1: FY + 22, x2: FX - 14, y2: FY + 2, w: 15, split: false, depth: 1.2 });
-  out.push({ x1: FX + 106, y1: FY + 20, x2: FX + 16, y2: FY + 4, w: 14, split: true, depth: 1.25 });
-  return out.sort((p, q) => p.depth - q.depth);
-})();
+      const STICKS = (() => {
+        const r = rng(23),
+          out = [],
+          N = 9;
+        const apexX = FX + 4,
+          apexY = FY - 96;
+        for (let i = 0; i < N; i++) {
+          const a = (i / N) * TAU + 0.3 + (r() - 0.5) * 0.3;
+          const bx = FX + Math.cos(a) * (58 + r() * 12),
+            by = FY + 6 + Math.sin(a) * 18;
+          const k = 1.03 + r() * 0.14; // 越过顶点交叉出去
+          out.push({
+            x1: bx,
+            y1: by,
+            x2: bx + (apexX + (r() - 0.5) * 22 - bx) * k,
+            y2: by + (apexY + (r() - 0.5) * 14 - by) * k,
+            w: 9 + r() * 4,
+            split: r() < 0.55,
+            depth: Math.sin(a),
+          });
+        }
+        // 两根平躺、伸向中心的粗柴
+        out.push({
+          x1: FX - 104,
+          y1: FY + 22,
+          x2: FX - 14,
+          y2: FY + 2,
+          w: 15,
+          split: false,
+          depth: 1.2,
+        });
+        out.push({
+          x1: FX + 106,
+          y1: FY + 20,
+          x2: FX + 16,
+          y2: FY + 4,
+          w: 14,
+          split: true,
+          depth: 1.25,
+        });
+        return out.sort((p, q) => p.depth - q.depth);
+      })();
 
-const COALS = (() => {
-  const r = rng(91), out = [];
-  for (let i = 0; i < 46; i++) {
-    const a = r() * TAU, d = Math.sqrt(r());
-    out.push({ x: FX + Math.cos(a) * 80 * d, y: FY + 12 + Math.sin(a) * 20 * d, r: 2 + r() * 4.5, hot: 1 - d * .8 });
-  }
-  return out;
-})();
+      const COALS = (() => {
+        const r = rng(91),
+          out = [];
+        for (let i = 0; i < 46; i++) {
+          const a = r() * TAU,
+            d = Math.sqrt(r());
+          out.push({
+            x: FX + Math.cos(a) * 80 * d,
+            y: FY + 12 + Math.sin(a) * 20 * d,
+            r: 2 + r() * 4.5,
+            hot: 1 - d * 0.8,
+          });
+        }
+        return out;
+      })();
 
-function stonePath(x, s) {
-  x.beginPath();
-  const n = s.pts.length;
-  const P = s.pts.map((m, i) => {
-    const t = i / n * TAU;
-    let py = Math.sin(t) * s.h * m;
-    if (py > 0) py *= .72;                               // 底部压平，像放在地上
-    return [Math.cos(t) * s.w * m, py];
-  });
-  for (let i = 0; i <= n; i++) {
-    const p = P[i % n], q = P[(i + 1) % n];
-    const mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2;
-    i === 0 ? x.moveTo(mx, my) : x.quadraticCurveTo(p[0], p[1], mx, my);
-  }
-  x.closePath();
-}
-function drawStone(x, s, light, lit) {
-  x.save(); x.translate(s.x, s.y); x.rotate(s.rot);
-  stonePath(x, s);
-  const base = light ? [150, 146, 140] : [92, 90, 88];
-  if (!lit) {
-    const g = x.createLinearGradient(0, -s.h, 0, s.h);
-    g.addColorStop(0, rgb(base, s.tone * 1.25));
-    g.addColorStop(.55, rgb(base, s.tone * .8));
-    g.addColorStop(1, rgb(base, s.tone * .42));
-    x.fillStyle = g; x.fill();
-    x.strokeStyle = 'rgba(0,0,0,.35)'; x.lineWidth = 1; x.stroke();
-    if (s.moss) {
-      x.save(); stonePath(x, s); x.clip();
-      x.fillStyle = light ? 'rgba(98,120,70,.4)' : 'rgba(60,82,48,.5)';
-      x.beginPath(); x.ellipse(s.w * .3, s.h * .45, s.w * .7, s.h * .5, 0, 0, TAU); x.fill();
-      x.restore();
-    }
-  } else {
-    // 朝火的一面被照亮：方向向量转到石头的局部坐标
-    const dx = FX - s.x, dy = FY - 20 - s.y, len = Math.hypot(dx, dy) || 1;
-    const c = Math.cos(-s.rot), sn = Math.sin(-s.rot);
-    const ux = (dx * c - dy * sn) / len, uy = (dx * sn + dy * c) / len;
-    const g = x.createLinearGradient(-ux * s.w, -uy * s.h, ux * s.w, uy * s.h);
-    const near = .55 + .45 * Math.max(Math.sin(s.a), 0);  // 前排离观者近，看得到更多亮面
-    g.addColorStop(0, 'rgba(255,140,50,0)');
-    g.addColorStop(.6, `rgba(255,150,60,${.35 * near})`);
-    g.addColorStop(1, `rgba(255,196,120,${.85 * near})`);
-    x.fillStyle = g; x.fill();
-  }
-  x.restore();
-}
+      function stonePath(x, s) {
+        x.beginPath();
+        const n = s.pts.length;
+        const P = s.pts.map((m, i) => {
+          const t = (i / n) * TAU;
+          let py = Math.sin(t) * s.h * m;
+          if (py > 0) py *= 0.72; // 底部压平，像放在地上
+          return [Math.cos(t) * s.w * m, py];
+        });
+        for (let i = 0; i <= n; i++) {
+          const p = P[i % n],
+            q = P[(i + 1) % n];
+          const mx = (p[0] + q[0]) / 2,
+            my = (p[1] + q[1]) / 2;
+          i === 0 ? x.moveTo(mx, my) : x.quadraticCurveTo(p[0], p[1], mx, my);
+        }
+        x.closePath();
+      }
+      function drawStone(x, s, light, lit) {
+        x.save();
+        x.translate(s.x, s.y);
+        x.rotate(s.rot);
+        stonePath(x, s);
+        const base = light ? [150, 146, 140] : [92, 90, 88];
+        if (!lit) {
+          const g = x.createLinearGradient(0, -s.h, 0, s.h);
+          g.addColorStop(0, rgb(base, s.tone * 1.25));
+          g.addColorStop(0.55, rgb(base, s.tone * 0.8));
+          g.addColorStop(1, rgb(base, s.tone * 0.42));
+          x.fillStyle = g;
+          x.fill();
+          x.strokeStyle = "rgba(0,0,0,.35)";
+          x.lineWidth = 1;
+          x.stroke();
+          if (s.moss) {
+            x.save();
+            stonePath(x, s);
+            x.clip();
+            x.fillStyle = light ? "rgba(98,120,70,.4)" : "rgba(60,82,48,.5)";
+            x.beginPath();
+            x.ellipse(s.w * 0.3, s.h * 0.45, s.w * 0.7, s.h * 0.5, 0, 0, TAU);
+            x.fill();
+            x.restore();
+          }
+        } else {
+          // 朝火的一面被照亮：方向向量转到石头的局部坐标
+          const dx = FX - s.x,
+            dy = FY - 20 - s.y,
+            len = Math.hypot(dx, dy) || 1;
+          const c = Math.cos(-s.rot),
+            sn = Math.sin(-s.rot);
+          const ux = (dx * c - dy * sn) / len,
+            uy = (dx * sn + dy * c) / len;
+          const g = x.createLinearGradient(
+            -ux * s.w,
+            -uy * s.h,
+            ux * s.w,
+            uy * s.h,
+          );
+          const near = 0.55 + 0.45 * Math.max(Math.sin(s.a), 0); // 前排离观者近，看得到更多亮面
+          g.addColorStop(0, "rgba(255,140,50,0)");
+          g.addColorStop(0.6, `rgba(255,150,60,${0.35 * near})`);
+          g.addColorStop(1, `rgba(255,196,120,${0.85 * near})`);
+          x.fillStyle = g;
+          x.fill();
+        }
+        x.restore();
+      }
 
-function drawLog(x, s, light, lit) {
-  const dx = s.x2 - s.x1, dy = s.y2 - s.y1, len = Math.hypot(dx, dy);
-  x.save(); x.translate(s.x1, s.y1); x.rotate(Math.atan2(dy, dx));
-  const w0 = s.w / 2, w1 = s.w * .38;
-  const body = () => {
-    x.beginPath();
-    x.moveTo(0, -w0); x.lineTo(len, -w1);
-    x.ellipse(len, 0, w1 * .45, w1, 0, -Math.PI / 2, Math.PI / 2);
-    x.lineTo(0, w0);
-    x.ellipse(0, 0, w0 * .45, w0, 0, Math.PI / 2, Math.PI * 1.5);
-    x.closePath();
-  };
-  body();
-  if (!lit) {
-    const g = x.createLinearGradient(0, -w0, 0, w0);
-    if (s.split) {                                       // 劈开的柴：一侧浅色木芯
-      g.addColorStop(0, light ? '#E6C79A' : '#C9A274');
-      g.addColorStop(.45, light ? '#C79C68' : '#9C754C');
-      g.addColorStop(.5, light ? '#6E4C2E' : '#4A3220');
-      g.addColorStop(1, light ? '#3E2A1A' : '#22170F');
-    } else {
-      g.addColorStop(0, light ? '#9A7650' : '#7E5D3E');
-      g.addColorStop(.5, light ? '#6A4A32' : '#523A27');
-      g.addColorStop(1, light ? '#2E2016' : '#1A120C');
-    }
-    x.fillStyle = g; x.fill();
-    // 树皮纹理
-    x.strokeStyle = 'rgba(0,0,0,.28)'; x.lineWidth = .8;
-    for (let k = -1; k <= 1; k++) {
-      x.beginPath(); x.moveTo(len * .05, k * w0 * .45); x.lineTo(len * .85, k * w1 * .45); x.stroke();
-    }
-    // 靠火的一端烧黑
-    const ch = x.createLinearGradient(len * .45, 0, len, 0);
-    ch.addColorStop(0, 'rgba(15,8,4,0)'); ch.addColorStop(1, 'rgba(15,8,4,.92)');
-    body(); x.fillStyle = ch; x.fill();
-    // 根部截面
-    x.fillStyle = s.split ? (light ? '#E9CFA4' : '#B98F60') : (light ? '#C9A57A' : '#8E6A46');
-    x.beginPath(); x.ellipse(0, 0, w0 * .45, w0 * .9, 0, 0, TAU); x.fill();
-    x.strokeStyle = 'rgba(60,35,18,.6)'; x.lineWidth = .7;
-    x.beginPath(); x.ellipse(0, 0, w0 * .22, w0 * .45, 0, 0, TAU); x.stroke();
-  } else {
-    // 朝上的一侧受光 + 烧红的炭头
-    const g = x.createLinearGradient(0, -w0, 0, w0);
-    g.addColorStop(0, 'rgba(255,190,110,.7)'); g.addColorStop(.5, 'rgba(255,140,60,.3)'); g.addColorStop(1, 'rgba(255,90,20,0)');
-    x.fillStyle = g; x.fill();
-    const e = x.createLinearGradient(len * .55, 0, len, 0);
-    e.addColorStop(0, 'rgba(255,80,20,0)'); e.addColorStop(.75, 'rgba(255,90,25,.6)'); e.addColorStop(1, 'rgba(255,170,80,.85)');
-    body(); x.fillStyle = e; x.fill();
-  }
-  x.restore();
-}
+      function drawLog(x, s, light, lit) {
+        const dx = s.x2 - s.x1,
+          dy = s.y2 - s.y1,
+          len = Math.hypot(dx, dy);
+        x.save();
+        x.translate(s.x1, s.y1);
+        x.rotate(Math.atan2(dy, dx));
+        const w0 = s.w / 2,
+          w1 = s.w * 0.38;
+        const body = () => {
+          x.beginPath();
+          x.moveTo(0, -w0);
+          x.lineTo(len, -w1);
+          x.ellipse(len, 0, w1 * 0.45, w1, 0, -Math.PI / 2, Math.PI / 2);
+          x.lineTo(0, w0);
+          x.ellipse(0, 0, w0 * 0.45, w0, 0, Math.PI / 2, Math.PI * 1.5);
+          x.closePath();
+        };
+        body();
+        if (!lit) {
+          const g = x.createLinearGradient(0, -w0, 0, w0);
+          if (s.split) {
+            // 劈开的柴：一侧浅色木芯
+            g.addColorStop(0, light ? "#E6C79A" : "#C9A274");
+            g.addColorStop(0.45, light ? "#C79C68" : "#9C754C");
+            g.addColorStop(0.5, light ? "#6E4C2E" : "#4A3220");
+            g.addColorStop(1, light ? "#3E2A1A" : "#22170F");
+          } else {
+            g.addColorStop(0, light ? "#9A7650" : "#7E5D3E");
+            g.addColorStop(0.5, light ? "#6A4A32" : "#523A27");
+            g.addColorStop(1, light ? "#2E2016" : "#1A120C");
+          }
+          x.fillStyle = g;
+          x.fill();
+          // 树皮纹理
+          x.strokeStyle = "rgba(0,0,0,.28)";
+          x.lineWidth = 0.8;
+          for (let k = -1; k <= 1; k++) {
+            x.beginPath();
+            x.moveTo(len * 0.05, k * w0 * 0.45);
+            x.lineTo(len * 0.85, k * w1 * 0.45);
+            x.stroke();
+          }
+          // 靠火的一端烧黑
+          const ch = x.createLinearGradient(len * 0.45, 0, len, 0);
+          ch.addColorStop(0, "rgba(15,8,4,0)");
+          ch.addColorStop(1, "rgba(15,8,4,.92)");
+          body();
+          x.fillStyle = ch;
+          x.fill();
+          // 根部截面
+          x.fillStyle = s.split
+            ? light
+              ? "#E9CFA4"
+              : "#B98F60"
+            : light
+              ? "#C9A57A"
+              : "#8E6A46";
+          x.beginPath();
+          x.ellipse(0, 0, w0 * 0.45, w0 * 0.9, 0, 0, TAU);
+          x.fill();
+          x.strokeStyle = "rgba(60,35,18,.6)";
+          x.lineWidth = 0.7;
+          x.beginPath();
+          x.ellipse(0, 0, w0 * 0.22, w0 * 0.45, 0, 0, TAU);
+          x.stroke();
+        } else {
+          // 朝上的一侧受光 + 烧红的炭头
+          const g = x.createLinearGradient(0, -w0, 0, w0);
+          g.addColorStop(0, "rgba(255,190,110,.7)");
+          g.addColorStop(0.5, "rgba(255,140,60,.3)");
+          g.addColorStop(1, "rgba(255,90,20,0)");
+          x.fillStyle = g;
+          x.fill();
+          const e = x.createLinearGradient(len * 0.55, 0, len, 0);
+          e.addColorStop(0, "rgba(255,80,20,0)");
+          e.addColorStop(0.75, "rgba(255,90,25,.6)");
+          e.addColorStop(1, "rgba(255,170,80,.85)");
+          body();
+          x.fillStyle = e;
+          x.fill();
+        }
+        x.restore();
+      }
 
-function buildFire() {
-  const light = document.documentElement.dataset.theme === 'light';
-  for (const k in FL) FL[k].clearRect(0, 0, FW, FH);
-  for (const lit of [false, true]) {
-    const b = lit ? FL.backL : FL.backD, f = lit ? FL.frontL : FL.frontD;
-    // 地面：石圈投影 + 圈内的焦土
-    if (!lit) {
-      b.fillStyle = light ? 'rgba(60,40,25,.12)' : 'rgba(0,0,0,.28)';
-      b.beginPath(); b.ellipse(FX, RCY + 6, RX + 22, RY + 10, 0, 0, TAU); b.fill();
-      const pit = b.createRadialGradient(FX, RCY - 4, 10, FX, RCY, RX);
-      pit.addColorStop(0, light ? '#5A3420' : '#3A1E12');
-      pit.addColorStop(1, light ? '#7A5A44' : '#24160F');
-      b.fillStyle = pit; b.beginPath(); b.ellipse(FX, RCY, RX - 6, RY - 4, 0, 0, TAU); b.fill();
-    } else {
-      const pit = b.createRadialGradient(FX, FY + 10, 6, FX, FY + 10, RX * .8);
-      pit.addColorStop(0, 'rgba(255,110,30,.95)');
-      pit.addColorStop(.3, 'rgba(200,70,20,.45)');
-      pit.addColorStop(1, 'rgba(150,50,15,0)');
-      b.fillStyle = pit; b.beginPath(); b.ellipse(FX, RCY, RX - 6, RY - 4, 0, 0, TAU); b.fill();
-    }
-    for (const s of STONES) if (Math.sin(s.a) <= .25) drawStone(b, s, light, lit);
-    for (const c of COALS) {
-      b.fillStyle = lit ? `rgba(255,${90 + c.hot * 110 | 0},30,${c.hot})` : (light ? '#2C1A10' : '#160D08');
-      b.beginPath(); b.ellipse(c.x, c.y, c.r, c.r * .6, 0, 0, TAU); b.fill();
-    }
-    // 朝向观者的柴挡在火焰前面，火从柴缝里窜出来
-    for (const s of STICKS) drawLog(s.depth > .3 ? f : b, s, light, lit);
-    for (const s of STONES) if (Math.sin(s.a) > .25) drawStone(f, s, light, lit);
-  }
-  buildFire.theme = document.documentElement.dataset.theme;
-}
-buildFire();
+      function buildFire() {
+        const light = document.documentElement.dataset.theme === "light";
+        for (const k in FL) FL[k].clearRect(0, 0, FW, FH);
+        for (const lit of [false, true]) {
+          const b = lit ? FL.backL : FL.backD,
+            f = lit ? FL.frontL : FL.frontD;
+          // 地面：石圈投影 + 圈内的焦土
+          if (!lit) {
+            b.fillStyle = light ? "rgba(60,40,25,.12)" : "rgba(0,0,0,.28)";
+            b.beginPath();
+            b.ellipse(FX, RCY + 6, RX + 22, RY + 10, 0, 0, TAU);
+            b.fill();
+            const pit = b.createRadialGradient(FX, RCY - 4, 10, FX, RCY, RX);
+            pit.addColorStop(0, light ? "#5A3420" : "#3A1E12");
+            pit.addColorStop(1, light ? "#7A5A44" : "#24160F");
+            b.fillStyle = pit;
+            b.beginPath();
+            b.ellipse(FX, RCY, RX - 6, RY - 4, 0, 0, TAU);
+            b.fill();
+          } else {
+            const pit = b.createRadialGradient(
+              FX,
+              FY + 10,
+              6,
+              FX,
+              FY + 10,
+              RX * 0.8,
+            );
+            pit.addColorStop(0, "rgba(255,110,30,.95)");
+            pit.addColorStop(0.3, "rgba(200,70,20,.45)");
+            pit.addColorStop(1, "rgba(150,50,15,0)");
+            b.fillStyle = pit;
+            b.beginPath();
+            b.ellipse(FX, RCY, RX - 6, RY - 4, 0, 0, TAU);
+            b.fill();
+          }
+          for (const s of STONES)
+            if (Math.sin(s.a) <= 0.25) drawStone(b, s, light, lit);
+          for (const c of COALS) {
+            b.fillStyle = lit
+              ? `rgba(255,${(90 + c.hot * 110) | 0},30,${c.hot})`
+              : light
+                ? "#2C1A10"
+                : "#160D08";
+            b.beginPath();
+            b.ellipse(c.x, c.y, c.r, c.r * 0.6, 0, 0, TAU);
+            b.fill();
+          }
+          // 朝向观者的柴挡在火焰前面，火从柴缝里窜出来
+          for (const s of STICKS) drawLog(s.depth > 0.3 ? f : b, s, light, lit);
+          for (const s of STONES)
+            if (Math.sin(s.a) > 0.25) drawStone(f, s, light, lit);
+        }
+        buildFire.theme = document.documentElement.dataset.theme;
+      }
+      buildFire();
 
-/* ---- 火舌：三层，外红 → 橙 → 内芯，中间高两边矮 ---- */
-const TONGUES = (() => {
-  const r = rng(5), out = [];
-  const add = (n, spread, hMin, hMax, wMin, wMax, layer) => {
-    for (let i = 0; i < n; i++) {
-      const u = n === 1 ? 0 : i / (n - 1) * 2 - 1;      // -1..1
-      const off = u * spread + (r() - .5) * 10;
-      const center = 1 - Math.abs(u) * .5;
-      out.push({ off, h: (hMin + r() * (hMax - hMin)) * center, w: wMin + r() * (wMax - wMin),
-        ph: r() * TAU, sp: .8 + r() * .9, layer });
-    }
-  };
-  add(8, 54, 150, 225, 44, 60, 0);
-  add(6, 38, 115, 175, 32, 42, 1);
-  add(4, 20, 70, 110, 22, 30, 2);
-  return out;
-})();
-const TCOL = [
-  [[255, 70, 20], [255, 120, 30]],
-  [[255, 140, 30], [255, 190, 60]],
-  [[255, 220, 120], [255, 250, 220]]
-];
-function tongue(t, T, light) {
-  // 高度是几个不同频率的正弦叠加，偶尔"窜"一下
-  const n = Math.sin(fireT * 2.1 * t.sp + t.ph) * .5 + Math.sin(fireT * 5.3 * t.sp + t.ph * 1.7) * .28
-    + Math.max(Math.sin(fireT * 1.3 + t.ph * 3), 0) ** 6 * .6;
-  const vg = .6 + vigor * .4;
-  const h = t.h * (.82 + n * .26) * vg * (T === 2 ? 1 : 1 + (vigor - 1) * .25);
-  const w = t.w * (.9 + vigor * .12);
-  const bx = FX + t.off * (.9 + vigor * .1), by = FY + 4;
-  const sway = lean * .5;
-  const P = (s) => {                                     // s: 0 根部 → 1 尖端
-    const wob = Math.sin(fireT * 6 * t.sp - s * 5 + t.ph) * 6 * s * s;
-    return [bx + sway * h * s * s + wob, by - h * s];
-  };
-  fx.beginPath();
-  const N = 14, pts = [];
-  for (let i = 0; i <= N; i++) {
-    const s = i / N;
-    // 根部圆、尖端收成尖角：宽度 ∝ (1-s)^1.6 · √s
-    const half = w * .5 * Math.pow(1 - s, 1.5) * (.55 + .45 * Math.sqrt(Math.min(s * 2.5, 1)));
-    const [cx, cy] = P(s);
-    pts.push([cx, cy, half]);
-  }
-  pts.forEach(([cx, cy, hw], i) => i ? fx.lineTo(cx - hw, cy) : fx.moveTo(cx - hw, cy));
-  for (let i = N; i >= 0; i--) fx.lineTo(pts[i][0] + pts[i][2], pts[i][1]);
-  fx.closePath();
-  const [c0, c1] = TCOL[T];
-  const g = fx.createLinearGradient(0, by, 0, by - h);
-  const a = light ? 1.15 : 1;
-  g.addColorStop(0, `rgba(${c1},${.35 * a})`);
-  g.addColorStop(.18, `rgba(${c1},${.85 * a})`);
-  g.addColorStop(.6, `rgba(${c0},${.6 * a})`);
-  g.addColorStop(1, `rgba(${c0},0)`);
-  fx.fillStyle = g; fx.fill();
-}
+      /* ---- 火舌：三层，外红 → 橙 → 内芯，中间高两边矮 ---- */
+      const TONGUES = (() => {
+        const r = rng(5),
+          out = [];
+        const add = (n, spread, hMin, hMax, wMin, wMax, layer) => {
+          for (let i = 0; i < n; i++) {
+            const u = n === 1 ? 0 : (i / (n - 1)) * 2 - 1; // -1..1
+            const off = u * spread + (r() - 0.5) * 10;
+            const center = 1 - Math.abs(u) * 0.5;
+            out.push({
+              off,
+              h: (hMin + r() * (hMax - hMin)) * center,
+              w: wMin + r() * (wMax - wMin),
+              ph: r() * TAU,
+              sp: 0.8 + r() * 0.9,
+              layer,
+            });
+          }
+        };
+        add(8, 54, 150, 225, 44, 60, 0);
+        add(6, 38, 115, 175, 32, 42, 1);
+        add(4, 20, 70, 110, 22, 30, 2);
+        return out;
+      })();
+      const TCOL = [
+        [
+          [255, 70, 20],
+          [255, 120, 30],
+        ],
+        [
+          [255, 140, 30],
+          [255, 190, 60],
+        ],
+        [
+          [255, 220, 120],
+          [255, 250, 220],
+        ],
+      ];
+      function tongue(t, T, light) {
+        // 高度是几个不同频率的正弦叠加，偶尔"窜"一下
+        const n =
+          Math.sin(fireT * 2.1 * t.sp + t.ph) * 0.5 +
+          Math.sin(fireT * 5.3 * t.sp + t.ph * 1.7) * 0.28 +
+          Math.max(Math.sin(fireT * 1.3 + t.ph * 3), 0) ** 6 * 0.6;
+        const vg = 0.6 + vigor * 0.4;
+        const h =
+          t.h * (0.82 + n * 0.26) * vg * (T === 2 ? 1 : 1 + (vigor - 1) * 0.25);
+        const w = t.w * (0.9 + vigor * 0.12);
+        const bx = FX + t.off * (0.9 + vigor * 0.1),
+          by = FY + 4;
+        const sway = lean * 0.5;
+        const P = (s) => {
+          // s: 0 根部 → 1 尖端
+          const wob = Math.sin(fireT * 6 * t.sp - s * 5 + t.ph) * 6 * s * s;
+          return [bx + sway * h * s * s + wob, by - h * s];
+        };
+        fx.beginPath();
+        const N = 14,
+          pts = [];
+        for (let i = 0; i <= N; i++) {
+          const s = i / N;
+          // 根部圆、尖端收成尖角：宽度 ∝ (1-s)^1.6 · √s
+          const half =
+            w *
+            0.5 *
+            Math.pow(1 - s, 1.5) *
+            (0.55 + 0.45 * Math.sqrt(Math.min(s * 2.5, 1)));
+          const [cx, cy] = P(s);
+          pts.push([cx, cy, half]);
+        }
+        pts.forEach(([cx, cy, hw], i) =>
+          i ? fx.lineTo(cx - hw, cy) : fx.moveTo(cx - hw, cy),
+        );
+        for (let i = N; i >= 0; i--)
+          fx.lineTo(pts[i][0] + pts[i][2], pts[i][1]);
+        fx.closePath();
+        const [c0, c1] = TCOL[T];
+        const g = fx.createLinearGradient(0, by, 0, by - h);
+        const a = light ? 1.15 : 1;
+        g.addColorStop(0, `rgba(${c1},${0.35 * a})`);
+        g.addColorStop(0.18, `rgba(${c1},${0.85 * a})`);
+        g.addColorStop(0.6, `rgba(${c0},${0.6 * a})`);
+        g.addColorStop(1, `rgba(${c0},0)`);
+        fx.fillStyle = g;
+        fx.fill();
+      }
 
-/* ---- 粒子：脱离的焰片、火星、烟 ---- */
-let licks = [], sparks = [], smoke = [];
-function spawnLick() {
-  licks.push({ x: FX + (Math.random() - .5) * 60, y: FY - 70 - Math.random() * 50 * vigor,
-    vy: -1.6 - Math.random() * 1.4, s: 6 + Math.random() * 8, life: 1, d: .04 + Math.random() * .03 });
-}
-function spawnSpark(burst) {
-  sparks.push({ x: FX + (Math.random() - .5) * 70, y: FY - 30 - Math.random() * 60,
-    vx: (Math.random() - .5) * (burst ? 3 : 1.2), vy: -(1.4 + Math.random() * 2.2) * (burst ? 1.6 : 1),
-    life: 1, d: .006 + Math.random() * .01, s: .8 + Math.random() * 1.5, ph: Math.random() * TAU });
-}
-function spawnSmoke() {
-  smoke.push({ x: FX + (Math.random() - .5) * 30, y: FY - 140 * (.7 + vigor * .3),
-    vx: (Math.random() - .5) * .3, vy: -.5 - Math.random() * .4, r: 10, life: 1, d: .006 + Math.random() * .004 });
-}
+      /* ---- 粒子：脱离的焰片、火星、烟 ---- */
+      let licks = [],
+        sparks = [],
+        smoke = [];
+      function spawnLick() {
+        licks.push({
+          x: FX + (Math.random() - 0.5) * 60,
+          y: FY - 70 - Math.random() * 50 * vigor,
+          vy: -1.6 - Math.random() * 1.4,
+          s: 6 + Math.random() * 8,
+          life: 1,
+          d: 0.04 + Math.random() * 0.03,
+        });
+      }
+      function spawnSpark(burst) {
+        sparks.push({
+          x: FX + (Math.random() - 0.5) * 70,
+          y: FY - 30 - Math.random() * 60,
+          vx: (Math.random() - 0.5) * (burst ? 3 : 1.2),
+          vy: -(1.4 + Math.random() * 2.2) * (burst ? 1.6 : 1),
+          life: 1,
+          d: 0.006 + Math.random() * 0.01,
+          s: 0.8 + Math.random() * 1.5,
+          ph: Math.random() * TAU,
+        });
+      }
+      function spawnSmoke() {
+        smoke.push({
+          x: FX + (Math.random() - 0.5) * 30,
+          y: FY - 140 * (0.7 + vigor * 0.3),
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: -0.5 - Math.random() * 0.4,
+          r: 10,
+          life: 1,
+          d: 0.006 + Math.random() * 0.004,
+        });
+      }
 
-function drawFire(dt = 16) {
-  if (buildFire.theme !== document.documentElement.dataset.theme) buildFire();
-  const light = document.documentElement.dataset.theme === 'light';
-  const k = Math.min(dt / 16.7, 3);
-  // 弹簧：比之前的线性插值快很多，带一点过冲，像火被风推了一下
-  gust *= Math.pow(GUST_DECAY, k);
-  const target = clamp(leanTarget + gust, -2, 2);
-  leanV += ((target - lean) * FOLLOW - leanV * DAMP) * k;
-  lean += leanV * k;
-  vigorTarget += (1 - vigorTarget) * .0035 * k;
-  vigor += (vigorTarget - vigor) * .06 * k;
-  if (!RM) fireT += dt / 1000;
-  flick = RM ? 1 : .86 + Math.sin(fireT * 9.1) * .05 + Math.sin(fireT * 23.7) * .04 + (Math.random() - .5) * .06;
-  const glow = clamp(flick * (.55 + vigor * .32), 0, 1);
-  fc.parentElement.style.setProperty('--fire', glow.toFixed(3));
+      function drawFire(dt = 16) {
+        if (buildFire.theme !== document.documentElement.dataset.theme)
+          buildFire();
+        const light = document.documentElement.dataset.theme === "light";
+        const k = Math.min(dt / 16.7, 3);
+        // 弹簧：比之前的线性插值快很多，带一点过冲，像火被风推了一下
+        gust *= Math.pow(GUST_DECAY, k);
+        const target = clamp(leanTarget + gust, -2, 2);
+        leanV += ((target - lean) * FOLLOW - leanV * DAMP) * k;
+        lean += leanV * k;
+        vigorTarget += (1 - vigorTarget) * 0.0035 * k;
+        vigor += (vigorTarget - vigor) * 0.06 * k;
+        if (!RM) fireT += dt / 1000;
+        flick = RM
+          ? 1
+          : 0.86 +
+            Math.sin(fireT * 9.1) * 0.05 +
+            Math.sin(fireT * 23.7) * 0.04 +
+            (Math.random() - 0.5) * 0.06;
+        const glow = clamp(flick * (0.55 + vigor * 0.32), 0, 1);
+        fc.parentElement.style.setProperty("--fire", glow.toFixed(3));
 
-  fx.clearRect(0, 0, FW, FH);
-  // 1. 地面上扩散的暖光（画布内只做近处，远处由 CSS 光晕接力）
-  fx.save(); fx.translate(FX, RCY); fx.scale(1, .32);    // 压扁成椭圆渐变，边缘自然淡出
-  const gr = fx.createRadialGradient(0, 0, 10, 0, 0, 300);
-  gr.addColorStop(0, `rgba(255,150,60,${(light ? .22 : .3) * glow})`);
-  gr.addColorStop(.5, `rgba(255,130,50,${(light ? .08 : .1) * glow})`);
-  gr.addColorStop(1, 'rgba(255,120,40,0)');
-  fx.fillStyle = gr; fx.fillRect(-310, -300, 620, 600); fx.restore();
-  // 2. 后排：石头 / 炭 / 柴
-  fx.drawImage(FL.backD.canvas, 0, 0, FW, FH);
-  fx.globalAlpha = glow; fx.drawImage(FL.backL.canvas, 0, 0, FW, FH); fx.globalAlpha = 1;
-  // 3. 火舌
-  fx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-  for (let T = 0; T < 3; T++) for (const t of TONGUES) if (t.layer === T) tongue(t, T, light);
-  if (!RM && Math.random() < .12 * vigor) spawnLick();
-  for (const p of licks) {
-    p.x += lean * .9 * k; p.y += p.vy * k; p.life -= p.d * k;
-    const a = Math.max(p.life, 0), s = p.s * a;
-    fx.fillStyle = `rgba(255,${130 + a * 80 | 0},40,${a * .7})`;
-    fx.beginPath(); fx.moveTo(p.x, p.y - s * 1.8);
-    fx.quadraticCurveTo(p.x + s * .7, p.y, p.x, p.y + s * .6);
-    fx.quadraticCurveTo(p.x - s * .7, p.y, p.x, p.y - s * 1.8); fx.fill();
-  }
-  // 焰心辉光
-  const cg = fx.createRadialGradient(FX + lean * 8, FY - 34, 2, FX + lean * 8, FY - 34, 80 * (.8 + vigor * .25));
-  cg.addColorStop(0, `rgba(255,236,190,${.5 * glow})`); cg.addColorStop(1, 'rgba(255,150,50,0)');
-  fx.fillStyle = cg; fx.beginPath(); fx.arc(FX + lean * 8, FY - 34, 100, 0, TAU); fx.fill();
-  fx.globalCompositeOperation = 'source-over';
-  // 4. 前排柴与石头，再让一部分火舌半透明地叠回柴前，看起来从柴缝里窜出
-  fx.drawImage(FL.frontD.canvas, 0, 0, FW, FH);
-  fx.globalAlpha = glow; fx.drawImage(FL.frontL.canvas, 0, 0, FW, FH);
-  fx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-  fx.globalAlpha = .5;
-  for (let T = 1; T < 3; T++) for (const t of TONGUES) if (t.layer === T) tongue(t, T, light);
-  fx.globalAlpha = 1; fx.globalCompositeOperation = 'source-over';
-  // 5. 烟
-  if (!RM && Math.random() < .08) spawnSmoke();
-  for (const p of smoke) {
-    p.x += (p.vx + lean * .25) * k; p.y += p.vy * k; p.r += .35 * k; p.life -= p.d * k;
-    const a = Math.max(p.life, 0) * (light ? .1 : .07);
-    const g = fx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-    g.addColorStop(0, light ? `rgba(110,105,100,${a})` : `rgba(200,200,205,${a})`); g.addColorStop(1, 'rgba(160,160,160,0)');
-    fx.fillStyle = g; fx.beginPath(); fx.arc(p.x, p.y, p.r, 0, TAU); fx.fill();
-  }
-  // 6. 火星：带短拖尾，左右飘
-  if (!RM) for (let i = 0; i < (Math.random() < .35 * vigor ? 1 : 0); i++) spawnSpark(false);
-  fx.globalCompositeOperation = light ? 'source-over' : 'lighter';
-  fx.lineCap = 'round';
-  for (const p of sparks) {
-    const ox = p.x, oy = p.y;
-    p.vx += (lean * .03 + Math.sin(fireT * 3 + p.ph) * .04) * k; p.vy -= .01 * k;
-    p.x += p.vx * k; p.y += p.vy * k; p.life -= p.d * k;
-    const a = Math.max(p.life, 0);
-    fx.strokeStyle = `rgba(255,${170 + a * 70 | 0},${80 + a * 80 | 0},${a})`;
-    fx.lineWidth = p.s * (.5 + a * .5);
-    fx.beginPath(); fx.moveTo(ox - p.vx * 2, oy - p.vy * 2); fx.lineTo(p.x, p.y); fx.stroke();
-  }
-  fx.globalCompositeOperation = 'source-over';
-  licks = licks.filter(p => p.life > 0);
-  sparks = sparks.filter(p => p.life > 0 && p.y > -10);
-  smoke = smoke.filter(p => p.life > 0);
-}
+        fx.clearRect(0, 0, FW, FH);
+        // 1. 地面上扩散的暖光（画布内只做近处，远处由 CSS 光晕接力）
+        fx.save();
+        fx.translate(FX, RCY);
+        fx.scale(1, 0.32); // 压扁成椭圆渐变，边缘自然淡出
+        const gr = fx.createRadialGradient(0, 0, 10, 0, 0, 300);
+        gr.addColorStop(0, `rgba(255,150,60,${(light ? 0.22 : 0.3) * glow})`);
+        gr.addColorStop(0.5, `rgba(255,130,50,${(light ? 0.08 : 0.1) * glow})`);
+        gr.addColorStop(1, "rgba(255,120,40,0)");
+        fx.fillStyle = gr;
+        fx.fillRect(-310, -300, 620, 600);
+        fx.restore();
+        // 2. 后排：石头 / 炭 / 柴
+        fx.drawImage(FL.backD.canvas, 0, 0, FW, FH);
+        fx.globalAlpha = glow;
+        fx.drawImage(FL.backL.canvas, 0, 0, FW, FH);
+        fx.globalAlpha = 1;
+        // 3. 火舌
+        fx.globalCompositeOperation = light ? "source-over" : "lighter";
+        for (let T = 0; T < 3; T++)
+          for (const t of TONGUES) if (t.layer === T) tongue(t, T, light);
+        if (!RM && Math.random() < 0.12 * vigor) spawnLick();
+        for (const p of licks) {
+          p.x += lean * 0.9 * k;
+          p.y += p.vy * k;
+          p.life -= p.d * k;
+          const a = Math.max(p.life, 0),
+            s = p.s * a;
+          fx.fillStyle = `rgba(255,${(130 + a * 80) | 0},40,${a * 0.7})`;
+          fx.beginPath();
+          fx.moveTo(p.x, p.y - s * 1.8);
+          fx.quadraticCurveTo(p.x + s * 0.7, p.y, p.x, p.y + s * 0.6);
+          fx.quadraticCurveTo(p.x - s * 0.7, p.y, p.x, p.y - s * 1.8);
+          fx.fill();
+        }
+        // 焰心辉光
+        const cg = fx.createRadialGradient(
+          FX + lean * 8,
+          FY - 34,
+          2,
+          FX + lean * 8,
+          FY - 34,
+          80 * (0.8 + vigor * 0.25),
+        );
+        cg.addColorStop(0, `rgba(255,236,190,${0.5 * glow})`);
+        cg.addColorStop(1, "rgba(255,150,50,0)");
+        fx.fillStyle = cg;
+        fx.beginPath();
+        fx.arc(FX + lean * 8, FY - 34, 100, 0, TAU);
+        fx.fill();
+        fx.globalCompositeOperation = "source-over";
+        // 4. 前排柴与石头，再让一部分火舌半透明地叠回柴前，看起来从柴缝里窜出
+        fx.drawImage(FL.frontD.canvas, 0, 0, FW, FH);
+        fx.globalAlpha = glow;
+        fx.drawImage(FL.frontL.canvas, 0, 0, FW, FH);
+        fx.globalCompositeOperation = light ? "source-over" : "lighter";
+        fx.globalAlpha = 0.5;
+        for (let T = 1; T < 3; T++)
+          for (const t of TONGUES) if (t.layer === T) tongue(t, T, light);
+        fx.globalAlpha = 1;
+        fx.globalCompositeOperation = "source-over";
+        // 5. 烟
+        if (!RM && Math.random() < 0.08) spawnSmoke();
+        for (const p of smoke) {
+          p.x += (p.vx + lean * 0.25) * k;
+          p.y += p.vy * k;
+          p.r += 0.35 * k;
+          p.life -= p.d * k;
+          const a = Math.max(p.life, 0) * (light ? 0.1 : 0.07);
+          const g = fx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+          g.addColorStop(
+            0,
+            light ? `rgba(110,105,100,${a})` : `rgba(200,200,205,${a})`,
+          );
+          g.addColorStop(1, "rgba(160,160,160,0)");
+          fx.fillStyle = g;
+          fx.beginPath();
+          fx.arc(p.x, p.y, p.r, 0, TAU);
+          fx.fill();
+        }
+        // 6. 火星：带短拖尾，左右飘
+        if (!RM)
+          for (let i = 0; i < (Math.random() < 0.35 * vigor ? 1 : 0); i++)
+            spawnSpark(false);
+        fx.globalCompositeOperation = light ? "source-over" : "lighter";
+        fx.lineCap = "round";
+        for (const p of sparks) {
+          const ox = p.x,
+            oy = p.y;
+          p.vx += (lean * 0.03 + Math.sin(fireT * 3 + p.ph) * 0.04) * k;
+          p.vy -= 0.01 * k;
+          p.x += p.vx * k;
+          p.y += p.vy * k;
+          p.life -= p.d * k;
+          const a = Math.max(p.life, 0);
+          fx.strokeStyle = `rgba(255,${(170 + a * 70) | 0},${(80 + a * 80) | 0},${a})`;
+          fx.lineWidth = p.s * (0.5 + a * 0.5);
+          fx.beginPath();
+          fx.moveTo(ox - p.vx * 2, oy - p.vy * 2);
+          fx.lineTo(p.x, p.y);
+          fx.stroke();
+        }
+        fx.globalCompositeOperation = "source-over";
+        licks = licks.filter((p) => p.life > 0);
+        sparks = sparks.filter((p) => p.life > 0 && p.y > -10);
+        smoke = smoke.filter((p) => p.life > 0);
+      }
 
-/* ---------------- 场景切换 ---------------- */
-let current = 'home', aboutSeen = false;
-const BUILT = { home: 1, about: 1, projects: 1, writing: 1, toolkit: 1, contact: 1 };
-function go(id) {
-  if (id === current) return;
-  if (!BUILT[id]) { toast(id); return; }
-  const from = $('#scene-' + current), to = $('#scene-' + id);
-  const warp = $('#warp');
-  warp.classList.add('flash');
-  setTimeout(() => warp.classList.remove('flash'), 340);
-  from.classList.remove('on');
-  to.classList.add('on');
-  current = id;
-  document.querySelectorAll('.menu button').forEach(b =>
-    b.setAttribute('aria-current', b.dataset.go === id ? 'true' : 'false'));
-  if (id === 'about') {
-    const g = $('#aboutGrid');
-    if (!aboutSeen && !RM) { g.classList.add('seq'); aboutSeen = true; setTimeout(() => g.classList.add('shown'), 2400); }
-    else { g.classList.add('shown'); }
-  }
-  scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' });
-}
-function toast(id) {
-  const n = document.createElement('div');
-  n.textContent = (LANG === 'zh' ? '「' + (I18N.zh['nav' + cap(id)] || id) + '」页面在下一轮设计中' : '"' + (I18N.en['nav' + cap(id)] || id) + '" comes in the next round');
-  n.style.cssText = 'position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:60;background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--glow);color:var(--text);font-size:13px;padding:11px 18px;border-radius:0 3px 3px 0;font-family:var(--sans);box-shadow:0 10px 30px rgba(0,0,0,.4)';
-  document.body.appendChild(n);
-  setTimeout(() => n.remove(), 2600);
-}
-const cap = s => s[0].toUpperCase() + s.slice(1);
-document.querySelectorAll('[data-go]').forEach(el =>
-  el.addEventListener('click', e => { e.preventDefault(); go(el.dataset.go); }));
+      /* ---------------- 场景切换 ---------------- */
+      let current = "home",
+        aboutSeen = false;
+      const BUILT = {
+        home: 1,
+        about: 1,
+        projects: 1,
+        writing: 1,
+        toolkit: 1,
+        contact: 1,
+      };
+      function go(id) {
+        if (id === current) return;
+        if (!BUILT[id]) {
+          toast(id);
+          return;
+        }
+        const from = $("#scene-" + current),
+          to = $("#scene-" + id);
+        const warp = $("#warp");
+        warp.classList.add("flash");
+        setTimeout(() => warp.classList.remove("flash"), 340);
+        from.classList.remove("on");
+        to.classList.add("on");
+        current = id;
+        document
+          .querySelectorAll(".menu button")
+          .forEach((b) =>
+            b.setAttribute(
+              "aria-current",
+              b.dataset.go === id ? "true" : "false",
+            ),
+          );
+        if (id === "about") {
+          const g = $("#aboutGrid");
+          if (!aboutSeen && !RM) {
+            g.classList.add("seq");
+            aboutSeen = true;
+            setTimeout(() => g.classList.add("shown"), 2400);
+          } else {
+            g.classList.add("shown");
+          }
+        }
+        scrollTo({ top: 0, behavior: RM ? "auto" : "smooth" });
+      }
+      function toast(id) {
+        const n = document.createElement("div");
+        n.textContent =
+          LANG === "zh"
+            ? "「" + (I18N.zh["nav" + cap(id)] || id) + "」页面在下一轮设计中"
+            : '"' +
+              (I18N.en["nav" + cap(id)] || id) +
+              '" comes in the next round';
+        n.style.cssText =
+          "position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:60;background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--glow);color:var(--text);font-size:13px;padding:11px 18px;border-radius:0 3px 3px 0;font-family:var(--sans);box-shadow:0 10px 30px rgba(0,0,0,.4)";
+        document.body.appendChild(n);
+        setTimeout(() => n.remove(), 2600);
+      }
+      const cap = (s) => s[0].toUpperCase() + s.slice(1);
+      document.querySelectorAll("[data-go]").forEach((el) =>
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          go(el.dataset.go);
+        }),
+      );
 
-/* ---------------- 主题 / 语言 ---------------- */
-$('#theme').addEventListener('click', e => {
-  const r = document.documentElement;
-  const light = r.dataset.theme === 'light';
-  r.dataset.theme = light ? 'dark' : 'light';
-  e.currentTarget.textContent = light ? '☾' : '☀';
-});
-const I18N = {
-  zh: {}, // 默认即中文，留空走 DOM 原文
-  en: {
-    brand: 'Observatory', brandSub: 'GY · OBSERVATORY',
-    navHome: 'Home', navAbout: 'About', navProjects: 'Projects',
-    navWriting: 'Writing', navToolkit: 'Toolkit', navContact: 'Contact',
-    coord: 'N 31°14′ · E 121°28′ · Local UTC+8',
-    name: 'Guo Yang', role: 'Full-stack engineer · I make complex systems thin',
-    bio1: 'I build things that survive production with <strong>TypeScript, Next.js and PostgreSQL</strong>. Mostly content systems, permission models, and backends that have to hold up under real traffic.',
-    bio2: 'I like settling the edge cases before shipping, and leaving one small mechanism on a page that only I know the reason for.',
-    statusTitle: 'Open to roles and freelance work',
-    statusBody: 'Available for remote full-time and small-to-mid projects. Pick any star on the chart, or find me on the contact page.',
-    backHome: 'Back to the chart',
-    aboutH: 'Who I am, what I am building',
-    ab1: 'I am Guo Yang, a full-stack engineer seven years in. Most of that time went into <strong>content-driven products</strong> — CMS, permissions, search and ranking. The kind of work where the frontend has to feel good, the backend has to hold, and the data model cannot be sloppy on day one.',
-    ab2: 'I am pragmatic about the stack: <strong>Next.js end to end</strong>, Hono where an API needs to scale on its own, Prisma with PostgreSQL for data. Redis and queues where they earn their place, and no abstraction before it is needed.',
-    ab3: 'Outside work I write, maintain a toolkit I actually use, and run the occasional motion experiment. This site is one of them.',
-    f1k: 'Experience', f1v: '7 years', f2k: 'Core stack', f3k: 'Based in', f3v: 'Shanghai · remote', f4k: 'Status', f4v: 'Open',
-    backHome2: 'Back to the chart', backHome3: 'Back to the chart',
-    backHome4: 'Back to the chart', backHome5: 'Back to the chart',
-    pjH: 'Selected work',
-    wrH: 'Writing',
-    subH: 'Get new posts', subP: 'One email when something new goes up. Once or twice a month, nothing else.',
-    subPh: 'Your email', subBtn: 'Subscribe', subNote: 'RSS works too. Unsubscribe any time.',
-    arcH: 'Archive', arcP: '12 posts in 2026 · 23 in 2025 · 18 in 2024',
-    tkH: 'Toolkit',
-    tkPh: 'Search name, description or tag', tkEmpty: 'Nothing matches that.',
-    ctH: 'Contact',
-    ct1k: 'Email', ct4k: 'X / Twitter', ct5k: 'Jike', ct5v: 'Guo Yang',
-    ctNoteB: 'About freelance work',
-    ctNote: 'The best fit is a small-to-mid project delivered end to end: a content site, an admin dashboard, or a system that needs third-party login and permissions. Per project or per week both work. If you already have designs and a defined scope, send them over.'
-  }
-};
-let LANG = 'zh';
-document.querySelectorAll('[data-i18n]').forEach(el => { I18N.zh[el.dataset.i18n] = el.innerHTML; });
-document.querySelectorAll('[data-i18n-ph]').forEach(el => { I18N.zh[el.dataset.i18nPh] = el.placeholder; });
-$('#lang').addEventListener('click', () => {
-  LANG = LANG === 'zh' ? 'en' : 'zh';
-  document.documentElement.lang = LANG === 'zh' ? 'zh-CN' : 'en';
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const v = I18N[LANG][el.dataset.i18n]; if (v) el.innerHTML = v;
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    const v = I18N[LANG][el.dataset.i18nPh]; if (v) el.placeholder = v;
-  });
-  nodeEls.forEach(n => { n.lbl.textContent = LANG === 'zh' ? n.data.zh : n.data.en; n.g.setAttribute('aria-label', LANG === 'zh' ? n.data.zh : n.data.en); });
-  $('#lang').textContent = LANG === 'zh' ? '中 / EN' : 'EN / 中';
-  renderAll();
-});
+      /* ---------------- 主题 / 语言 ---------------- */
+      $("#theme").addEventListener("click", (e) => {
+        const r = document.documentElement;
+        const light = r.dataset.theme === "light";
+        r.dataset.theme = light ? "dark" : "light";
+        e.currentTarget.textContent = light ? "☾" : "☀";
+      });
+      const I18N = {
+        zh: {}, // 默认即中文，留空走 DOM 原文
+        en: {
+          brand: "Observatory",
+          brandSub: "GY · OBSERVATORY",
+          navHome: "Home",
+          navAbout: "About",
+          navProjects: "Projects",
+          navWriting: "Writing",
+          navToolkit: "Toolkit",
+          navContact: "Contact",
+          coord: "N 31°14′ · E 121°28′ · Local UTC+8",
+          name: "Guo Yi",
+          role: "Full-stack engineer · I make complex systems thin",
+          bio1: "I build things that survive production with <strong>TypeScript, Next.js and PostgreSQL</strong>. Mostly content systems, permission models, and backends that have to hold up under real traffic.",
+          bio2: "I like settling the edge cases before shipping, and leaving one small mechanism on a page that only I know the reason for.",
+          statusTitle: "Open to roles and freelance work",
+          statusBody:
+            "Available for remote full-time and small-to-mid projects. Pick any star on the chart, or find me on the contact page.",
+          backHome: "Back to the chart",
+          aboutH: "Who I am, what I am building",
+          ab1: "I am Guo Yi, a full-stack engineer seven years in. Most of that time went into <strong>content-driven products</strong> — CMS, permissions, search and ranking. The kind of work where the frontend has to feel good, the backend has to hold, and the data model cannot be sloppy on day one.",
+          ab2: "I am pragmatic about the stack: <strong>Next.js end to end</strong>, Hono where an API needs to scale on its own, Prisma with PostgreSQL for data. Redis and queues where they earn their place, and no abstraction before it is needed.",
+          ab3: "Outside work I write, maintain a toolkit I actually use, and run the occasional motion experiment. This site is one of them.",
+          f1k: "Experience",
+          f1v: "7 years",
+          f2k: "Core stack",
+          f3k: "Based in",
+          f3v: "Shanghai · remote",
+          f4k: "Status",
+          f4v: "Open",
+          backHome2: "Back to the chart",
+          backHome3: "Back to the chart",
+          backHome4: "Back to the chart",
+          backHome5: "Back to the chart",
+          pjH: "Selected work",
+          wrH: "Writing",
+          subH: "Get new posts",
+          subP: "One email when something new goes up. Once or twice a month, nothing else.",
+          subPh: "Your email",
+          subBtn: "Subscribe",
+          subNote: "RSS works too. Unsubscribe any time.",
+          arcH: "Archive",
+          arcP: "12 posts in 2026 · 23 in 2025 · 18 in 2024",
+          tkH: "Toolkit",
+          tkPh: "Search name, description or tag",
+          tkEmpty: "Nothing matches that.",
+          ctH: "Contact",
+          ct1k: "Email",
+          ct4k: "X / Twitter",
+          ct5k: "Jike",
+          ct5v: "Guo Yi",
+          ctNoteB: "About freelance work",
+          ctNote:
+            "The best fit is a small-to-mid project delivered end to end: a content site, an admin dashboard, or a system that needs third-party login and permissions. Per project or per week both work. If you already have designs and a defined scope, send them over.",
+        },
+      };
+      let LANG = "zh";
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        I18N.zh[el.dataset.i18n] = el.innerHTML;
+      });
+      document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+        I18N.zh[el.dataset.i18nPh] = el.placeholder;
+      });
+      $("#lang").addEventListener("click", () => {
+        LANG = LANG === "zh" ? "en" : "zh";
+        document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const v = I18N[LANG][el.dataset.i18n];
+          if (v) el.innerHTML = v;
+        });
+        document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+          const v = I18N[LANG][el.dataset.i18nPh];
+          if (v) el.placeholder = v;
+        });
+        nodeEls.forEach((n) => {
+          n.lbl.textContent = LANG === "zh" ? n.data.zh : n.data.en;
+          n.g.setAttribute("aria-label", LANG === "zh" ? n.data.zh : n.data.en);
+        });
+        $("#lang").textContent = LANG === "zh" ? "中 / EN" : "EN / 中";
+        renderAll();
+      });
 
-/* ---------------- Projects ---------------- */
-const PROJECTS = [
-  { id:'atlas', zh:'Atlas 内容中台', en:'Atlas content platform',
-    sumZh:'给三条业务线共用的内容系统。核心难点是把各自定义的字段结构收进同一套模型，又不让编辑感到被约束。',
-    sumEn:'A shared content system for three business lines. The hard part was folding their custom field structures into one model without making editors feel boxed in.',
-    tags:['Next.js','Prisma','PostgreSQL','MeiliSearch'],
-    archZh:'Next.js App Router 做编辑端，内容模型用 Prisma 的多态关联实现「字段组」抽象；检索走 MeiliSearch，写入时经队列异步同步索引。',
-    archEn:'Next.js App Router for the editor. Content types are built on a field-group abstraction over Prisma polymorphic relations; search runs on MeiliSearch with index sync pushed through a queue.',
-    tradeZh:'没有做成通用 headless CMS。三条业务线的差异集中在字段层，继续往上抽象会让查询变慢也更难调试，于是只在字段层做泛化，路由和权限写死。',
-    tradeEn:'I did not build a general-purpose headless CMS. The differences lived in the field layer; abstracting further would have slowed queries and made debugging worse, so generalization stops at fields and routing stays explicit.',
-    resZh:'编辑一篇多语言内容的耗时从约 11 分钟降到 4 分钟；搜索 p95 在 40ms 以内。',
-    resEn:'Authoring a multilingual entry went from about 11 minutes to 4. Search p95 stays under 40ms.',
-    year:'2025—2026', hue:198 },
-  { id:'gate', zh:'Gate 权限服务', en:'Gate permission service',
-    sumZh:'把散在四个服务里的鉴权逻辑收到一处。角色和策略存库，能热更新，不用重新部署。',
-    sumEn:'Pulled authorization logic out of four services into one place. Roles and policies live in the database and update without a redeploy.',
-    tags:['Hono','CASL','Redis','JWKS'],
-    archZh:'Hono 提供策略查询与下发，CASL 在各服务内做本地判定；JWT 用非对称密钥签发，服务侧通过 JWKS 远程验签，策略变更靠 Redis 发布订阅推送。',
-    archEn:'Hono serves and distributes policies while CASL evaluates locally inside each service. JWTs are signed asymmetrically and verified remotely via JWKS; policy changes propagate over Redis pub/sub.',
-    tradeZh:'判定放在各服务本地而不是中心化调用。牺牲了策略生效的强一致（最终一致，约 2 秒），换掉了每个请求一次网络往返。',
-    tradeEn:'Evaluation happens locally rather than through a central call. That trades strict consistency on policy changes (eventually consistent, roughly 2s) for removing a network round trip per request.',
-    resZh:'鉴权相关的重复代码减少约 70%，新服务接入从两天缩到半天。',
-    resEn:'Cut duplicated auth code by around 70%. Onboarding a new service went from two days to half a day.',
-    year:'2024—2025', hue:172 },
-  { id:'relay', zh:'Relay 通知队列', en:'Relay notification queue',
-    sumZh:'注册验证、密码找回和运营邮件共用的发送服务。要解决的是高峰期堆积和第三方限流。',
-    sumEn:'One sending service behind signup verification, password resets and marketing mail. Built to deal with peak backlogs and third-party rate limits.',
-    tags:['BullMQ','Redis','Nodemailer','Node.js'],
-    archZh:'BullMQ 分三个优先级队列，事务邮件优先；按供应商维度做令牌桶限流，失败走指数退避重试，三次后转人工队列。',
-    archEn:'BullMQ with three priority queues so transactional mail goes first. Per-provider token-bucket rate limiting, exponential backoff on failure, and a manual queue after three attempts.',
-    tradeZh:'没有自建 SMTP。自建能省成本，但送达率和合规要长期投入，用云服务加一层抽象更划算，必要时能换供应商。',
-    tradeEn:'No self-hosted SMTP. It would be cheaper, but deliverability and compliance need ongoing investment; a thin abstraction over cloud providers is a better deal and keeps switching possible.',
-    resZh:'高峰期事务邮件 p99 送达 8 秒内，失败率从 1.3% 降到 0.2%。',
-    resEn:'Peak transactional p99 delivery within 8 seconds; failure rate down from 1.3% to 0.2%.',
-    year:'2024', hue:36 },
-  { id:'site', zh:'这个网站', en:'This website',
-    sumZh:'星图导航和篝火都是手写 canvas 与 SVG，没有引 3D 库。想试试在不牺牲可访问性的前提下能做到多少交互。',
-    sumEn:'The star chart and the campfire are hand-written canvas and SVG, no 3D library. An experiment in how much interaction fits without giving up accessibility.',
-    tags:['Next.js','Motion','Canvas','MDX'],
-    archZh:'SSG 预渲染内容页，星图节点是 SVG + requestAnimationFrame 驱动的漂移，篝火是两套参数分开的粒子系统；文章走 MDX 自定义渲染器。',
-    archEn:'Content pages are pre-rendered with SSG. Star nodes are SVG driven by requestAnimationFrame; the campfire is a particle system with separate parameters for flame body and embers. Posts render through a custom MDX pipeline.',
-    tradeZh:'星图很炫但不能是唯一入口。顶部导航始终可用，星点支持键盘聚焦，reduced-motion 下所有自发动效停止——创意交互必须有降级路径。',
-    tradeEn:'The chart is the centerpiece but cannot be the only way in. The top nav always works, star nodes take keyboard focus, and every self-starting animation stops under reduced-motion. Creative interaction needs a fallback.',
-    resZh:'首屏 LCP 1.2 秒，Lighthouse 可访问性 100。',
-    resEn:'LCP of 1.2s, Lighthouse accessibility 100.',
-    year:'2026', hue:210 },
-];
-const L = (o, k) => o[k + (LANG === 'zh' ? 'Zh' : 'En')] ?? o[LANG] ?? o.zh;
-/* 卡片缩略图：按项目生成一张几何示意，不用占位图 */
-function shot(hue, seed) {
-  let s = seed, rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
-  let p = '';
-  for (let i = 0; i < 28; i++) {
-    const x = rnd() * 320, y = rnd() * 180, r = rnd() * 2 + 1;
-    p += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="hsl(${hue} 70% 72%)" opacity="${(rnd() * .5 + .25).toFixed(2)}"/>`;
-  }
-  for (let i = 0; i < 7; i++) {
-    const x1 = rnd() * 320, y1 = rnd() * 180, x2 = rnd() * 320, y2 = rnd() * 180;
-    p += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="hsl(${hue} 65% 60%)" stroke-width=".7" opacity=".3"/>`;
-  }
-  return `<svg viewBox="0 0 320 180" aria-hidden="true">${p}</svg>`;
-}
-function renderProjects() {
-  $('#pjGrid').innerHTML = PROJECTS.map((p, i) => `
+      /* ---------------- Projects ---------------- */
+      const PROJECTS = [
+        {
+          id: "atlas",
+          zh: "Atlas 内容中台",
+          en: "Atlas content platform",
+          sumZh:
+            "给三条业务线共用的内容系统。核心难点是把各自定义的字段结构收进同一套模型，又不让编辑感到被约束。",
+          sumEn:
+            "A shared content system for three business lines. The hard part was folding their custom field structures into one model without making editors feel boxed in.",
+          tags: ["Next.js", "Prisma", "PostgreSQL", "MeiliSearch"],
+          archZh:
+            "Next.js App Router 做编辑端，内容模型用 Prisma 的多态关联实现「字段组」抽象；检索走 MeiliSearch，写入时经队列异步同步索引。",
+          archEn:
+            "Next.js App Router for the editor. Content types are built on a field-group abstraction over Prisma polymorphic relations; search runs on MeiliSearch with index sync pushed through a queue.",
+          tradeZh:
+            "没有做成通用 headless CMS。三条业务线的差异集中在字段层，继续往上抽象会让查询变慢也更难调试，于是只在字段层做泛化，路由和权限写死。",
+          tradeEn:
+            "I did not build a general-purpose headless CMS. The differences lived in the field layer; abstracting further would have slowed queries and made debugging worse, so generalization stops at fields and routing stays explicit.",
+          resZh:
+            "编辑一篇多语言内容的耗时从约 11 分钟降到 4 分钟；搜索 p95 在 40ms 以内。",
+          resEn:
+            "Authoring a multilingual entry went from about 11 minutes to 4. Search p95 stays under 40ms.",
+          year: "2025—2026",
+          hue: 198,
+        },
+        {
+          id: "gate",
+          zh: "Gate 权限服务",
+          en: "Gate permission service",
+          sumZh:
+            "把散在四个服务里的鉴权逻辑收到一处。角色和策略存库，能热更新，不用重新部署。",
+          sumEn:
+            "Pulled authorization logic out of four services into one place. Roles and policies live in the database and update without a redeploy.",
+          tags: ["Hono", "CASL", "Redis", "JWKS"],
+          archZh:
+            "Hono 提供策略查询与下发，CASL 在各服务内做本地判定；JWT 用非对称密钥签发，服务侧通过 JWKS 远程验签，策略变更靠 Redis 发布订阅推送。",
+          archEn:
+            "Hono serves and distributes policies while CASL evaluates locally inside each service. JWTs are signed asymmetrically and verified remotely via JWKS; policy changes propagate over Redis pub/sub.",
+          tradeZh:
+            "判定放在各服务本地而不是中心化调用。牺牲了策略生效的强一致（最终一致，约 2 秒），换掉了每个请求一次网络往返。",
+          tradeEn:
+            "Evaluation happens locally rather than through a central call. That trades strict consistency on policy changes (eventually consistent, roughly 2s) for removing a network round trip per request.",
+          resZh: "鉴权相关的重复代码减少约 70%，新服务接入从两天缩到半天。",
+          resEn:
+            "Cut duplicated auth code by around 70%. Onboarding a new service went from two days to half a day.",
+          year: "2024—2025",
+          hue: 172,
+        },
+        {
+          id: "relay",
+          zh: "Relay 通知队列",
+          en: "Relay notification queue",
+          sumZh:
+            "注册验证、密码找回和运营邮件共用的发送服务。要解决的是高峰期堆积和第三方限流。",
+          sumEn:
+            "One sending service behind signup verification, password resets and marketing mail. Built to deal with peak backlogs and third-party rate limits.",
+          tags: ["BullMQ", "Redis", "Nodemailer", "Node.js"],
+          archZh:
+            "BullMQ 分三个优先级队列，事务邮件优先；按供应商维度做令牌桶限流，失败走指数退避重试，三次后转人工队列。",
+          archEn:
+            "BullMQ with three priority queues so transactional mail goes first. Per-provider token-bucket rate limiting, exponential backoff on failure, and a manual queue after three attempts.",
+          tradeZh:
+            "没有自建 SMTP。自建能省成本，但送达率和合规要长期投入，用云服务加一层抽象更划算，必要时能换供应商。",
+          tradeEn:
+            "No self-hosted SMTP. It would be cheaper, but deliverability and compliance need ongoing investment; a thin abstraction over cloud providers is a better deal and keeps switching possible.",
+          resZh: "高峰期事务邮件 p99 送达 8 秒内，失败率从 1.3% 降到 0.2%。",
+          resEn:
+            "Peak transactional p99 delivery within 8 seconds; failure rate down from 1.3% to 0.2%.",
+          year: "2024",
+          hue: 36,
+        },
+        {
+          id: "site",
+          zh: "这个网站",
+          en: "This website",
+          sumZh:
+            "星图导航和篝火都是手写 canvas 与 SVG，没有引 3D 库。想试试在不牺牲可访问性的前提下能做到多少交互。",
+          sumEn:
+            "The star chart and the campfire are hand-written canvas and SVG, no 3D library. An experiment in how much interaction fits without giving up accessibility.",
+          tags: ["Next.js", "Motion", "Canvas", "MDX"],
+          archZh:
+            "SSG 预渲染内容页，星图节点是 SVG + requestAnimationFrame 驱动的漂移，篝火是两套参数分开的粒子系统；文章走 MDX 自定义渲染器。",
+          archEn:
+            "Content pages are pre-rendered with SSG. Star nodes are SVG driven by requestAnimationFrame; the campfire is a particle system with separate parameters for flame body and embers. Posts render through a custom MDX pipeline.",
+          tradeZh:
+            "星图很炫但不能是唯一入口。顶部导航始终可用，星点支持键盘聚焦，reduced-motion 下所有自发动效停止——创意交互必须有降级路径。",
+          tradeEn:
+            "The chart is the centerpiece but cannot be the only way in. The top nav always works, star nodes take keyboard focus, and every self-starting animation stops under reduced-motion. Creative interaction needs a fallback.",
+          resZh: "首屏 LCP 1.2 秒，Lighthouse 可访问性 100。",
+          resEn: "LCP of 1.2s, Lighthouse accessibility 100.",
+          year: "2026",
+          hue: 210,
+        },
+      ];
+      const L = (o, k) =>
+        o[k + (LANG === "zh" ? "Zh" : "En")] ?? o[LANG] ?? o.zh;
+      /* 卡片缩略图：按项目生成一张几何示意，不用占位图 */
+      function shot(hue, seed) {
+        let s = seed,
+          rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+        let p = "";
+        for (let i = 0; i < 28; i++) {
+          const x = rnd() * 320,
+            y = rnd() * 180,
+            r = rnd() * 2 + 1;
+          p += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="hsl(${hue} 70% 72%)" opacity="${(rnd() * 0.5 + 0.25).toFixed(2)}"/>`;
+        }
+        for (let i = 0; i < 7; i++) {
+          const x1 = rnd() * 320,
+            y1 = rnd() * 180,
+            x2 = rnd() * 320,
+            y2 = rnd() * 180;
+          p += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="hsl(${hue} 65% 60%)" stroke-width=".7" opacity=".3"/>`;
+        }
+        return `<svg viewBox="0 0 320 180" aria-hidden="true">${p}</svg>`;
+      }
+      function renderProjects() {
+        $("#pjGrid").innerHTML = PROJECTS.map(
+          (p, i) => `
     <button class="card" data-pj="${p.id}">
       <div class="shot">${shot(p.hue, i * 7919 + 13)}</div>
       <div class="body">
-        <h3>${L(p, '')}</h3>
-        <p>${L(p, 'sum')}</p>
-        <div class="tags">${p.tags.map(t => `<i>${t}</i>`).join('')}</div>
+        <h3>${L(p, "")}</h3>
+        <p>${L(p, "sum")}</p>
+        <div class="tags">${p.tags.map((t) => `<i>${t}</i>`).join("")}</div>
       </div>
-    </button>`).join('');
-  $('#pjGrid').querySelectorAll('[data-pj]').forEach(b =>
-    b.addEventListener('click', () => openProject(b.dataset.pj)));
-}
-let openPj = null;
-function openProject(id) {
-  openPj = id;
-  const p = PROJECTS.find(x => x.id === id), d = $('#pjDetail');
-  const t = LANG === 'zh'
-    ? { arch:'技术架构', trade:'关键取舍', res:'结果', demo:'在线演示', src:'源码', close:'收起' }
-    : { arch:'Architecture', trade:'Key tradeoff', res:'Outcome', demo:'Live demo', src:'Source', close:'Close' };
-  d.innerHTML = `
-    <h3>${L(p, '')}</h3>
-    <div class="meta">${p.year} · ${p.tags.join(' / ')}</div>
+    </button>`,
+        ).join("");
+        $("#pjGrid")
+          .querySelectorAll("[data-pj]")
+          .forEach((b) =>
+            b.addEventListener("click", () => openProject(b.dataset.pj)),
+          );
+      }
+      let openPj = null;
+      function openProject(id) {
+        openPj = id;
+        const p = PROJECTS.find((x) => x.id === id),
+          d = $("#pjDetail");
+        const t =
+          LANG === "zh"
+            ? {
+                arch: "技术架构",
+                trade: "关键取舍",
+                res: "结果",
+                demo: "在线演示",
+                src: "源码",
+                close: "收起",
+              }
+            : {
+                arch: "Architecture",
+                trade: "Key tradeoff",
+                res: "Outcome",
+                demo: "Live demo",
+                src: "Source",
+                close: "Close",
+              };
+        d.innerHTML = `
+    <h3>${L(p, "")}</h3>
+    <div class="meta">${p.year} · ${p.tags.join(" / ")}</div>
     <dl>
-      <dt>${t.arch}</dt><dd>${L(p, 'arch')}</dd>
-      <dt>${t.trade}</dt><dd>${L(p, 'trade')}</dd>
-      <dt>${t.res}</dt><dd>${L(p, 'res')}</dd>
+      <dt>${t.arch}</dt><dd>${L(p, "arch")}</dd>
+      <dt>${t.trade}</dt><dd>${L(p, "trade")}</dd>
+      <dt>${t.res}</dt><dd>${L(p, "res")}</dd>
     </dl>
     <div class="links">
       <a class="btn key" href="#" onclick="return false">${t.demo}</a>
       <a class="btn" href="https://github.com" target="_blank" rel="noopener">${t.src}</a>
       <button class="btn" id="pjClose">${t.close}</button>
     </div>`;
-  d.classList.remove('hide');
-  $('#pjClose').addEventListener('click', () => { d.classList.add('hide'); openPj = null; });
-  d.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'nearest' });
-}
-/* ---------------- Writing ---------------- */
-const CATS = [
-  { id:'all',  zh:'全部', en:'All' },
-  { id:'tech', zh:'技术', en:'Engineering' },
-  { id:'life', zh:'生活', en:'Life' },
-  { id:'note', zh:'随笔', en:'Notes' },
-];
-const POSTS = [
-  { id:'p1', cat:'tech', date:'2026-09-18', read:'11',
-    zh:'把权限模型从代码里搬进数据库之后', en:'After moving the permission model out of code',
-    sumZh:'我们曾经把角色写在枚举里，加一个角色要改四个服务。这篇记录迁移到数据库驱动的策略模型时，哪些假设站不住脚。',
-    sumEn:'We used to keep roles in an enum, so adding one meant touching four services. Notes on which assumptions broke when we moved to database-driven policies.',
-    likes:48, cmts:[
-      { who:'Lin', zh:'策略缓存那段很有用，我们也踩了最终一致的坑。', en:'The policy cache section helped. We hit the same eventual-consistency trap.' },
-      { who:'Z', zh:'想问下 CASL 的规则是怎么序列化下发的？', en:'How do you serialize the CASL rules for distribution?' }] },
-  { id:'p2', cat:'tech', date:'2026-07-02', read:'7',
-    zh:'MeiliSearch 够用的那条线在哪里', en:'Where MeiliSearch stops being enough',
-    sumZh:'中文分词、同义词和多字段权重都能调好，但到了需要聚合统计和复杂过滤组合的时候，就该换思路了。',
-    sumEn:'Chinese tokenization, synonyms and field weights all tune fine. Once you need aggregations and complex filter combinations, it is time to rethink.',
-    likes:31, cmts:[
-      { who:'Mu', zh:'同感，我们最后混着用了。', en:'Same here, we ended up running both.' }] },
-  { id:'p3', cat:'note', date:'2026-05-21', read:'5',
-    zh:'写了七年代码，我对抽象的态度变了', en:'Seven years in, I feel differently about abstraction',
-    sumZh:'早几年我觉得重复是罪。现在我更怕过早抽象——它会把还没想清楚的假设固化成接口。',
-    sumEn:'Early on I treated duplication as a sin. Now I am more afraid of premature abstraction: it freezes assumptions you have not finished thinking through into an interface.',
-    likes:96, cmts:[
-      { who:'Hao', zh:'第三段说到我了。', en:'The third paragraph got me.' },
-      { who:'Ting', zh:'“等到第三次重复再抽”这个标准我一直在用。', en:'The rule of waiting for the third repetition is one I keep using.' }] },
-  { id:'p4', cat:'life', date:'2026-03-09', read:'6',
-    zh:'远程工作第三年的一些实话', en:'Some honest notes on year three of remote work',
-    sumZh:'效率不是问题，边界才是。说说我怎么处理时区、同步沟通的成本，以及把工作从家里挪出去的那次尝试。',
-    sumEn:'Productivity was never the issue; boundaries were. On time zones, the cost of synchronous communication, and the time I tried moving work out of the house.',
-    likes:64, cmts:[] },
-  { id:'p5', cat:'tech', date:'2026-01-14', read:'9',
-    zh:'Canvas 粒子系统的性能边界', en:'Performance limits of a canvas particle system',
-    sumZh:'一千个粒子在手机上掉帧的原因通常不是数量，是每帧的 fillStyle 字符串拼接和 createRadialGradient。',
-    sumEn:'When a thousand particles drop frames on a phone, the count is usually not the cause. Per-frame fillStyle string building and createRadialGradient are.',
-    likes:72, cmts:[
-      { who:'Ye', zh:'离屏 canvas 预渲染这招我试了，提升很明显。', en:'Pre-rendering to an offscreen canvas made a clear difference for me.' }] },
-  { id:'p6', cat:'life', date:'2025-11-26', read:'4',
-    zh:'我的桌面和那些没用上的工具', en:'My desk, and the tools I never ended up using',
-    sumZh:'买过的键盘、装过的效率软件、订阅过又退掉的服务。最后留下来的东西比想象中少。',
-    sumEn:'Keyboards I bought, productivity apps I installed, subscriptions I cancelled. Less survived than I expected.',
-    likes:27, cmts:[] },
-];
-let wrCat = 'all';
-const liked = new Set();
-function renderFilters() {
-  $('#wrFilters').innerHTML = CATS.map(c =>
-    `<button class="chip" data-cat="${c.id}" aria-pressed="${c.id === wrCat}">${c[LANG]}</button>`).join('');
-  $('#wrFilters').querySelectorAll('[data-cat]').forEach(b =>
-    b.addEventListener('click', () => { wrCat = b.dataset.cat; renderFilters(); renderPosts(); }));
-}
-function renderPosts() {
-  const t = LANG === 'zh'
-    ? { like:'赞', cmt:'条评论', no:'还没有评论', ph:'说点什么', send:'发布', min:'分钟' }
-    : { like:'Like', cmt:'comments', no:'No comments yet', ph:'Say something', send:'Post', min:'min read' };
-  const list = POSTS.filter(p => wrCat === 'all' || p.cat === wrCat);
-  $('#wrList').innerHTML = list.map(p => {
-    const cat = CATS.find(c => c.id === p.cat)[LANG];
-    const n = p.likes + (liked.has(p.id) ? 1 : 0);
-    return `<article class="post">
+        d.classList.remove("hide");
+        $("#pjClose").addEventListener("click", () => {
+          d.classList.add("hide");
+          openPj = null;
+        });
+        d.scrollIntoView({
+          behavior: RM ? "auto" : "smooth",
+          block: "nearest",
+        });
+      }
+      /* ---------------- Writing ---------------- */
+      const CATS = [
+        { id: "all", zh: "全部", en: "All" },
+        { id: "tech", zh: "技术", en: "Engineering" },
+        { id: "life", zh: "生活", en: "Life" },
+        { id: "note", zh: "随笔", en: "Notes" },
+      ];
+      const POSTS = [
+        {
+          id: "p1",
+          cat: "tech",
+          date: "2026-09-18",
+          read: "11",
+          zh: "把权限模型从代码里搬进数据库之后",
+          en: "After moving the permission model out of code",
+          sumZh:
+            "我们曾经把角色写在枚举里，加一个角色要改四个服务。这篇记录迁移到数据库驱动的策略模型时，哪些假设站不住脚。",
+          sumEn:
+            "We used to keep roles in an enum, so adding one meant touching four services. Notes on which assumptions broke when we moved to database-driven policies.",
+          likes: 48,
+          cmts: [
+            {
+              who: "Lin",
+              zh: "策略缓存那段很有用，我们也踩了最终一致的坑。",
+              en: "The policy cache section helped. We hit the same eventual-consistency trap.",
+            },
+            {
+              who: "Z",
+              zh: "想问下 CASL 的规则是怎么序列化下发的？",
+              en: "How do you serialize the CASL rules for distribution?",
+            },
+          ],
+        },
+        {
+          id: "p2",
+          cat: "tech",
+          date: "2026-07-02",
+          read: "7",
+          zh: "MeiliSearch 够用的那条线在哪里",
+          en: "Where MeiliSearch stops being enough",
+          sumZh:
+            "中文分词、同义词和多字段权重都能调好，但到了需要聚合统计和复杂过滤组合的时候，就该换思路了。",
+          sumEn:
+            "Chinese tokenization, synonyms and field weights all tune fine. Once you need aggregations and complex filter combinations, it is time to rethink.",
+          likes: 31,
+          cmts: [
+            {
+              who: "Mu",
+              zh: "同感，我们最后混着用了。",
+              en: "Same here, we ended up running both.",
+            },
+          ],
+        },
+        {
+          id: "p3",
+          cat: "note",
+          date: "2026-05-21",
+          read: "5",
+          zh: "写了七年代码，我对抽象的态度变了",
+          en: "Seven years in, I feel differently about abstraction",
+          sumZh:
+            "早几年我觉得重复是罪。现在我更怕过早抽象——它会把还没想清楚的假设固化成接口。",
+          sumEn:
+            "Early on I treated duplication as a sin. Now I am more afraid of premature abstraction: it freezes assumptions you have not finished thinking through into an interface.",
+          likes: 96,
+          cmts: [
+            {
+              who: "Hao",
+              zh: "第三段说到我了。",
+              en: "The third paragraph got me.",
+            },
+            {
+              who: "Ting",
+              zh: "“等到第三次重复再抽”这个标准我一直在用。",
+              en: "The rule of waiting for the third repetition is one I keep using.",
+            },
+          ],
+        },
+        {
+          id: "p4",
+          cat: "life",
+          date: "2026-03-09",
+          read: "6",
+          zh: "远程工作第三年的一些实话",
+          en: "Some honest notes on year three of remote work",
+          sumZh:
+            "效率不是问题，边界才是。说说我怎么处理时区、同步沟通的成本，以及把工作从家里挪出去的那次尝试。",
+          sumEn:
+            "Productivity was never the issue; boundaries were. On time zones, the cost of synchronous communication, and the time I tried moving work out of the house.",
+          likes: 64,
+          cmts: [],
+        },
+        {
+          id: "p5",
+          cat: "tech",
+          date: "2026-01-14",
+          read: "9",
+          zh: "Canvas 粒子系统的性能边界",
+          en: "Performance limits of a canvas particle system",
+          sumZh:
+            "一千个粒子在手机上掉帧的原因通常不是数量，是每帧的 fillStyle 字符串拼接和 createRadialGradient。",
+          sumEn:
+            "When a thousand particles drop frames on a phone, the count is usually not the cause. Per-frame fillStyle string building and createRadialGradient are.",
+          likes: 72,
+          cmts: [
+            {
+              who: "Ye",
+              zh: "离屏 canvas 预渲染这招我试了，提升很明显。",
+              en: "Pre-rendering to an offscreen canvas made a clear difference for me.",
+            },
+          ],
+        },
+        {
+          id: "p6",
+          cat: "life",
+          date: "2025-11-26",
+          read: "4",
+          zh: "我的桌面和那些没用上的工具",
+          en: "My desk, and the tools I never ended up using",
+          sumZh:
+            "买过的键盘、装过的效率软件、订阅过又退掉的服务。最后留下来的东西比想象中少。",
+          sumEn:
+            "Keyboards I bought, productivity apps I installed, subscriptions I cancelled. Less survived than I expected.",
+          likes: 27,
+          cmts: [],
+        },
+      ];
+      let wrCat = "all";
+      const liked = new Set();
+      function renderFilters() {
+        $("#wrFilters").innerHTML = CATS.map(
+          (c) =>
+            `<button class="chip" data-cat="${c.id}" aria-pressed="${c.id === wrCat}">${c[LANG]}</button>`,
+        ).join("");
+        $("#wrFilters")
+          .querySelectorAll("[data-cat]")
+          .forEach((b) =>
+            b.addEventListener("click", () => {
+              wrCat = b.dataset.cat;
+              renderFilters();
+              renderPosts();
+            }),
+          );
+      }
+      function renderPosts() {
+        const t =
+          LANG === "zh"
+            ? {
+                like: "赞",
+                cmt: "条评论",
+                no: "还没有评论",
+                ph: "说点什么",
+                send: "发布",
+                min: "分钟",
+              }
+            : {
+                like: "Like",
+                cmt: "comments",
+                no: "No comments yet",
+                ph: "Say something",
+                send: "Post",
+                min: "min read",
+              };
+        const list = POSTS.filter((p) => wrCat === "all" || p.cat === wrCat);
+        $("#wrList").innerHTML = list
+          .map((p) => {
+            const cat = CATS.find((c) => c.id === p.cat)[LANG];
+            const n = p.likes + (liked.has(p.id) ? 1 : 0);
+            return `<article class="post">
       <div class="top"><span class="cat">${cat}</span><span>${p.date}</span><span>${p.read} ${t.min}</span></div>
-      <h3><a href="#" onclick="return false">${L(p, '')}</a></h3>
-      <p>${L(p, 'sum')}</p>
+      <h3><a href="#" onclick="return false">${L(p, "")}</a></h3>
+      <p>${L(p, "sum")}</p>
       <div class="pact">
         <button class="like" data-like="${p.id}" aria-pressed="${liked.has(p.id)}">
-          <span class="heart">${liked.has(p.id) ? '♥' : '♡'}</span><span>${n}</span>
+          <span class="heart">${liked.has(p.id) ? "♥" : "♡"}</span><span>${n}</span>
         </button>
-        <button class="cmt" data-cmt="${p.id}">${p.cmts.length ? p.cmts.length + ' ' + t.cmt : t.no}</button>
+        <button class="cmt" data-cmt="${p.id}">${p.cmts.length ? p.cmts.length + " " + t.cmt : t.no}</button>
       </div>
       <div class="thread hide" data-thread="${p.id}">
-        ${p.cmts.map(c => `<div class="c"><div class="av">${c.who[0]}</div><div><b>${c.who}</b>${c[LANG]}</div></div>`).join('')}
+        ${p.cmts.map((c) => `<div class="c"><div class="av">${c.who[0]}</div><div><b>${c.who}</b>${c[LANG]}</div></div>`).join("")}
         <div class="cbox">
           <input type="text" placeholder="${t.ph}">
           <button class="btn">${t.send}</button>
         </div>
       </div>
     </article>`;
-  }).join('');
-  $('#wrList').querySelectorAll('[data-like]').forEach(b => b.addEventListener('click', () => {
-    const id = b.dataset.like;
-    liked.has(id) ? liked.delete(id) : liked.add(id);
-    const p = POSTS.find(x => x.id === id);
-    b.setAttribute('aria-pressed', liked.has(id));
-    b.querySelector('.heart').textContent = liked.has(id) ? '♥' : '♡';
-    b.lastElementChild.textContent = p.likes + (liked.has(id) ? 1 : 0);
-  }));
-  $('#wrList').querySelectorAll('[data-cmt]').forEach(b => b.addEventListener('click', () => {
-    const th = $(`[data-thread="${b.dataset.cmt}"]`);
-    th.classList.toggle('hide');
-    if (!th.classList.contains('hide')) th.querySelector('input').focus();
-  }));
-}
-$('#subForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const f = e.currentTarget;
-  f.innerHTML = `<p class="ok">${LANG === 'zh' ? '已订阅，确认邮件发到你邮箱了。' : 'Subscribed. A confirmation email is on its way.'}</p>`;
-});
-/* ---------------- Toolkit ---------------- */
-const TK_TAGS = [
-  { id:'all', zh:'全部', en:'All' },
-  { id:'dev', zh:'开发', en:'Dev' },
-  { id:'design', zh:'设计', en:'Design' },
-  { id:'read', zh:'阅读', en:'Reading' },
-  { id:'ops', zh:'运维', en:'Ops' },
-];
-const TOOLS = [
-  { name:'Excalidraw', url:'https://excalidraw.com', tag:'design', upd:'2026-09',
-    zh:'手绘感的架构图工具。我画给自己看的图基本都在这里，导出 SVG 能直接塞进文档。',
-    en:'Hand-drawn style diagramming. Nearly every diagram I draw for myself starts here, and the SVG export drops straight into docs.' },
-  { name:'DBeaver', url:'https://dbeaver.io', tag:'dev', upd:'2026-08',
-    zh:'跨数据库的可视化客户端。调 Prisma 生成的 schema 时比命令行省事。',
-    en:'Cross-database GUI client. Easier than the CLI when inspecting what Prisma generated.' },
-  { name:'Bruno', url:'https://usebruno.com', tag:'dev', upd:'2026-09',
-    zh:'接口调试工具，请求集合以文件形式存在仓库里，可以跟代码一起 review。',
-    en:'API client that keeps request collections as files in your repo, so they get reviewed with the code.' },
-  { name:'Railway', url:'https://railway.app', tag:'ops', upd:'2026-07',
-    zh:'小项目部署。Postgres 和 Redis 一键起，适合做原型和给客户看的演示环境。',
-    en:'Deployment for small projects. Postgres and Redis in one click, good for prototypes and client-facing demos.' },
-  { name:'Umami', url:'https://umami.is', tag:'ops', upd:'2026-06',
-    zh:'自托管的网站统计，不用 cookie。这个站用的就是它。',
-    en:'Self-hosted, cookie-free website analytics. It is what runs on this site.' },
-  { name:'Radix Colors', url:'https://www.radix-ui.com/colors', tag:'design', upd:'2026-09',
-    zh:'成对的明暗色阶，每一档的对比度都算过。配深浅双主题时省掉大量试色时间。',
-    en:'Paired light and dark scales with contrast worked out at every step. Saves a lot of guessing when building two themes.' },
-  { name:'Motion 文档', url:'https://motion.dev', tag:'dev', upd:'2026-08',
-    zh:'动效库文档本身就是最好的示例集，spring 参数那几页值得反复看。',
-    en:'The docs double as the best example set. The pages on spring parameters are worth rereading.' },
-  { name:'Designing Data-Intensive Applications', url:'https://dataintensive.net', tag:'read', upd:'2026-03',
-    zh:'分布式系统那部分我读了三遍。讨论一致性和复制策略时我还会翻回去。',
-    en:'I have read the distributed systems chapters three times, and still go back when consistency or replication comes up.' },
-  { name:'Refactoring UI', url:'https://www.refactoringui.com', tag:'read', upd:'2025-12',
-    zh:'写给工程师的界面设计书。层级、留白和颜色这三件事讲得最实用。',
-    en:'Interface design written for engineers. Strongest on hierarchy, whitespace and color.' },
-  { name:'Caddy', url:'https://caddyserver.com', tag:'ops', upd:'2026-05',
-    zh:'自动签发证书的反向代理。配置文件短到可以记住。',
-    en:'Reverse proxy with automatic certificates. The config is short enough to remember.' },
-];
-let tkTag = 'all', tkQuery = '';
-function renderTkFilters() {
-  $('#tkFilters').innerHTML = TK_TAGS.map(t =>
-    `<button class="chip" data-tk="${t.id}" aria-pressed="${t.id === tkTag}">${t[LANG]}</button>`).join('');
-  $('#tkFilters').querySelectorAll('[data-tk]').forEach(b =>
-    b.addEventListener('click', () => { tkTag = b.dataset.tk; renderTkFilters(); renderTools(); }));
-}
-function renderTools() {
-  const t = LANG === 'zh' ? { upd:'最后确认' } : { upd:'checked' };
-  const q = tkQuery.trim().toLowerCase();
-  const rows = TOOLS.filter(x => {
-    if (tkTag !== 'all' && x.tag !== tkTag) return false;
-    if (!q) return true;
-    const tagName = TK_TAGS.find(g => g.id === x.tag)[LANG].toLowerCase();
-    return (x.name + ' ' + x.zh + ' ' + x.en + ' ' + tagName).toLowerCase().includes(q);
-  });
-  $('#tkList').innerHTML = rows.map(x => {
-    const tag = TK_TAGS.find(g => g.id === x.tag)[LANG];
-    return `<article class="tool">
+          })
+          .join("");
+        $("#wrList")
+          .querySelectorAll("[data-like]")
+          .forEach((b) =>
+            b.addEventListener("click", () => {
+              const id = b.dataset.like;
+              liked.has(id) ? liked.delete(id) : liked.add(id);
+              const p = POSTS.find((x) => x.id === id);
+              b.setAttribute("aria-pressed", liked.has(id));
+              b.querySelector(".heart").textContent = liked.has(id) ? "♥" : "♡";
+              b.lastElementChild.textContent =
+                p.likes + (liked.has(id) ? 1 : 0);
+            }),
+          );
+        $("#wrList")
+          .querySelectorAll("[data-cmt]")
+          .forEach((b) =>
+            b.addEventListener("click", () => {
+              const th = $(`[data-thread="${b.dataset.cmt}"]`);
+              th.classList.toggle("hide");
+              if (!th.classList.contains("hide"))
+                th.querySelector("input").focus();
+            }),
+          );
+      }
+      $("#subForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const f = e.currentTarget;
+        f.innerHTML = `<p class="ok">${LANG === "zh" ? "已订阅，确认邮件发到你邮箱了。" : "Subscribed. A confirmation email is on its way."}</p>`;
+      });
+      /* ---------------- Toolkit ---------------- */
+      const TK_TAGS = [
+        { id: "all", zh: "全部", en: "All" },
+        { id: "dev", zh: "开发", en: "Dev" },
+        { id: "design", zh: "设计", en: "Design" },
+        { id: "read", zh: "阅读", en: "Reading" },
+        { id: "ops", zh: "运维", en: "Ops" },
+      ];
+      const TOOLS = [
+        {
+          name: "Excalidraw",
+          url: "https://excalidraw.com",
+          tag: "design",
+          upd: "2026-09",
+          zh: "手绘感的架构图工具。我画给自己看的图基本都在这里，导出 SVG 能直接塞进文档。",
+          en: "Hand-drawn style diagramming. Nearly every diagram I draw for myself starts here, and the SVG export drops straight into docs.",
+        },
+        {
+          name: "DBeaver",
+          url: "https://dbeaver.io",
+          tag: "dev",
+          upd: "2026-08",
+          zh: "跨数据库的可视化客户端。调 Prisma 生成的 schema 时比命令行省事。",
+          en: "Cross-database GUI client. Easier than the CLI when inspecting what Prisma generated.",
+        },
+        {
+          name: "Bruno",
+          url: "https://usebruno.com",
+          tag: "dev",
+          upd: "2026-09",
+          zh: "接口调试工具，请求集合以文件形式存在仓库里，可以跟代码一起 review。",
+          en: "API client that keeps request collections as files in your repo, so they get reviewed with the code.",
+        },
+        {
+          name: "Railway",
+          url: "https://railway.app",
+          tag: "ops",
+          upd: "2026-07",
+          zh: "小项目部署。Postgres 和 Redis 一键起，适合做原型和给客户看的演示环境。",
+          en: "Deployment for small projects. Postgres and Redis in one click, good for prototypes and client-facing demos.",
+        },
+        {
+          name: "Umami",
+          url: "https://umami.is",
+          tag: "ops",
+          upd: "2026-06",
+          zh: "自托管的网站统计，不用 cookie。这个站用的就是它。",
+          en: "Self-hosted, cookie-free website analytics. It is what runs on this site.",
+        },
+        {
+          name: "Radix Colors",
+          url: "https://www.radix-ui.com/colors",
+          tag: "design",
+          upd: "2026-09",
+          zh: "成对的明暗色阶，每一档的对比度都算过。配深浅双主题时省掉大量试色时间。",
+          en: "Paired light and dark scales with contrast worked out at every step. Saves a lot of guessing when building two themes.",
+        },
+        {
+          name: "Motion 文档",
+          url: "https://motion.dev",
+          tag: "dev",
+          upd: "2026-08",
+          zh: "动效库文档本身就是最好的示例集，spring 参数那几页值得反复看。",
+          en: "The docs double as the best example set. The pages on spring parameters are worth rereading.",
+        },
+        {
+          name: "Designing Data-Intensive Applications",
+          url: "https://dataintensive.net",
+          tag: "read",
+          upd: "2026-03",
+          zh: "分布式系统那部分我读了三遍。讨论一致性和复制策略时我还会翻回去。",
+          en: "I have read the distributed systems chapters three times, and still go back when consistency or replication comes up.",
+        },
+        {
+          name: "Refactoring UI",
+          url: "https://www.refactoringui.com",
+          tag: "read",
+          upd: "2025-12",
+          zh: "写给工程师的界面设计书。层级、留白和颜色这三件事讲得最实用。",
+          en: "Interface design written for engineers. Strongest on hierarchy, whitespace and color.",
+        },
+        {
+          name: "Caddy",
+          url: "https://caddyserver.com",
+          tag: "ops",
+          upd: "2026-05",
+          zh: "自动签发证书的反向代理。配置文件短到可以记住。",
+          en: "Reverse proxy with automatic certificates. The config is short enough to remember.",
+        },
+      ];
+      let tkTag = "all",
+        tkQuery = "";
+      function renderTkFilters() {
+        $("#tkFilters").innerHTML = TK_TAGS.map(
+          (t) =>
+            `<button class="chip" data-tk="${t.id}" aria-pressed="${t.id === tkTag}">${t[LANG]}</button>`,
+        ).join("");
+        $("#tkFilters")
+          .querySelectorAll("[data-tk]")
+          .forEach((b) =>
+            b.addEventListener("click", () => {
+              tkTag = b.dataset.tk;
+              renderTkFilters();
+              renderTools();
+            }),
+          );
+      }
+      function renderTools() {
+        const t = LANG === "zh" ? { upd: "最后确认" } : { upd: "checked" };
+        const q = tkQuery.trim().toLowerCase();
+        const rows = TOOLS.filter((x) => {
+          if (tkTag !== "all" && x.tag !== tkTag) return false;
+          if (!q) return true;
+          const tagName = TK_TAGS.find((g) => g.id === x.tag)[
+            LANG
+          ].toLowerCase();
+          return (x.name + " " + x.zh + " " + x.en + " " + tagName)
+            .toLowerCase()
+            .includes(q);
+        });
+        $("#tkList").innerHTML = rows
+          .map((x) => {
+            const tag = TK_TAGS.find((g) => g.id === x.tag)[LANG];
+            return `<article class="tool">
       <div class="head">
         <h3><a href="${x.url}" target="_blank" rel="noopener">${x.name}</a></h3>
         <i class="tag">${tag}</i>
@@ -1480,29 +3238,39 @@ function renderTools() {
       <p>${x[LANG]}</p>
       <div class="upd">${t.upd} ${x.upd}</div>
     </article>`;
-  }).join('');
-  $('#tkEmpty').classList.toggle('hide', rows.length > 0);
-}
-$('#tkQ').addEventListener('input', e => { tkQuery = e.target.value; renderTools(); });
+          })
+          .join("");
+        $("#tkEmpty").classList.toggle("hide", rows.length > 0);
+      }
+      $("#tkQ").addEventListener("input", (e) => {
+        tkQuery = e.target.value;
+        renderTools();
+      });
 
-/* ---------------- 首次渲染 / 语言重渲染 ---------------- */
-function renderAll() {
-  renderProjects(); renderFilters(); renderPosts(); renderTkFilters(); renderTools();
-  if (openPj) openProject(openPj);
-}
-renderAll();
+      /* ---------------- 首次渲染 / 语言重渲染 ---------------- */
+      function renderAll() {
+        renderProjects();
+        renderFilters();
+        renderPosts();
+        renderTkFilters();
+        renderTools();
+        if (openPj) openProject(openPj);
+      }
+      renderAll();
 
-let last = performance.now();
-function loop(now) {
-  const dt = now - last; last = now;
-  drawSky(now); driftAtlas(now); meteors(now, dt);
-  if (current === 'about') drawFire(dt);
-  requestAnimationFrame(loop);
-}
-initSky();
-addEventListener('resize', initSky);
-requestAnimationFrame(loop);
-</script>
-</body>
+      let last = performance.now();
+      function loop(now) {
+        const dt = now - last;
+        last = now;
+        drawSky(now);
+        driftAtlas(now);
+        meteors(now, dt);
+        if (current === "about") drawFire(dt);
+        requestAnimationFrame(loop);
+      }
+      initSky();
+      addEventListener("resize", initSky);
+      requestAnimationFrame(loop);
+    </script>
+  </body>
 </html>
-

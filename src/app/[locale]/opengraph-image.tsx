@@ -52,7 +52,7 @@ export default function OpengraphImage() {
             <div style={{ width: 12, height: 12, borderRadius: 12, background: GLOW, boxShadow: `0 0 16px ${GLOW}` }} />
             GY · OBSERVATORY
           </div>
-          <div style={{ marginTop: 34, color: TEXT, fontSize: 76, lineHeight: 1.05 }}>Guo Yang</div>
+          <div style={{ marginTop: 34, color: TEXT, fontSize: 76, lineHeight: 1.05 }}>Guo Yi</div>
           <div style={{ marginTop: 22, color: DIM, fontSize: 30, lineHeight: 1.4 }}>
             Full-stack engineer who makes complex systems thin.
           </div>

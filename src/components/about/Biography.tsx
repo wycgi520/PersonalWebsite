@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import BackLink from '@/components/layout/BackLink';
+import ProfilePortrait from '@/components/ProfilePortrait';
 
 const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
 
@@ -18,13 +19,7 @@ export default function Biography() {
     <div className="about-bio max-w-[60ch]">
       <BackLink className="mb-7" />
 
-      <div
-        className="rv mb-[22px] grid h-[76px] w-[76px] place-items-center rounded-full border border-line bg-[radial-gradient(circle_at_34%_30%,#2A3C5C,#0E1726_70%)] font-serif text-[30px] text-glow shadow-[0_0_0_6px_rgba(99,210,232,0.05)]"
-        role="img"
-        aria-label={t('portraitLabel')}
-      >
-        <span aria-hidden="true">GY</span>
-      </div>
+      <ProfilePortrait className="rv" />
 
       <h1 className="rv mb-5 font-serif text-[clamp(32px,3.4vw,46px)] font-medium leading-[1.14]">
         {t('title')}
