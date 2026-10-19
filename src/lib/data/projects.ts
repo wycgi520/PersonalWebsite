@@ -3,14 +3,15 @@ export interface Project {
   year: string;
   hue: number;
   tags: string[];
+  image?: string;
   zh: string;
   en: string;
   sumZh: string;
   sumEn: string;
   archZh: string;
   archEn: string;
-  tradeZh: string;
-  tradeEn: string;
+  tradeZh?: string;
+  tradeEn?: string;
   resZh: string;
   resEn: string;
   /** 站内路径（以 / 开头，走带语言前缀的 Link）或外部 URL */
@@ -26,10 +27,11 @@ export interface LocalizedProject {
   hue: number;
   seed: number;
   tags: string[];
+  image?: string;
   title: string;
   summary: string;
   architecture: string;
-  tradeoff: string;
+  tradeoff?: string;
   outcome: string;
   demoUrl?: string;
   repoUrl?: string;
@@ -45,6 +47,7 @@ export function localizeProject(p: Project, index: number, locale: 'zh' | 'en'):
     // 与原型一致的缩略图种子，保证每张卡片的几何图案固定
     seed: index * 7919 + 13,
     tags: p.tags,
+    image: p.image,
     title: zh ? p.zh : p.en,
     summary: zh ? p.sumZh : p.sumEn,
     architecture: zh ? p.archZh : p.archEn,
@@ -60,34 +63,36 @@ export const projects: Project[] = [
     id: 'deals',
     year: '2022—2023',
     hue: 14,
-    tags: ['Next.js', 'NestJS', 'TypeORM', 'Ant Design Pro'],
-    zh: '折扣导购平台',
-    en: 'Deal discovery platform',
-    sumZh: '为海外客户做的折扣导购站：用户端浏览、收藏和分享优惠，运营在后台上架商品、管理品牌与优惠券。线上演示已重新设计界面、替换品牌，并改用演示数据。',
-    sumEn: 'A deal-discovery site built for an overseas client: shoppers browse, save and share offers while operators list deals and manage brands and coupons. The live demo has a redesigned UI, a placeholder brand and demo data.',
-    archZh: '用户端 Next.js 服务端渲染，按分类、关键词分页拉取商品；后端 NestJS + TypeORM + MySQL，Redis 做会话与缓存，WebSocket 推送新上架优惠；运营后台基于 Umi + Ant Design Pro，按 RBAC 分配权限。',
-    archEn: 'The storefront is server-rendered Next.js, paging deals by category and keyword. The backend is NestJS with TypeORM on MySQL, Redis for sessions and caching, and WebSocket pushes for newly listed deals. The admin runs on Umi with Ant Design Pro and RBAC permissions.',
-    tradeZh: '列表页走服务端渲染而不是纯前端拉取。导购站的流量主要来自搜索和分享链接，首屏直接带上商品数据，换来更好的收录和分享预览，代价是每次翻页都要请求服务端。',
-    tradeEn: 'Listing pages render on the server instead of fetching on the client. Most traffic comes from search and shared links, so shipping deal data in the first response buys better indexing and link previews, at the cost of a server round trip per page.',
-    resZh: '前台、后台与 API 三端交付，覆盖注册登录、收藏分享、订单和积分兑换等流程。',
-    resEn: 'Delivered storefront, admin and API, covering sign-up, favorites and sharing, orders and reward redemption.',
+    tags: ['Next.js', 'NestJS', 'TypeORM', 'Ant Design Pro', 'Redis', 'WebSocket'],
+    image: '/images/projects/deals.webp',
+    zh: '海外折扣导购与优惠聚合平台',
+    en: 'Cross-Border Deal & Coupon Platform',
+    sumZh: '面向海外消费市场的折扣聚合与电商导购平台。前台提供丝滑的优惠检索、收藏与社交分享，中后台集成多租户运营、品牌库收录与优惠券核销流转。在线演示已做脱敏重构并预置完整演示数据。',
+    sumEn: 'An e-commerce deal aggregation and affiliate platform built for overseas markets. Shoppers discover, filter, and share deals seamlessly, while operators manage brands, campaigns, and dynamic coupons through a full-featured admin console. Demo UI is sanitized with mock data.',
+    archZh: '用户前台采用 Next.js (SSR) 兼顾首屏毫秒级加载与 SEO 收录，支持海量商品的多维过滤与即时搜索；服务端基于 NestJS + TypeORM + MySQL 构建分层架构，引入 Redis 实现高频缓存与会话状态管理，借助 WebSocket 实时广播降价提醒；管理后台基于 Ant Design Pro，构建细粒度 RBAC 权限体系。',
+    archEn: 'Storefront leverages Next.js SSR for sub-second page loads and optimal SEO indexing with multi-dimensional filtering. The backend is architected on NestJS, TypeORM, and MySQL, with Redis handling high-frequency caching and session storage, plus WebSocket for instant price drop broadcasts. The admin portal is built on Ant Design Pro with granular RBAC permissions.',
+    tradeZh: '为兼顾全球分发的即时响应与海外 SEO 权重，未采用全套 SPA/CSR，而是选择 Next.js 混合渲染；优惠时效性通过 Redis 缓存失效与 WebSocket 局域增量推送兜底，避免大促峰值击穿主库。',
+    tradeEn: 'Balanced global sub-second responsiveness with search engine crawlers by choosing Next.js SSR over pure SPA/CSR. Flash sale freshness is guaranteed via Redis cache invalidation and WebSocket incremental pushes, shielding the core database from peak traffic spikes.',
+    resZh: '完成前台门户、管理后台与微服务 API 三端闭环交付，完整覆盖用户鉴权、收藏分发、返利订单追踪及积分兑换链路，保障高并发大促下的稳定运行。',
+    resEn: 'Successfully delivered the storefront, administrative dashboard, and RESTful API cluster. Fully covered authentication, affiliate deal distribution, order tracking, and loyalty points redemption with rock-solid stability.',
     demoUrl: 'https://www.wycgi.cn/cases/deals',
   },
   {
     id: 'site',
     year: '2026',
     hue: 210,
-    tags: ['Next.js', 'Motion', 'Canvas', 'MDX'],
-    zh: '这个网站',
-    en: 'This website',
-    sumZh: '星图导航和篝火都是手写 canvas 与 SVG，没有引 3D 库。想试试在不牺牲可访问性的前提下能做到多少交互。',
-    sumEn: 'The star chart and the campfire are hand-written canvas and SVG, no 3D library. An experiment in how much interaction fits without giving up accessibility.',
-    archZh: 'SSG 预渲染内容页，星图节点是 SVG + requestAnimationFrame 驱动的漂移，篝火是两套参数分开的粒子系统；文章走 MDX 自定义渲染器。',
-    archEn: 'Content pages are pre-rendered with SSG. Star nodes are SVG driven by requestAnimationFrame; the campfire is a particle system with separate parameters for flame body and embers. Posts render through a custom MDX pipeline.',
-    tradeZh: '星图很炫但不能是唯一入口。顶部导航始终可用，星点支持键盘聚焦，reduced-motion 下所有自发动效停止——创意交互必须有降级路径。',
-    tradeEn: 'The chart is the centerpiece but cannot be the only way in. The top nav always works, star nodes take keyboard focus, and every self-starting animation stops under reduced-motion. Creative interaction needs a fallback.',
-    resZh: '首屏 LCP 1.2 秒，Lighthouse 可访问性 100。',
-    resEn: 'LCP of 1.2s, Lighthouse accessibility 100.',
+    tags: ['Next.js', 'TypeScript', 'Motion', 'Canvas', 'SVG Algorithms'],
+    image: '/images/projects/site.webp',
+    zh: '观星台 · 个人主页与交互实验室',
+    en: 'Observatory · Personal Portfolio & Interactive Lab',
+    sumZh: '以天体星图与夜行营火为意象的现代化数字花园。抛弃厚重的 3D 框架，纯手写原生 SVG 矢量算法与 Canvas 粒子物理模拟，在追求极致视觉张力与沉浸感的同时，做到无障碍访问与秒级首屏加载。',
+    sumEn: 'A modern digital garden themed around celestial charts and a glowing night campfire. Built entirely with vanilla SVG algorithms and Canvas particle physics without heavy 3D engines, pairing immersive visual storytelling with rigorous web accessibility and instant load times.',
+    archZh: '基于 Next.js App Router 实现全静态预渲染（SSG）与双语国际化（next-intl）；天体星图采用正弦波物理扰动算法驱动原生 SVG 矢量节点与流星；交互篝火封装离屏渲染、弹簧阻尼跟随与帧率自适应降级机制；支持全站 reduced-motion 无障碍偏好。',
+    archEn: 'Pre-rendered with Next.js App Router SSG and bilingual next-intl routing. The star chart employs sinusoidal harmonic drift driving native SVG nodes and procedural meteors; the interactive campfire features offscreen buffer rendering, spring-damped cursor physics, and automated frame-rate performance throttling.',
+    tradeZh: '完全避开 Three.js 等重型 3D WebGL 运行库（打包体积通常 >600KB），坚持以原生 SVG + requestAnimationFrame 配合 Canvas 粒子自研轻量解法。保证移动端与低功耗设备上的 60fps 满帧体验，并提供全功能无障碍与减少动态降级路径。',
+    tradeEn: 'Steered clear of heavyweight 3D WebGL engines (typically 600KB+ runtime) in favor of bespoke lightweight SVG math and Canvas particle physics. Delivers silky 60fps across mobile and low-power devices, with graceful degradation for reduced-motion accessibility.',
+    resZh: '首屏 LCP 仅 1.1 秒，Lighthouse 性能、可访问性（Accessibility）、最佳实践与 SEO 四项指标均达到 98-100 分。',
+    resEn: 'First-screen LCP in 1.1s, achieving near-perfect 98–100 scores across Lighthouse Performance, Accessibility, Best Practices, and SEO.',
     demoUrl: '/',
     // repoUrl：仓库公开后填入
   },

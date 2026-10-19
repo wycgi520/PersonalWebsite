@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import type { LocalizedProject } from '@/lib/data/projects';
 import ProjectThumb from './ProjectThumb';
@@ -29,8 +30,18 @@ export default function ProjectCard({ project: p, onOpen }: Props) {
         onOpen(p.id);
       }}
     >
-      <div className="relative aspect-[2/1] overflow-hidden border-b border-line">
-        <ProjectThumb hue={p.hue} seed={p.seed} />
+      <div className="relative aspect-[2/1] overflow-hidden border-b border-line bg-panel">
+        {p.image ? (
+          <Image
+            src={p.image}
+            alt={p.title}
+            fill
+            className="object-cover object-top transition-transform duration-500 ease-scene group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+          />
+        ) : (
+          <ProjectThumb hue={p.hue} seed={p.seed} />
+        )}
       </div>
       <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5">
         <div className="mb-2 flex items-center justify-between gap-3 text-[11px] tracking-[0.1em] text-dim">

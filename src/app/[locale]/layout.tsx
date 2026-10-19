@@ -63,7 +63,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t("title"),
     description: t("description"),
     applicationName: t("title"),
-    keywords: ["全栈工程师", "Full Stack", "TypeScript", "Next.js", "React"],
+    keywords: [
+      "国易",
+      "Guo Yi",
+      "全栈工程师",
+      "Full Stack Engineer",
+      "TypeScript",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "观星台",
+      "Observatory",
+      "独立开发",
+      "Web架构",
+      "Creative Coding"
+    ],
     authors: [{ name: locale === "zh" ? "国易" : "Guo Yi", url: SITE_URL }],
     formatDetection: { email: false, telephone: false, address: false },
   };

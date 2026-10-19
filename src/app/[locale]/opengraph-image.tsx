@@ -54,7 +54,7 @@ export default function OpengraphImage() {
           </div>
           <div style={{ marginTop: 34, color: TEXT, fontSize: 76, lineHeight: 1.05 }}>Guo Yi</div>
           <div style={{ marginTop: 22, color: DIM, fontSize: 30, lineHeight: 1.4 }}>
-            Full-stack engineer who makes complex systems thin.
+            Full-stack engineer crafting resilient, high-craft web systems.
           </div>
           <div style={{ marginTop: 40, color: GLOW, fontSize: 22, letterSpacing: 1 }}>
             TypeScript · Next.js · PostgreSQL

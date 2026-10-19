@@ -24,53 +24,53 @@ export interface Tool {
 export const tools: Tool[] = [
   {
     id: 'excalidraw', name: 'Excalidraw', url: 'https://excalidraw.com', tag: 'design', checked: '2026-09',
-    zh: '手绘感的架构图工具。我画给自己看的图基本都在这里，导出 SVG 能直接塞进文档。',
-    en: 'Hand-drawn style diagramming. Nearly every diagram I draw for myself starts here, and the SVG export drops straight into docs.',
+    zh: '极简且手绘质感出众的架构草图工具。用于梳理业务时序、系统拓扑与数据流转，SVG 矢量导出可直接无缝嵌入技术文档与 MDX。',
+    en: 'Virtual hand-drawn sketching tool for architecture diagrams, system topology, and data flows. Clean SVG exports drop straight into MDX documentation.',
   },
   {
     id: 'dbeaver', name: 'DBeaver', url: 'https://dbeaver.io', tag: 'dev', checked: '2026-08',
-    zh: '跨数据库的可视化客户端。调 Prisma 生成的 schema 时比命令行省事。',
-    en: 'Cross-database GUI client. Easier than the CLI when inspecting what Prisma generated.',
+    zh: '全能跨平台的数据库通用 GUI 客户端。比纯终端排查效率高出数倍，尤其适合在调试 Prisma 生成的复杂 Schema 迁移与外键约束时快速验证。',
+    en: 'Versatile universal database GUI client. Significantly faster than CLI for inspecting migrations, checking foreign key relationships, and fine-tuning Prisma schemas.',
   },
   {
     id: 'bruno', name: 'Bruno', url: 'https://usebruno.com', tag: 'dev', checked: '2026-09',
-    zh: '接口调试工具，请求集合以文件形式存在仓库里，可以跟代码一起 review。',
-    en: 'API client that keeps request collections as files in your repo, so they get reviewed with the code.',
+    zh: '轻量开源、纯本地离线的 API 调试利器。请求集合以纯文本文件形式随代码库版本化管理，完美契合 Git 协同与团队代码审查（Code Review）。',
+    en: 'Fast, open-source, offline-first API client. Stores request collections as plain text files directly within the repository, enabling seamless Git tracking and team reviews.',
   },
   {
     id: 'railway', name: 'Railway', url: 'https://railway.app', tag: 'ops', checked: '2026-07',
-    zh: '小项目部署。Postgres 和 Redis 一键起，适合做原型和给客户看的演示环境。',
-    en: 'Deployment for small projects. Postgres and Redis in one click, good for prototypes and client-facing demos.',
+    zh: '轻量敏捷的现代云部署平台。PostgreSQL、Redis 与独立微服务一键组网秒级拉起，极速搭建高可用的产品原型与客户交付演示环境。',
+    en: 'Agile cloud infrastructure for modern apps. Spins up PostgreSQL, Redis, and decoupled services in seconds — optimal for staging prototypes and client preview environments.',
   },
   {
     id: 'umami', name: 'Umami', url: 'https://umami.is', tag: 'ops', checked: '2026-06',
-    zh: '自托管的网站统计，不用 cookie。这个站用的就是它。',
-    en: 'Self-hosted, cookie-free website analytics. It is what runs on this site.',
+    zh: '开源无 Cookie 的轻量级自托管网站分析系统。严格保护访客隐私、零性能负担且符合 GDPR 规范，全权掌控自身站点的访问洞察。',
+    en: 'Open-source, cookie-free, self-hosted web analytics. Complies with GDPR while keeping visitor privacy intact with zero bloated telemetry scripts.',
   },
   {
     id: 'radix-colors', name: 'Radix Colors', url: 'https://www.radix-ui.com/colors', tag: 'design', checked: '2026-09',
-    zh: '成对的明暗色阶，每一档的对比度都算过。配深浅双主题时省掉大量试色时间。',
-    en: 'Paired light and dark scales with contrast worked out at every step. Saves a lot of guessing when building two themes.',
+    zh: '经过严密无障碍对比度（WCAG）校验的明暗双色阶体系。让深色（Dark）与浅色（Light）主题的设计配比拥有严谨的数学规律，大幅缩减调色试错成本。',
+    en: 'Scientifically calibrated color system with guaranteed WCAG contrast compliance. Makes paired dark/light theme tokens consistent, harmonious, and accessible.',
   },
   {
     id: 'motion', name: 'Motion 文档', nameEn: 'Motion docs', url: 'https://motion.dev', tag: 'dev', checked: '2026-08',
-    zh: '动效库文档本身就是最好的示例集，spring 参数那几页值得反复看。',
-    en: 'The docs double as the best example set. The pages on spring parameters are worth rereading.',
+    zh: 'React 生态事实标准的声明式动效库。文档交互设计本身即是极佳的动效教学标杆，弹簧物理（Spring Physics）参数章节值得反复研读。',
+    en: 'The gold standard motion engine for React. The documentation itself is a masterclass in UI design; the chapters on spring physics and layout transitions are invaluable.',
   },
   {
     id: 'ddia', name: 'Designing Data-Intensive Applications', url: 'https://dataintensive.net', tag: 'read', checked: '2026-03',
-    zh: '分布式系统那部分我读了三遍。讨论一致性和复制策略时我还会翻回去。',
-    en: 'I have read the distributed systems chapters three times, and still go back when consistency or replication comes up.',
+    zh: '分布式系统与数据密集型架构圣经。从底层存储引擎、编码演进到复制容灾与分布式共识，每次遇到一致性架构抉择时总会重新翻阅。',
+    en: 'The definitive authority on data-intensive systems. From storage engines and encoding to replication, partitioning, and distributed consensus — the book I re-read most.',
   },
   {
     id: 'refactoring-ui', name: 'Refactoring UI', url: 'https://www.refactoringui.com', tag: 'read', checked: '2025-12',
-    zh: '写给工程师的界面设计书。层级、留白和颜色这三件事讲得最实用。',
-    en: 'Interface design written for engineers. Strongest on hierarchy, whitespace and color.',
+    zh: '写给全栈与后端工程师的高价值界面设计指南。用工程师能深刻理解的实用排版、空间层级、留白与色彩心理学，快速消除廉价的 AI 模板感。',
+    en: 'The quintessential UI design manual for engineers. Demystifies visual hierarchy, typography scales, whitespace, and color theory to make any interface feel premium.',
   },
   {
     id: 'caddy', name: 'Caddy', url: 'https://caddyserver.com', tag: 'ops', checked: '2026-05',
-    zh: '自动签发证书的反向代理。配置文件短到可以记住。',
-    en: 'Reverse proxy with automatic certificates. The config is short enough to remember.',
+    zh: '现代高效、基于 Go 语言的 HTTP/2 静态与反向代理服务器。内置 ACME 协议全自动申请与续签 HTTPS 证书，配置文件清晰简练到可以默写。',
+    en: 'Modern, battle-tested Go web server and reverse proxy. Provisions and renews HTTPS certificates automatically via ACME, with a configuration syntax so concise you can memorize it.',
   },
 ];
 
