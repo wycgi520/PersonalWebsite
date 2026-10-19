@@ -6,7 +6,7 @@ import ProjectCard from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
 
 /**
- * 卡片网格 + 详情抽屉。打开的项目记在 URL hash（/projects#atlas）：
+ * 卡片网格 + 详情抽屉。打开的项目记在 URL hash（/projects#deals）：
  * 可分享、刷新后仍打开、浏览器后退即关闭。
  */
 export default function ProjectGallery({ projects }: { projects: LocalizedProject[] }) {
@@ -54,7 +54,7 @@ export default function ProjectGallery({ projects }: { projects: LocalizedProjec
 
   return (
     <div ref={rootRef} className="pj-root">
-      <div className="grid grid-cols-1 gap-6 min-[981px]:grid-cols-[repeat(auto-fill,minmax(430px,1fr))]">
+      <div className="grid grid-cols-1 gap-5 min-[641px]:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
         {projects.map((p) => (
           <ProjectCard key={p.id} project={p} onOpen={open} />
         ))}

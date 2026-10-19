@@ -1,0 +1,29 @@
+[Unit]
+Description=Project case demo %i (Next.js standalone)
+After=network.target
+ConditionPathExists=/www/wwwroot/cases/%i/current/server.js
+
+[Service]
+Type=simple
+User=cases
+Group=cases
+WorkingDirectory=/www/wwwroot/cases/%i/current
+EnvironmentFile=/www/wwwroot/cases/%i/env
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+Environment=HOSTNAME=127.0.0.1
+ExecStart=/www/server/nodejs/v24.21.0/bin/node server.js
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+KillSignal=SIGTERM
+UMask=0022
+MemoryMax=256M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/www/wwwroot/cases/%i/releases
+
+[Install]
+WantedBy=multi-user.target

@@ -40,3 +40,6 @@ next-env.d.ts
 *.swp
 *.swo
 *~
+
+# 客户项目源码，仅本地保留
+project_cases

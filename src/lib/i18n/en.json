@@ -71,7 +71,7 @@
     "metaTitle": "Projects",
     "metaDescription": "Selected work: a content platform, a permission service, a notification queue, and this website — architecture, key tradeoffs and outcomes.",
     "title": "Selected work",
-    "lede": "Four systems I have built. Open a card for the architecture, the tradeoff that shaped it, and how it turned out.",
+    "lede": "Things I have built. Open a card for the architecture, the tradeoff that shaped it, and how it turned out. Client work comes with a live demo.",
     "count": "{count} projects",
     "open": "View details",
     "architecture": "Architecture",

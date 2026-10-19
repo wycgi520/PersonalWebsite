@@ -29,18 +29,18 @@ export default function ProjectCard({ project: p, onOpen }: Props) {
         onOpen(p.id);
       }}
     >
-      <div className="relative aspect-video overflow-hidden border-b border-line">
+      <div className="relative aspect-[2/1] overflow-hidden border-b border-line">
         <ProjectThumb hue={p.hue} seed={p.seed} />
       </div>
-      <div className="flex flex-1 flex-col px-[19px] pb-[19px] pt-[17px]">
+      <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5">
         <div className="mb-2 flex items-center justify-between gap-3 text-[11px] tracking-[0.1em] text-dim">
           <span>{pad(p.index)}</span>
           <span>{p.year}</span>
         </div>
-        <h3 className="mb-[7px] font-serif text-[20px] font-medium transition-colors duration-300 ease-scene group-hover:text-glow">
+        <h3 className="mb-1.5 font-serif text-[17px] font-medium transition-colors duration-300 ease-scene group-hover:text-glow">
           {p.title}
         </h3>
-        <p className="mb-[13px] text-[13.5px] leading-[1.72] text-dim">{p.summary}</p>
+        <p className="mb-3 line-clamp-3 text-[13px] leading-[1.65] text-dim">{p.summary}</p>
         <div className="mt-auto flex items-end justify-between gap-3">
           <ul className="flex flex-wrap gap-1.5">
             {p.tags.map((tag) => (
