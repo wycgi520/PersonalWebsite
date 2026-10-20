@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { CONTACT_EMAIL, CONTACT_LINKS, type ContactLink } from '@/lib/data/site';
 import CopyEmail from './CopyEmail';
+import CopyCard from './CopyCard';
 
 const cellLink =
   'ct-link flex h-full flex-col gap-2 px-[22px] py-[21px] focus-visible:outline-none';
@@ -10,7 +11,7 @@ const cellLink =
 /**
  * 联系方式网格：1px 间隙露出底色当分隔线（与原型 .clist 一致），
  * 三列 → 两列（≤900px）→ 单列（≤560px），六个条目始终排满。
- * 每格整格是一个链接；邮件格右上角另有复制按钮（同级元素，不嵌套在链接里）。
+ * 每格整格是一个链接（或微信卡片一键复制）；邮件格右上角另有复制按钮（同级元素，不嵌套在链接里）。
  */
 export default function ContactGrid() {
   const t = useTranslations('contact');
@@ -37,23 +38,31 @@ export default function ContactGrid() {
             style={{ '--i': i } as React.CSSProperties}
           >
             {c.kind === 'internal' ? (
-              <Link href={c.href} className={cellLink}>
+              <Link href={c.href!} className={cellLink}>
                 {body}
               </Link>
             ) : c.kind === 'external' ? (
-              <a href={c.href} target="_blank" rel="noopener noreferrer" className={cellLink}>
+              <a href={c.href!} target="_blank" rel="noopener noreferrer" className={cellLink}>
                 {body}
                 <span className="sr-only"> {t('opensInNewTab')}</span>
               </a>
-            ) : (
-              <a href={c.href} className={cellLink}>
+            ) : c.kind === 'mail' ? (
+              <a href={c.href!} className={cellLink}>
                 {body}
               </a>
+            ) : (
+              <CopyCard
+                textToCopy={'text' in c.value ? c.value.text : ''}
+                ariaLabel={t('copyWechat')}
+                className={cellLink}
+              >
+                {body}
+              </CopyCard>
             )}
 
             {c.kind === 'mail' ? (
               <CopyEmail email={CONTACT_EMAIL} className="absolute right-[14px] top-[14px]" />
-            ) : (
+            ) : c.kind === 'copy' ? null : (
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute right-[18px] top-[20px] text-dim opacity-60 transition-[color,opacity,transform] duration-300 ease-scene group-hover:opacity-100 group-hover:text-glow group-focus-within:text-glow group-focus-within:opacity-100"

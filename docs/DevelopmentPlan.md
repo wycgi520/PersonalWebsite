@@ -56,11 +56,11 @@
 | `components/contact/CopyEmail.tsx` | 邮件格右上角的复制按钮（与链接同级，不嵌套）。挂载后确认剪贴板 API 可用才渲染；成功/失败文字由 `role="status"` 播报，2.2s 后清除 |
 | `lib/data/site.ts` | 新增 `CONTACT_LINKS`：标签/值是固定文本（品牌名）或文案 key |
 
-与原型的偏差：RSS 尚未实现，第六格换成"订阅"，链接到 `/writing#newsletter`（Writing 侧栏订阅框加了 `id` 与 `scroll-mt`）；社交链接从站点首页改为按账号拼出的主页地址；即刻的个人主页是 `/u/<uuid>`，账号确定前先指向 `web.okjike.com`（`site.ts` 中有 TODO）。
+与原型的偏差：RSS 尚未实现，第六格换成"订阅"，链接到 `/writing#newsletter`（Writing 侧栏订阅框加了 `id` 与 `scroll-mt`）；社交链接从站点首页改为按账号拼出的主页地址；即刻已替换为微信（微信号 `wycgi520`，整格一键复制到剪贴板并带反馈动画）。
 
-验证：`tsc`、`lint`、`build` 通过（`/zh/contact`、`/en/contact` 为 SSG）；浏览器验证复制邮箱（写入剪贴板、"已复制"提示后清除）、外链属性、项目咨询邮件的编码、订阅格跳转、中英文与 metadata、浅色主题、窄屏单列无横向溢出，控制台无警告。
+验证：`tsc`、`lint`、`build` 通过（`/zh/contact`、`/en/contact` 为 SSG）；浏览器验证复制邮箱（写入剪贴板、"已复制"提示后清除）、复制微信、外链属性、项目咨询邮件的编码、订阅格跳转、中英文与 metadata、浅色主题、窄屏单列无横向溢出，控制台无警告。
 
-注意：GitHub / LinkedIn / X 账号沿用原型中的示例账号，上线前需替换为真实账号。
+注意：GitHub（`wycgi520`）、LinkedIn（`in/guoyi-wu-a55392445`）、X（`@wguy141219`）、邮箱（`437891878@qq.com`）与微信（`wycgi520`）均已按实际账号配置完成。
 
 ### 第四阶段 · Toolkit 页
 

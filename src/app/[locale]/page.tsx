@@ -28,8 +28,8 @@ export default async function HomePage({ params }: Props) {
     jobTitle: t('role'),
     url: `${SITE_URL}/${locale}`,
     email: `mailto:${CONTACT_EMAIL}`,
-    // 即刻还没有确定的个人主页地址（见 site.ts），先不放
-    sameAs: CONTACT_LINKS.filter((l) => l.kind === 'external' && l.id !== 'jike').map((l) => l.href),
+    // 外部社交主页地址（GitHub、LinkedIn、X）
+    sameAs: CONTACT_LINKS.filter((l) => l.kind === 'external' && Boolean(l.href)).map((l) => l.href as string),
   };
 
   return (
