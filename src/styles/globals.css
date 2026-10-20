@@ -100,22 +100,22 @@
   }
   .node .star { fill: var(--text); transition: fill 0.3s var(--ease), r 0.3s var(--ease); }
   .node .lbl {
-    font-family: var(--serif); font-size: 17px; fill: var(--text);
+    font-family: var(--serif); font-size: 21px; fill: var(--text);
     letter-spacing: 0.02em; transition: fill 0.3s var(--ease);
   }
-  .node .sub { font-family: var(--sans); font-size: 9.5px; fill: var(--dim); letter-spacing: 0.1em; }
+  .node .sub { font-family: var(--sans); font-size: 11.5px; fill: var(--dim); letter-spacing: 0.1em; }
   .node:hover .halo, .node:focus-visible .halo { opacity: 0.22; }
   .node:hover .ring, .node:focus-visible .ring { opacity: 0.6; }
-  .node:hover .star, .node:focus-visible .star { fill: var(--glow); r: 5.4; }
+  .node:hover .star, .node:focus-visible .star { fill: var(--glow); r: 7; }
   .node:hover .lbl, .node:focus-visible .lbl { fill: var(--glow); }
   /* 键盘聚焦时给出明确的焦点环（SVG 内无法使用 outline） */
   .node:focus-visible .ring { stroke-width: 1.4; opacity: 0.9; }
   /* 命中区域：覆盖星点和标签 */
-  .node .hit { x: -22px; y: -22px; width: 110px; height: 48px; }
+  .node .hit { x: -28px; y: -28px; width: 136px; height: 60px; }
   /* 窄屏时 SVG 整体缩小到约 0.6 倍：放大标签保证可读，命中区域放大到约 44px 触摸尺寸 */
   @media (max-width: 640px) {
-    .node .lbl { font-size: 24px; }
-    .node .sub { font-size: 13px; }
+    .node .lbl { font-size: 26px; }
+    .node .sub { font-size: 14px; }
     .node .hit { x: -36px; y: -38px; width: 150px; height: 80px; }
   }
   /* 触屏没有 hover：按下时给出即时反馈 */

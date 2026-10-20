@@ -107,7 +107,7 @@ export function useStarMap({ nodes, edges, meteors }: Refs) {
 
       nextMeteor -= dt;
       if (nextMeteor <= 0) {
-        nextMeteor = 5200 + Math.random() * 7000;
+        nextMeteor = 3000 + Math.random() * 4000;
         spawnMeteor(now);
       }
       for (let i = active.length - 1; i >= 0; i--) {

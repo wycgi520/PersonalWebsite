@@ -13,15 +13,18 @@ export default function Identity() {
         <span className="h-px flex-1 bg-line" aria-hidden="true" />
       </div>
 
-      <ProfilePortrait />
-
-      <h1 className="mb-1.5 font-serif text-[clamp(38px,4.4vw,60px)] font-medium leading-[1.08] tracking-[-0.01em]">
-        {t('name')}
-      </h1>
-
-      <p className="mb-6 font-serif text-[clamp(19px,1.7vw,23px)] font-normal italic text-glow">
-        {t('role')}
-      </p>
+      {/* 头像在左，姓名/职位在右 */}
+      <div className="mb-6 flex items-center gap-5 min-[861px]:gap-6">
+        <ProfilePortrait className="mb-0 shrink-0" />
+        <div className="min-w-0">
+          <h1 className="mb-1.5 font-serif text-[clamp(38px,4.4vw,60px)] font-medium leading-[1.08] tracking-[-0.01em]">
+            {t('name')}
+          </h1>
+          <p className="font-serif text-[clamp(19px,1.7vw,23px)] font-normal italic text-glow">
+            {t('role')}
+          </p>
+        </div>
+      </div>
 
       <p className="ident-bio mb-3.5 text-[14.5px] leading-[1.85] text-dim min-[861px]:text-[15px]">
         {t.rich('bio1', { strong })}

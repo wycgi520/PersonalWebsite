@@ -135,14 +135,14 @@ export default function StarMap() {
                   transform={`translate(${node.x},${node.y})`}
                 >
                   {/* 扩大触摸/点击命中区域，覆盖标签文字；窄屏尺寸由 CSS 几何属性放大（属性值兜底） */}
-                  <rect className="hit" x={-22} y={-22} width={110} height={48} fill="transparent" />
-                  <circle className="halo" r={34} fill="url(#hg)" />
-                  <circle className="ring" r={13} />
-                  <circle className="star" r={4.2} />
-                  <text className="lbl" x={20} y={5}>
+                  <rect className="hit" x={-28} y={-28} width={136} height={60} fill="transparent" />
+                  <circle className="halo" r={44} fill="url(#hg)" />
+                  <circle className="ring" r={17} />
+                  <circle className="star" r={5.6} />
+                  <text className="lbl" x={25} y={7}>
                     {label}
                   </text>
-                  <text className="sub" x={20} y={20} aria-hidden="true">
+                  <text className="sub" x={25} y={25} aria-hidden="true">
                     mag {node.mag}
                   </text>
                 </g>

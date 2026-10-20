@@ -39,7 +39,7 @@ export default async function HomePage({ params }: Props) {
         // 防止数据里出现 </script> 截断标签
         dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, '\\u003c') }}
       />
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 py-5 min-[1041px]:min-h-[calc(100vh-152px)] min-[1041px]:grid-cols-[minmax(300px,38%)_1fr] min-[1041px]:gap-14 min-[1041px]:py-0">
+      <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-10 py-5 min-[1041px]:min-h-[calc(100vh-152px)] min-[1041px]:grid-cols-[minmax(300px,460px)_minmax(0,calc(72vh/0.92))] min-[1041px]:justify-center min-[1041px]:gap-[clamp(56px,9vw,160px)] min-[1041px]:py-0">
         <Identity />
         <StarMap />
       </div>
