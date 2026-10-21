@@ -1,5 +1,7 @@
 generator client {
   provider = "prisma-client-js"
+  // GitHub builds on Ubuntu OpenSSL 3. The server is Alibaba Cloud Linux 3 / OpenSSL 1.1.
+  binaryTargets = ["native", "rhel-openssl-1.1.x"]
 }
 datasource db {
   provider = "postgresql"
