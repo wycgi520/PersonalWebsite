@@ -43,3 +43,6 @@ next-env.d.ts
 
 # 客户项目源码，仅本地保留
 project_cases
+
+# local index & tools
+.codegraph/
