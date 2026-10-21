@@ -407,10 +407,7 @@ html[data-motion="reduced"] *::after {
 .writing-button:hover:not(:disabled), .writing-button[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); }
 .writing-button:disabled { opacity: .5; cursor: not-allowed; }
 .writing-input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 3px; background: var(--ink); color: var(--text); padding: 10px 12px; font-size: 16px; }
-.writing-input:focus-visible, .writing-button:focus-visible, .reading-tools :focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; }
-.reading-tools { position: fixed; bottom: 20px; right: 24px; z-index: 35; display: flex; align-items: center; gap: 24px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); padding: 12px 18px; }
-.reading-tools :is(a,button) { display: flex; align-items: center; min-height: 44px; }
+.writing-input:focus-visible, .writing-button:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; }
 @media (max-width: 640px) {
-  .reading-tools { left: 0; right: 0; bottom: 0; justify-content: space-between; border-radius: 0; padding: 8px 18px calc(8px + env(safe-area-inset-bottom)); }
   .article-prose { font-size: 16px; }
 }

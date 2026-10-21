@@ -33,7 +33,7 @@ export default async function ArticlePage({params}: Props) {
   const variants = publishedArticles().filter(p => p.id === slug);
   if (!variants.length) notFound();
   const p = variants.find(p => p.locale === locale);
-  if (!p) return <section className="scene mx-auto max-w-3xl px-5 pb-20 pt-36"><WritingReturn /><h1 className="my-8 font-serif text-3xl">{t('translationMissing')}</h1><OriginalLinks slug={slug} locales={variants.map(v => v.locale)} /></section>;
+  if (!p) return <section className="scene mx-auto max-w-3xl px-5 pb-20 pt-36"><WritingReturn /><h1 className="my-8 font-serif text-2xl font-medium sm:text-3xl">{t('translationMissing')}</h1><OriginalLinks slug={slug} locales={variants.map(v => v.locale)} /></section>;
   const {html, headings} = await renderMarkdown(p.body);
   const {previous, next} = adjacentArticles(publishedArticles(locale), slug);
   const neighbors = {previous: previous && {id: previous.id, title: previous.title}, next: next && {id: next.id, title: next.title}};
@@ -47,7 +47,7 @@ export default async function ArticlePage({params}: Props) {
       <WritingReturn />
       <header className="mb-10 mt-8 max-w-[760px] border-b border-line pb-8">
         <div className="mb-4 flex flex-wrap gap-3 text-xs text-dim"><span className="text-glow">{p.catLabel}</span><time dateTime={p.date}>{p.date}</time><span>{t('readTime', {minutes: p.read})}</span>{p.updated && <span>{t('updated')} <time dateTime={p.updated}>{p.updated}</time></span>}</div>
-        <h1 id="article-title" tabIndex={-1} className="font-serif text-[clamp(30px,4vw,48px)] leading-[1.3] outline-none">{p.title}</h1>
+        <h1 id="article-title" tabIndex={-1} className="font-serif text-[22px] font-medium leading-[1.4] outline-none sm:text-[26px] min-[861px]:text-[30px] min-[861px]:leading-[1.35] min-[1100px]:text-[32px]">{p.title}</h1>
         <p className="mt-5 text-base leading-8 text-dim">{p.summary}</p>
       </header>
       <div className={`grid items-start gap-12 ${headings.length ? 'min-[1100px]:grid-cols-[minmax(0,760px)_220px]' : ''}`}>
