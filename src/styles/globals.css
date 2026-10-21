@@ -380,3 +380,37 @@ html[data-motion="reduced"] *::after {
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
 }
+/* Long-form writing. All colours follow the shared day/night tokens. */
+.article-prose { font-size: 16px; line-height: 1.95; overflow-wrap: anywhere; }
+.article-prose > * + * { margin-top: 1.4em; }
+.article-prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 140px; font-family: var(--font-noto-serif-sc), Georgia, serif; font-weight: 500; line-height: 1.45; margin-top: 2em; }
+.article-prose h1 { font-size: 2em; }
+.article-prose h2 { font-size: 1.65em; }
+.article-prose h3 { font-size: 1.3em; }
+.article-prose :is(ul,ol) { padding-left: 1.6em; }
+.article-prose ul { list-style: disc; }
+.article-prose ol { list-style: decimal; }
+.article-prose li + li { margin-top: .4em; }
+.article-prose a { color: var(--glow); text-decoration: underline; text-underline-offset: 4px; }
+.article-prose blockquote { border-left: 2px solid var(--glow); padding: .5em 1.3em; color: var(--dim); background: var(--panel); }
+.article-prose pre { max-width: 100%; overflow-x: auto; background: var(--panel); border: 1px solid var(--line); padding: 1.2em; font-size: 13px; line-height: 1.8; overflow-wrap: normal; }
+.article-prose :not(pre) > code { background: var(--panel); color: var(--glow); padding: .1em .3em; border-radius: 3px; font-size: .9em; }
+.article-prose img { max-width: 100%; height: auto; border-radius: 4px; }
+.article-prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.article-prose :is(th,td) { border: 1px solid var(--line); padding: .5em .9em; min-width: 100px; }
+.article-prose th { background: var(--panel); text-align: left; }
+.article-prose hr { border-color: var(--line); }
+.article-prose .hljs-comment { color: var(--dim); }
+.article-prose :is(.hljs-keyword,.hljs-selector-tag,.hljs-title) { color: var(--glow); }
+.article-prose :is(.hljs-string,.hljs-number,.hljs-literal) { color: var(--ember); }
+.writing-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--line); border-radius: 3px; padding: 8px 16px; font-size: 13px; color: var(--text); }
+.writing-button:hover:not(:disabled), .writing-button[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); }
+.writing-button:disabled { opacity: .5; cursor: not-allowed; }
+.writing-input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 3px; background: var(--ink); color: var(--text); padding: 10px 12px; font-size: 16px; }
+.writing-input:focus-visible, .writing-button:focus-visible, .reading-tools :focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; }
+.reading-tools { position: fixed; bottom: 20px; right: 24px; z-index: 35; display: flex; align-items: center; gap: 24px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); padding: 12px 18px; }
+.reading-tools :is(a,button) { display: flex; align-items: center; min-height: 44px; }
+@media (max-width: 640px) {
+  .reading-tools { left: 0; right: 0; bottom: 0; justify-content: space-between; border-radius: 0; padding: 8px 18px calc(8px + env(safe-area-inset-bottom)); }
+  .article-prose { font-size: 16px; }
+}

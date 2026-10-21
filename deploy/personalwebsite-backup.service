@@ -1,0 +1,9 @@
+[Unit]
+Description=PersonalWebsite PostgreSQL backup
+After=network.target
+[Service]
+Type=oneshot
+User=personalwebsite
+Group=personalwebsite
+ExecStart=/bin/bash /www/wwwroot/personalwebsite-app/shared/writing-backup.sh
+UMask=0077

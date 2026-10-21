@@ -4,6 +4,7 @@ import { useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
+import { validCategory } from '@/lib/writing/navigation';
 import { cn } from '@/lib/utils';
 
 export default function LanguageToggle() {
@@ -19,7 +20,13 @@ export default function LanguageToggle() {
   const switchLocale = () => {
     startTransition(() => {
       // 切换语言保持在同一页面；中间件会把选择写入 NEXT_LOCALE cookie
-      router.replace(pathname, { locale: next, scroll: false });
+      const query = new URLSearchParams(location.search);
+      const cat = query.get('cat');
+      const from = query.get('from');
+      const safe = new URLSearchParams();
+      if (validCategory(cat)) safe.set('cat', cat);
+      if (from && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(from)) safe.set('from', from);
+      router.replace(pathname + (safe.size ? `?${safe}` : '') + location.hash, { locale: next, scroll: false });
     });
   };
 

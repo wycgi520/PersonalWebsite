@@ -38,7 +38,11 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm db:generate
+          pnpm content:check
+          pnpm test
+          pnpm build
 
       - name: Package standalone server
         run: |
@@ -46,6 +50,10 @@ jobs:
           cp -a .next/standalone/. .deploy-bundle/
           cp -a .next/static .deploy-bundle/.next/static
           cp -a public .deploy-bundle/public
+          node scripts/package-operations.mjs
+          test -f .deploy-bundle/operations/migrate.cjs
+          test -d .deploy-bundle/content/writing
+          node .deploy-bundle/operations/migrate.cjs --version
           tar --hard-dereference -czf deploy.tar.gz -C .deploy-bundle .
 
       - name: Deploy over restricted SSH

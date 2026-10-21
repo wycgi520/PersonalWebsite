@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { LocalizedCategory, LocalizedPost } from '@/lib/data/posts';
-import { usePostReactions } from '@/lib/hooks/usePostReactions';
 import CategoryFilter, { type Filter } from './CategoryFilter';
 import PostCard from './PostCard';
 
@@ -21,7 +20,6 @@ export default function PostList({ posts, categories }: Props) {
   const [filter, setFilter] = useState<Filter>('all');
   // 切换分类后才播放列表入场动画；首屏直接显示
   const [animate, setAnimate] = useState(false);
-  const { liked, comments, toggleLike, addComment } = usePostReactions();
 
   useEffect(() => {
     const ids = new Set<string>(categories.map((c) => c.id));
@@ -30,6 +28,11 @@ export default function PostList({ posts, categories }: Props) {
       setFilter(ids.has(cat) ? (cat as Filter) : 'all');
     };
     sync();
+    // Filtering mounts the target card before restoring its anchor.
+    requestAnimationFrame(() => {
+      const target = decodeURIComponent(location.hash.slice(1));
+      if (target) document.getElementById(target)?.scrollIntoView();
+    });
     window.addEventListener('popstate', sync);
     return () => window.removeEventListener('popstate', sync);
   }, [categories]);
@@ -64,10 +67,7 @@ export default function PostList({ posts, categories }: Props) {
             <PostCard
               key={p.id}
               post={p}
-              liked={liked.has(p.id)}
-              localComments={comments[p.id] ?? []}
-              onLike={toggleLike}
-              onComment={addComment}
+              category={filter}
               className={animate ? 'wr-rise' : undefined}
               style={animate ? { animationDelay: `${Math.min(i, 6) * 60}ms` } : undefined}
             />

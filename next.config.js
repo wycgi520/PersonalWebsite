@@ -11,6 +11,9 @@ const I18N_REQUEST = './src/i18n/request.ts';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  outputFileTracingIncludes: {
+    '/*': ['./content/writing/**/*.md', './node_modules/.prisma/client/**/*'],
+  },
   reactStrictMode: true,
   images: {
     formats: ['image/webp'],

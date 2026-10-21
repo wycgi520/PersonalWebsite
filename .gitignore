@@ -46,3 +46,5 @@ project_cases
 
 # local index & tools
 .codegraph/
+
+/.cache/

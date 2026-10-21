@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { posts, localizePost, localizeCategories, archiveByYear } from '@/lib/data/posts';
+import { localizeCategories, archiveByYear } from '@/lib/data/posts';
+import { publishedArticles } from '@/lib/writing/content';
 import BackLink from '@/components/layout/BackLink';
 import PostList from '@/components/writing/PostList';
 import Newsletter from '@/components/writing/Newsletter';
@@ -21,9 +22,10 @@ export default async function WritingPage({ params }: Props) {
   setRequestLocale(locale as Locale); // 已在 layout 中校验
   const t = await getTranslations('writing');
   // 只把当前语言的文案传给客户端组件
-  const items = posts.map((p) => localizePost(p, locale as Locale));
+  const articles = publishedArticles(locale as Locale);
+  const items = articles.map(({id, cat, catLabel, date, read, title, summary}) => ({id, cat, catLabel, date, read, title, summary}));
   const categories = localizeCategories(locale as Locale);
-  const archive = archiveByYear(posts);
+  const archive = archiveByYear(items);
 
   return (
     <section className="scene px-[18px] pb-10 pt-[118px] min-[861px]:px-10 min-[861px]:pb-12 min-[861px]:pt-[104px]">

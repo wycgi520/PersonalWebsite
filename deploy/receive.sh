@@ -89,6 +89,13 @@ with tarfile.open(archive_path, 'r:gz') as archive:
 PYTHON
 
 chmod -R u+rwX,go+rX "$release_dir"
+# Runtime secrets are provisioned separately and never uploaded in releases.
+set -a
+source "$app_dir/shared/runtime.env"
+set +a
+: "${DATABASE_URL:?Missing DATABASE_URL}"
+# Additive migrations only: rollback restores code, not database state.
+(cd "$release_dir" && /www/server/nodejs/v24.21.0/bin/node operations/migrate.cjs migrate deploy --schema prisma/schema.prisma)
 ln -s "$release_dir" "$app_dir/current.next"
 mv -Tf "$app_dir/current.next" "$app_dir/current"
 switched=1
@@ -97,6 +104,10 @@ for attempt in $(seq 1 30); do
   if /usr/bin/systemctl is-active --quiet personalwebsite.service \
     && curl --silent --fail --max-time 3 http://127.0.0.1:3100/zh > /dev/null \
     && curl --silent --fail --max-time 3 http://127.0.0.1:3100/en > /dev/null; then
+    if ! curl --silent --fail --max-time 3 http://127.0.0.1:3100/api/health/writing > /dev/null; then
+      sleep 2
+      continue
+    fi
     success=1
     echo "Deployed $revision successfully."
     exit 0
