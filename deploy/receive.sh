@@ -37,7 +37,9 @@ finish() {
 }
 trap finish EXIT
 
-timeout 300 head -c 268435457 > "$archive"
+# Runners sometimes deliver the archive well under 1 MB/s. 12 minutes still
+# fails a stalled upload inside the 20-minute job limit.
+timeout 720 head -c 268435457 > "$archive"
 if [[ "$(stat -c %s "$archive")" -gt 268435456 ]]; then
   echo 'Upload exceeds 256 MiB.' >&2
   exit 1
