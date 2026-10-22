@@ -24,53 +24,53 @@ export interface Tool {
 export const tools: Tool[] = [
   {
     id: 'excalidraw', name: 'Excalidraw', url: 'https://excalidraw.com', tag: 'design', checked: '2026-09',
-    zh: '极简且手绘质感出众的架构草图工具。用于梳理业务时序、系统拓扑与数据流转，SVG 矢量导出可直接无缝嵌入技术文档与 MDX。',
-    en: 'Virtual hand-drawn sketching tool for architecture diagrams, system topology, and data flows. Clean SVG exports drop straight into MDX documentation.',
+    zh: '手绘风格的白板草图工具。平时用来画系统架构草图、业务时序和表关系，导出的 SVG 可以直接放进技术文档。',
+    en: 'Hand-drawn style diagramming tool. Great for sketching system architecture, sequence flows, and table relationships, with clean SVG exports for docs.',
   },
   {
     id: 'dbeaver', name: 'DBeaver', url: 'https://dbeaver.io', tag: 'dev', checked: '2026-08',
-    zh: '全能跨平台的数据库通用 GUI 客户端。比纯终端排查效率高出数倍，尤其适合在调试 Prisma 生成的复杂 Schema 迁移与外键约束时快速验证。',
-    en: 'Versatile universal database GUI client. Significantly faster than CLI for inspecting migrations, checking foreign key relationships, and fine-tuning Prisma schemas.',
+    zh: '跨平台数据库管理客户端。支持 PostgreSQL、MySQL 等主流数据库，平时排查复杂外键约束、核对 Prisma 迁移结果和查看执行计划主要靠它。',
+    en: 'Cross-platform database GUI client. Much faster than CLI when inspecting foreign keys, verifying Prisma migrations, and checking query plans.',
   },
   {
     id: 'bruno', name: 'Bruno', url: 'https://usebruno.com', tag: 'dev', checked: '2026-09',
-    zh: '轻量开源、纯本地离线的 API 调试利器。请求集合以纯文本文件形式随代码库版本化管理，完美契合 Git 协同与团队代码审查（Code Review）。',
-    en: 'Fast, open-source, offline-first API client. Stores request collections as plain text files directly within the repository, enabling seamless Git tracking and team reviews.',
+    zh: '开源、纯本地存储的 API 调试工具。接口集合直接存成纯文本文件放进代码仓库，方便跟着 Git 分支一起做版本管理和团队同步。',
+    en: 'Open-source, local-first API client. Saves request collections as plain-text files right inside the repo so they version cleanly with Git.',
   },
   {
     id: 'railway', name: 'Railway', url: 'https://railway.app', tag: 'ops', checked: '2026-07',
-    zh: '轻量敏捷的现代云部署平台。PostgreSQL、Redis 与独立微服务一键组网秒级拉起，极速搭建高可用的产品原型与客户交付演示环境。',
-    en: 'Agile cloud infrastructure for modern apps. Spins up PostgreSQL, Redis, and decoupled services in seconds — optimal for staging prototypes and client preview environments.',
+    zh: '省心的应用与数据库托管平台。几分钟就能拉起 PostgreSQL、Redis 和 Node 服务，适合快速部署测试环境和客户演示站。',
+    en: 'Straightforward cloud hosting for apps and databases. Spins up PostgreSQL, Redis, and Node services in minutes for staging and client demos.',
   },
   {
     id: 'umami', name: 'Umami', url: 'https://umami.is', tag: 'ops', checked: '2026-06',
-    zh: '开源无 Cookie 的轻量级自托管网站分析系统。严格保护访客隐私、零性能负担且符合 GDPR 规范，全权掌控自身站点的访问洞察。',
-    en: 'Open-source, cookie-free, self-hosted web analytics. Complies with GDPR while keeping visitor privacy intact with zero bloated telemetry scripts.',
+    zh: '开源、轻量的自托管网站访问统计工具。不用 Cookie，脚本体积很小，够看清页面来源和访问量，同时不打扰访客。',
+    en: 'Lightweight, self-hosted web analytics. Cookie-free with a tiny script footprint, giving clear traffic insights without tracking bloat.',
   },
   {
     id: 'radix-colors', name: 'Radix Colors', url: 'https://www.radix-ui.com/colors', tag: 'design', checked: '2026-09',
-    zh: '经过严密无障碍对比度（WCAG）校验的明暗双色阶体系。让深色（Dark）与浅色（Light）主题的设计配比拥有严谨的数学规律，大幅缩减调色试错成本。',
-    en: 'Scientifically calibrated color system with guaranteed WCAG contrast compliance. Makes paired dark/light theme tokens consistent, harmonious, and accessible.',
+    zh: '配好明暗对比度的色彩阶梯参考。做深浅两套主题时可以直接按它的层级定背景色、边框色和文字色，省去反复调对比度的时间。',
+    en: 'Well-calibrated color scales for light and dark themes. Takes the guesswork out of picking accessible backgrounds, borders, and text contrast.',
   },
   {
     id: 'motion', name: 'Motion 文档', nameEn: 'Motion docs', url: 'https://motion.dev', tag: 'dev', checked: '2026-08',
-    zh: 'React 生态事实标准的声明式动效库。文档交互设计本身即是极佳的动效教学标杆，弹簧物理（Spring Physics）参数章节值得反复研读。',
-    en: 'The gold standard motion engine for React. The documentation itself is a masterclass in UI design; the chapters on spring physics and layout transitions are invaluable.',
+    zh: 'React 动效库 Motion 的官方文档。里面关于弹簧参数（stiffness / damping）和布局过渡的示例很直观，调页面交互动画时常用来作参考。',
+    en: 'Official documentation for Motion in React. Practical examples on spring physics and layout transitions when tuning UI animations.',
   },
   {
     id: 'ddia', name: 'Designing Data-Intensive Applications', url: 'https://dataintensive.net', tag: 'read', checked: '2026-03',
-    zh: '分布式系统与数据密集型架构圣经。从底层存储引擎、编码演进到复制容灾与分布式共识，每次遇到一致性架构抉择时总会重新翻阅。',
-    en: 'The definitive authority on data-intensive systems. From storage engines and encoding to replication, partitioning, and distributed consensus — the book I re-read most.',
+    zh: '讲透存储引擎、数据复制、分区与分布式一致性的经典工程书。每次在业务里遇到读写冲突、缓存一致性或分库方案选择时都会拿出来重翻。',
+    en: 'Clear, thorough book on storage engines, replication, partitioning, and distributed consistency. My go-to reference whenever data tradeoff questions come up.',
   },
   {
     id: 'refactoring-ui', name: 'Refactoring UI', url: 'https://www.refactoringui.com', tag: 'read', checked: '2025-12',
-    zh: '写给全栈与后端工程师的高价值界面设计指南。用工程师能深刻理解的实用排版、空间层级、留白与色彩心理学，快速消除廉价的 AI 模板感。',
-    en: 'The quintessential UI design manual for engineers. Demystifies visual hierarchy, typography scales, whitespace, and color theory to make any interface feel premium.',
+    zh: '写给开发者的实用界面排版指南。从字号层级、留白间距到色彩明暗讲得很具体，没有设计背景也能照着把后台和业务界面收拾干净。',
+    en: 'Practical UI design guide written for developers. Breaks down hierarchy, spacing, and color into concrete rules for cleaning up application interfaces.',
   },
   {
     id: 'caddy', name: 'Caddy', url: 'https://caddyserver.com', tag: 'ops', checked: '2026-05',
-    zh: '现代高效、基于 Go 语言的 HTTP/2 静态与反向代理服务器。内置 ACME 协议全自动申请与续签 HTTPS 证书，配置文件清晰简练到可以默写。',
-    en: 'Modern, battle-tested Go web server and reverse proxy. Provisions and renews HTTPS certificates automatically via ACME, with a configuration syntax so concise you can memorize it.',
+    zh: 'Go 编写的 Web 服务器与反向代理。自带 HTTPS 证书自动申请和续期，Caddyfile 配置比 Nginx 简短很多，维护个人服务器非常省事。',
+    en: 'Go-based web server and reverse proxy with automatic HTTPS certificate provisioning. A much shorter, cleaner config than Nginx for self-hosted services.',
   },
 ];
 

@@ -27,9 +27,9 @@ export default function MotionToggle() {
       aria-pressed={on}
       aria-label={t('motionLabel')}
       title={label}
-      className="relative grid h-8 w-8 place-items-center rounded-[3px] border border-line text-dim transition-colors duration-300 ease-scene hover:border-glow hover:text-glow"
+      className="relative grid h-8 w-8 place-items-center rounded-[4px] border border-line text-dim transition-[color,border-color,transform] duration-300 ease-scene hover:border-glow hover:text-glow active:scale-[0.98]"
     >
-      <Sparkles size={14} aria-hidden="true" className={cn(!on && 'opacity-50')} />
+      <Sparkles size={14} strokeWidth={1.75} aria-hidden="true" className={cn(!on && 'opacity-50')} />
       {!on && (
         // 关闭时在图标上画一道斜杠
         <i aria-hidden="true" className="pointer-events-none absolute h-px w-[18px] rotate-[-45deg] bg-current" />

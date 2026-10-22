@@ -21,12 +21,12 @@ export default function ContactGrid() {
   return (
     <ul
       aria-label={t('listLabel')}
-      className="m-0 grid list-none grid-cols-1 gap-px border border-line bg-line p-0 min-[561px]:grid-cols-2 min-[901px]:grid-cols-3"
+      className="m-0 grid list-none grid-cols-1 gap-px overflow-hidden rounded-[4px] border border-line bg-line p-0 min-[561px]:grid-cols-2 min-[901px]:grid-cols-3"
     >
       {CONTACT_LINKS.map((c, i) => {
         const body = (
           <>
-            <span className="text-[11.5px] tracking-[0.1em] text-dim">{text(c.label)}</span>
+            <span className="text-[11.5px] tracking-[0.06em] text-dim">{text(c.label)}</span>
             <span className="ct-value break-words font-serif text-[19px] leading-[1.35]">{text(c.value)}</span>
           </>
         );

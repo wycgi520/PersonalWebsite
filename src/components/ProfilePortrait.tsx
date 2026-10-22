@@ -53,8 +53,8 @@ export default function ProfilePortrait({ className }: { className?: string }) {
         aria-label={t('portraitExpandTip')}
         title={t('portraitExpandTip')}
         className={cn(
-          'group relative mb-[22px] block h-28 w-28 cursor-pointer overflow-hidden rounded-full border border-line bg-panel p-0 text-left shadow-[0_0_0_6px_rgba(99,210,232,0.05)] transition-all duration-300 ease-scene',
-          'hover:border-glow hover:shadow-[0_0_0_8px_rgba(99,210,232,0.15)] hover:scale-[1.02] active:scale-[0.98]',
+          'group relative mb-[22px] block h-24 w-24 cursor-pointer overflow-hidden rounded-full border border-line bg-panel p-0 text-left transition-[border-color,transform] duration-300 ease-scene min-[861px]:h-28 min-[861px]:w-28',
+          'hover:border-glow active:scale-[0.98]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-glow focus-visible:ring-offset-2 focus-visible:ring-offset-ink',
           className,
         )}
@@ -74,7 +74,7 @@ export default function ProfilePortrait({ className }: { className?: string }) {
           className="pointer-events-none absolute inset-0 flex items-center justify-center bg-ink/40 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 ease-scene group-hover:opacity-100 group-focus-visible:opacity-100"
           aria-hidden="true"
         >
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-white/20 bg-ink/60 text-white/90 shadow-sm">
+          <span className="grid h-8 w-8 place-items-center rounded-full border border-white/20 bg-ink/65 text-white/90">
             <Maximize2 className="h-4 w-4" strokeWidth={1.75} />
           </span>
         </span>
@@ -104,11 +104,11 @@ export default function ProfilePortrait({ className }: { className?: string }) {
 
                 {/* 居中卡片 */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.94, y: 12 }}
+                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.94, y: 12 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 10 }}
                   transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-                  className="relative z-10 w-full max-w-[440px] overflow-hidden rounded-2xl border border-line bg-panel p-4 shadow-[0_24px_50px_rgba(0,0,0,0.5)] sm:p-5"
+                  className="relative z-10 w-full max-w-[440px] overflow-hidden rounded-[6px] border border-line bg-panel p-4 shadow-[0_24px_50px_rgba(4,7,13,0.48)] sm:p-5"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* 关闭按钮 */}
@@ -116,13 +116,13 @@ export default function ProfilePortrait({ className }: { className?: string }) {
                     type="button"
                     onClick={handleClose}
                     aria-label={t('portraitClose')}
-                    className="absolute right-3.5 top-3.5 z-20 grid h-8 w-8 place-items-center rounded-full border border-line/80 bg-ink/75 text-dim transition-colors hover:border-glow hover:bg-panel hover:text-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-glow"
+                    className="absolute right-3.5 top-3.5 z-20 grid h-8 w-8 place-items-center rounded-[4px] border border-line/80 bg-ink/75 text-dim transition-colors hover:border-glow hover:bg-panel hover:text-glow active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-glow"
                   >
                     <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                   </button>
 
                   {/* 原图全景 */}
-                  <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-line/60 bg-ink shadow-inner">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-[4px] border border-line/60 bg-ink">
                     <Image
                       src="/images/profile-full.webp"
                       alt={t('portraitModalTitle')}
@@ -138,15 +138,15 @@ export default function ProfilePortrait({ className }: { className?: string }) {
                     <div className="flex items-center justify-between gap-2">
                       <h2
                         id="portrait-modal-title"
-                        className="font-serif text-[17px] font-medium leading-snug text-[var(--text)]"
+                        className="font-serif text-[18px] font-medium leading-snug text-[var(--text)]"
                       >
                         {t('portraitModalTitle')}
                       </h2>
-                      <span className="rounded-[3px] border border-line/60 bg-ink/50 px-2 py-0.5 text-[11px] tracking-wider text-dim">
+                      <span className="rounded-[3px] border border-line bg-ink px-2 py-0.5 text-[11px] tracking-[0.04em] text-dim">
                         {t('portraitModalTag')}
                       </span>
                     </div>
-                    <p className="mt-1.5 text-[13px] leading-[1.65] text-dim">
+                    <p className="mt-1.5 text-[13.5px] leading-[1.68] text-dim">
                       {t('portraitModalDesc')}
                     </p>
                   </div>

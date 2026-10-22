@@ -51,7 +51,7 @@ export default function StarMap() {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[560px] min-[1041px]:aspect-[1/0.92] min-[1041px]:max-h-[72vh] min-[1041px]:max-w-none">
       <svg
-        viewBox="0 0 620 580"
+        viewBox="0 0 620 560"
         role="group"
         aria-label={t('chartLabel')}
         className="block h-full w-full overflow-visible"
@@ -139,11 +139,8 @@ export default function StarMap() {
                   <circle className="halo" r={44} fill="url(#hg)" />
                   <circle className="ring" r={17} />
                   <circle className="star" r={5.6} />
-                  <text className="lbl" x={25} y={7}>
+                  <text className="lbl" x={24} y={6}>
                     {label}
-                  </text>
-                  <text className="sub" x={25} y={25} aria-hidden="true">
-                    mag {node.mag}
                   </text>
                 </g>
               </a>
@@ -151,10 +148,6 @@ export default function StarMap() {
           })}
         </g>
       </svg>
-
-      <div className="absolute bottom-[-6px] left-0 font-sans text-[10.5px] tracking-[0.1em] text-dim">
-        {t('plate')}
-      </div>
     </div>
   );
 }

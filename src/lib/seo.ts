@@ -10,7 +10,7 @@ type Section = 'about' | 'projects' | 'writing' | 'toolkit' | 'contact';
 
 /** 分享图尺寸与替代文本，opengraph-image.tsx 共用 */
 export const OG_SIZE = { width: 1200, height: 630 };
-export const OG_ALT = 'Observatory · Guo Yi — Full-Stack Engineer & Digital Craftsman';
+export const OG_ALT = 'Observatory - Guo Yi, Full-Stack Developer';
 
 /** Open Graph 用的 locale 写法 */
 const OG_LOCALE: Record<Locale, string> = { zh: 'zh_CN', en: 'en_US' };
@@ -34,7 +34,7 @@ export async function pageMetadata(locale: Locale, section?: Section): Promise<M
   let description = tm('description');
   if (section) {
     const t = await getTranslations({ locale, namespace: section });
-    title = `${t('metaTitle')} · ${title}`;
+    title = `${t('metaTitle')} - ${title}`;
     description = t('metaDescription');
   }
   const path: PagePath = section ? `/${section}` : '';

@@ -26,7 +26,7 @@ export default function Biography() {
           <h1 className="mb-1.5 font-serif text-[clamp(26px,2.6vw,36px)] font-medium leading-[1.18]">
             {t('title')}
           </h1>
-          <p className="m-0 font-serif text-[clamp(16px,1.4vw,19px)] italic text-glow">
+          <p className="m-0 pb-0.5 font-serif text-[clamp(16px,1.4vw,19px)] italic leading-[1.2] text-glow">
             {t('subtitle')}
           </p>
         </div>
@@ -39,11 +39,11 @@ export default function Biography() {
       ))}
 
       {/* 四个条目只用 2 或 4 列，避免落单格子露出底色 */}
-      <dl className="rv mt-[34px] grid grid-cols-2 gap-px border border-line bg-line min-[561px]:max-[1040px]:grid-cols-4 min-[1280px]:grid-cols-4">
+      <dl className="rv mt-[34px] grid grid-cols-2 gap-px overflow-hidden rounded-[4px] border border-line bg-line min-[561px]:max-[1040px]:grid-cols-4 min-[1280px]:grid-cols-4">
         {FACTS.map(([k, v]) => (
-          <div key={k} className="bg-ink px-3 py-[15px] text-center">
-            <dt className="mb-1.5 text-[11px] tracking-[0.1em] text-dim">{t(k)}</dt>
-            <dd className="m-0 whitespace-nowrap font-serif text-[17px] text-[var(--text)]">{t(v)}</dd>
+          <div key={k} className="bg-ink px-3.5 py-4 text-left">
+            <dt className="mb-1 text-[11px] tracking-[0.06em] text-dim">{t(k)}</dt>
+            <dd className="m-0 whitespace-nowrap font-serif text-[17px] font-medium text-[var(--text)]">{t(v)}</dd>
           </div>
         ))}
       </dl>

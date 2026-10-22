@@ -20,7 +20,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const url = `/${locale}/writing/${slug}`;
   const languages = Object.fromEntries(variants.map(v => [HTML_LANG[v.locale], `/${v.locale}/writing/${slug}`]));
   const image = `${SITE_URL}/${locale}/opengraph-image`;
-  return {title: `${p.title} · ${locale === 'zh' ? '观星台' : 'Observatory'}`, description: p.summary,
+  return {title: `${p.title} - ${locale === 'zh' ? '观星台' : 'Observatory'}`, description: p.summary,
     alternates: {canonical: url, languages},
     openGraph: {type: 'article', title: p.title, description: p.summary, url, publishedTime: p.date, modifiedTime: p.updated ?? p.date, images: [image]},
     twitter: {card: 'summary_large_image', title: p.title, description: p.summary, images: [image]}};
@@ -37,7 +37,7 @@ export default async function ArticlePage({params}: Props) {
   const {html, headings} = await renderMarkdown(p.body);
   const {previous, next} = adjacentArticles(publishedArticles(locale), slug);
   const neighbors = {previous: previous && {id: previous.id, title: previous.title}, next: next && {id: next.id, title: next.title}};
-  const toc = <ol className="space-y-3">{headings.map(h => <li key={h.id} style={{paddingLeft: h.level === 3 ? 14 : 0}}><a className="hover:text-glow" href={`#${h.id}`}>{h.title}</a></li>)}</ol>;
+  const toc = <ol className="space-y-3">{headings.map(h => <li key={h.id} style={{paddingLeft: h.level === 3 ? 14 : 0}}><a className="transition-colors hover:text-glow" href={`#${h.id}`}>{h.title}</a></li>)}</ol>;
   const structured = {'@context': 'https://schema.org', '@type': 'Article', headline: p.title, description: p.summary,
     datePublished: p.date, dateModified: p.updated ?? p.date, inLanguage: HTML_LANG[locale],
     mainEntityOfPage: `${SITE_URL}/${locale}/writing/${slug}`, author: {'@type': 'Person', name: locale === 'zh' ? '国易' : 'Guo Yi', url: SITE_URL}};
@@ -46,17 +46,17 @@ export default async function ArticlePage({params}: Props) {
     <div className="mx-auto max-w-[1100px]">
       <WritingReturn />
       <header className="mb-10 mt-8 max-w-[760px] border-b border-line pb-8">
-        <div className="mb-4 flex flex-wrap gap-3 text-xs text-dim"><span className="text-glow">{p.catLabel}</span><time dateTime={p.date}>{p.date}</time><span>{t('readTime', {minutes: p.read})}</span>{p.updated && <span>{t('updated')} <time dateTime={p.updated}>{p.updated}</time></span>}</div>
-        <h1 id="article-title" tabIndex={-1} className="font-serif text-[22px] font-medium leading-[1.4] outline-none sm:text-[26px] min-[861px]:text-[30px] min-[861px]:leading-[1.35] min-[1100px]:text-[32px]">{p.title}</h1>
-        <p className="mt-5 text-base leading-8 text-dim">{p.summary}</p>
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs tabular-nums text-dim"><span className="rounded-[3px] bg-[var(--glow-soft)] px-2 py-0.5 text-[11.5px] font-medium text-glow">{p.catLabel}</span><time dateTime={p.date}>{p.date}</time><span>{t('readTime', {minutes: p.read})}</span>{p.updated && <span>{t('updated')} <time dateTime={p.updated}>{p.updated}</time></span>}</div>
+        <h1 id="article-title" tabIndex={-1} className="font-serif text-[24px] font-medium leading-[1.35] outline-none sm:text-[28px] min-[861px]:text-[32px] min-[861px]:leading-[1.3] min-[1100px]:text-[34px]">{p.title}</h1>
+        <p className="mt-4 max-w-[66ch] text-[15.5px] leading-[1.8] text-dim">{p.summary}</p>
       </header>
       <div className={`grid items-start gap-12 ${headings.length ? 'min-[1100px]:grid-cols-[minmax(0,760px)_220px]' : ''}`}>
         <div className="min-w-0 max-w-[760px]">
-          {headings.length > 0 && <details className="mb-8 border border-line bg-panel p-4 min-[1100px]:hidden"><summary className="cursor-pointer text-sm">{t('contents')}</summary><nav aria-label={t('contents')} className="mt-4 text-sm text-dim">{toc}</nav></details>}
+          {headings.length > 0 && <details className="mb-8 rounded-[4px] border border-line bg-panel p-4 min-[1100px]:hidden"><summary className="cursor-pointer text-sm font-medium">{t('contents')}</summary><nav aria-label={t('contents')} className="mt-4 text-sm text-dim">{toc}</nav></details>}
           <article className="article-prose" dangerouslySetInnerHTML={{__html: html}} />
           <ArticleDiscussion key={slug} slug={slug}><ArticleNeighbors {...neighbors} /></ArticleDiscussion>
         </div>
-        {headings.length > 0 && <aside className="sticky top-28 hidden max-h-[70vh] overflow-auto border-l border-line pl-5 text-sm text-dim min-[1100px]:block"><h2 className="mb-5 text-xs tracking-widest">{t('contents')}</h2><nav aria-label={t('contents')}>{toc}</nav></aside>}
+        {headings.length > 0 && <aside className="sticky top-28 hidden max-h-[70vh] overflow-auto border-l border-line pl-5 text-sm text-dim min-[1100px]:block"><h2 className="mb-4 font-serif text-base font-medium text-[var(--text)]">{t('contents')}</h2><nav aria-label={t('contents')}>{toc}</nav></aside>}
       </div>
     </div><ReadingTools />
   </section>;

@@ -26,22 +26,22 @@ export default async function ContactPage({ params }: Props) {
   )}&body=${encodeURIComponent(t('projectMailBody'))}`;
 
   return (
-    <section className="scene px-[18px] pb-10 pt-[118px] min-[861px]:px-10 min-[861px]:pb-12 min-[861px]:pt-[104px]">
+    <section className="scene px-[18px] pb-12 pt-[118px] min-[861px]:px-10 min-[861px]:pb-16 min-[861px]:pt-[104px]">
       <div className="mx-auto max-w-[1180px]">
         <BackLink className="mb-[26px]" />
-        <header className="mb-[34px] flex flex-col items-start gap-3 border-b border-line pb-5 min-[721px]:flex-row min-[721px]:items-end min-[721px]:justify-between min-[721px]:gap-7">
-          <h1 className="m-0 font-serif text-[clamp(30px,3.2vw,42px)] font-medium leading-[1.12]">{t('title')}</h1>
-          <p className="m-0 max-w-[42ch] text-[13.5px] leading-[1.7] text-dim">{t('lede')}</p>
+        <header className="mb-9 border-b border-line pb-6">
+          <h1 className="m-0 font-serif text-[clamp(30px,3.2vw,42px)] font-medium leading-[1.15]">{t('title')}</h1>
+          <p className="m-0 mt-2.5 max-w-[64ch] text-[14.5px] leading-[1.75] text-dim">{t('lede')}</p>
         </header>
 
         <ContactGrid />
 
-        <aside className="ct-note mt-[30px] max-w-[70ch] px-[22px] py-5 text-[13.5px] leading-[1.8] text-dim">
-          <h2 className="m-0 text-[13.5px] font-medium text-[color:var(--text)]">{t('noteTitle')}</h2>
+        <aside className="ct-note mt-8 max-w-[72ch] px-6 py-5 text-[14px] leading-[1.8] text-dim">
+          <h2 className="m-0 mb-2 font-serif text-[19px] font-medium text-[color:var(--text)]">{t('noteTitle')}</h2>
           <p className="m-0">{t('note')}</p>
           <a
             href={projectMail}
-            className="group mt-3 inline-flex items-center gap-1.5 text-[12.5px] tracking-[0.04em] text-glow underline-offset-4 hover:underline"
+            className="group mt-3.5 inline-flex items-center gap-1.5 text-[13px] font-medium tracking-[0.02em] text-glow underline-offset-4 hover:underline"
           >
             {t('noteCta')}
             <ArrowRight

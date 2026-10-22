@@ -10,16 +10,20 @@
     --grid: #16233C;
     --line: #1E2E4A;
     --glow: #63D2E8;
-    --glow-soft: rgba(99, 210, 232, 0.18);
-    --dim: #8CA3C7;
-    --text: #E9EFF8;
+    --glow-soft: rgba(99, 210, 232, 0.16);
+    --dim: #92A8C9;
+    --text: #EBF0F8;
     --ember: #F2A24B;
 
     /* next/font 注入的变量在前，系统字体兜底 */
     --serif: var(--font-cormorant), var(--font-noto-serif-sc), Georgia, "Songti SC", serif;
-    --sans: var(--font-inter), "Helvetica Neue", -apple-system, "PingFang SC", sans-serif;
+    --sans: var(--font-jakarta), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
     --t-scene: 760ms;
     --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
+
+    color-scheme: dark;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) var(--ink);
   }
 
   [data-theme="light"] {
@@ -27,15 +31,23 @@
     --panel: #F7F9FC;
     --grid: #D3DCE9;
     --line: #C2CEDF;
-    --glow: #17708A;
-    --glow-soft: rgba(23, 112, 138, 0.14);
-    --dim: #55657E;
+    --glow: #156A84;
+    --glow-soft: rgba(21, 106, 132, 0.12);
+    --dim: #4C5C75;
     --text: #121B2B;
     --ember: #B5610C;
+
+    color-scheme: light;
+    scrollbar-color: var(--line) var(--ink);
   }
 
   * {
     box-sizing: border-box;
+  }
+
+  ::selection {
+    background: var(--glow-soft);
+    color: var(--text);
   }
 
   html,
@@ -48,10 +60,11 @@
     background: var(--ink);
     color: var(--text);
     font-family: var(--sans);
-    font-weight: 300;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    transition: background 0.5s var(--ease), color 0.5s var(--ease);
+    caret-color: var(--glow);
+    transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
   }
 
   a {
@@ -62,13 +75,13 @@
   :focus-visible {
     outline: 2px solid var(--glow);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
   /* 跳到正文：平时移出视口，Tab 聚焦时出现在左上角导航之上 */
   .skip-link {
     position: fixed; left: 12px; top: 10px; z-index: 60;
-    padding: 8px 14px; border: 1px solid var(--glow); border-radius: 3px;
+    padding: 8px 14px; border: 1px solid var(--glow); border-radius: 4px;
     background: var(--panel); color: var(--glow); font-size: 13px;
     transform: translateY(-160%);
   }
@@ -103,7 +116,7 @@
     font-family: var(--serif); font-size: 21px; fill: var(--text);
     letter-spacing: 0.02em; transition: fill 0.3s var(--ease);
   }
-  .node .sub { font-family: var(--sans); font-size: 11.5px; fill: var(--dim); letter-spacing: 0.1em; }
+  .node .sub { font-family: var(--sans); font-size: 11.5px; fill: var(--dim); letter-spacing: 0.08em; }
   .node:hover .halo, .node:focus-visible .halo { opacity: 0.22; }
   .node:hover .ring, .node:focus-visible .ring { opacity: 0.6; }
   .node:hover .star, .node:focus-visible .star { fill: var(--glow); r: 7; }
@@ -223,18 +236,18 @@
   [data-theme="light"] .pj-shot-dots { fill: hsl(var(--hue) 60% 38%); }
   [data-theme="light"] .pj-shot-lines { stroke: hsl(var(--hue) 55% 40%); }
   .pj-card:hover .pj-shot svg,
-  .pj-card:focus-visible .pj-shot svg { transform: scale(1.045); }
+  .pj-card:focus-visible .pj-shot svg { transform: scale(1.04); }
   .pj-card:hover .pj-shot-lines,
   .pj-card:focus-visible .pj-shot-lines { opacity: 0.6; }
 
   /* 详情抽屉：从右侧滑入的 <dialog> */
   .pj-drawer {
     position: fixed; inset: 0 0 0 auto; margin: 0;
-    width: min(620px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh;
+    width: min(640px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh;
     padding: 0; border: 0; border-left: 1px solid var(--line);
     background: var(--panel); color: var(--text);
     overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain;
-    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.35);
+    box-shadow: -24px 0 60px rgba(4, 7, 13, 0.42);
   }
   .pj-drawer[open] { animation: drawer-in 0.52s var(--ease) both; }
   .pj-drawer[data-closing] { animation: drawer-out 0.32s var(--ease) both; }
@@ -252,17 +265,17 @@
   /* 无 JS：点卡片跳到 #id，:target 让对应详情以普通块的形式出现在网格下方 */
   .pj-root:not([data-js]) .pj-drawer:target {
     display: block; position: static; width: auto; height: auto; max-height: none;
-    margin-top: 26px; border: 1px solid var(--line); box-shadow: none; animation: none;
+    margin-top: 26px; border: 1px solid var(--line); border-radius: 4px; box-shadow: none; animation: none;
   }
 
   /* ---------- Writing ---------- */
   .wr-input {
     flex: 1; min-width: 0;
     background: var(--ink); border: 1px solid var(--line); color: var(--text);
-    font-family: var(--sans); font-size: 13px; padding: 9px 12px; border-radius: 3px;
+    font-family: var(--sans); font-size: 13.5px; padding: 9px 12px; border-radius: 4px;
     transition: border-color 0.3s var(--ease);
   }
-  .wr-input::placeholder { color: var(--dim); opacity: 0.75; }
+  .wr-input::placeholder { color: var(--dim); opacity: 0.78; }
   .wr-input:focus { outline: none; border-color: var(--glow); }
   /* 切换分类后文章依次浮现；评论区展开时轻微下落 */
   .wr-rise { animation: rise-in 0.55s var(--ease) both; }
@@ -277,7 +290,11 @@
   .tk-card:hover,
   .tk-card:focus-within {
     border-color: var(--glow); transform: translateY(-2px);
-    box-shadow: 0 8px 24px -12px var(--glow-soft);
+    box-shadow: 0 10px 26px -14px rgba(4, 7, 13, 0.45);
+  }
+  [data-theme="light"] .tk-card:hover,
+  [data-theme="light"] .tk-card:focus-within {
+    box-shadow: 0 10px 24px -14px rgba(18, 27, 43, 0.14);
   }
   /* 整张卡片可点：标题链接的伪元素铺满卡片；焦点环画在伪元素上，框住整张卡片 */
   .tk-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
@@ -311,7 +328,8 @@
   /* 复制成功时对勾弹一下 */
   .ct-pop { animation: heart-pop 0.45s var(--ease); }
   .ct-note {
-    border: 1px solid var(--line); border-left: 2px solid var(--glow);
+    border: 1px solid var(--line);
+    border-radius: 4px;
     background: var(--panel);
   }
 }
@@ -381,32 +399,33 @@ html[data-motion="reduced"] *::after {
   transition-duration: 0.01ms !important;
 }
 /* Long-form writing. All colours follow the shared day/night tokens. */
-.article-prose { font-size: 16px; line-height: 1.95; overflow-wrap: anywhere; }
+.article-prose { font-size: 16px; line-height: 1.9; overflow-wrap: anywhere; max-width: 68ch; }
 .article-prose > * + * { margin-top: 1.4em; }
-.article-prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 140px; font-family: var(--font-noto-serif-sc), Georgia, serif; font-weight: 500; line-height: 1.45; margin-top: 2em; }
+.article-prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 140px; font-family: var(--serif); font-weight: 500; line-height: 1.4; margin-top: 2em; text-wrap: balance; }
 .article-prose h1 { font-size: 2em; }
-.article-prose h2 { font-size: 1.65em; }
-.article-prose h3 { font-size: 1.3em; }
+.article-prose h2 { font-size: 1.6em; }
+.article-prose h3 { font-size: 1.28em; }
 .article-prose :is(ul,ol) { padding-left: 1.6em; }
 .article-prose ul { list-style: disc; }
 .article-prose ol { list-style: decimal; }
 .article-prose li + li { margin-top: .4em; }
 .article-prose a { color: var(--glow); text-decoration: underline; text-underline-offset: 4px; }
-.article-prose blockquote { border-left: 2px solid var(--glow); padding: .5em 1.3em; color: var(--dim); background: var(--panel); }
-.article-prose pre { max-width: 100%; overflow-x: auto; background: var(--panel); border: 1px solid var(--line); padding: 1.2em; font-size: 13px; line-height: 1.8; overflow-wrap: normal; }
-.article-prose :not(pre) > code { background: var(--panel); color: var(--glow); padding: .1em .3em; border-radius: 3px; font-size: .9em; }
+.article-prose blockquote { border-left: 1px solid var(--line); padding: .25em 0 .25em 1.25em; color: var(--dim); font-style: italic; }
+.article-prose pre { max-width: 100%; overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1.2em; font-size: 13px; line-height: 1.8; overflow-wrap: normal; }
+.article-prose :not(pre) > code { background: var(--panel); color: var(--glow); padding: .1em .35em; border-radius: 3px; font-size: .9em; }
 .article-prose img { max-width: 100%; height: auto; border-radius: 4px; }
-.article-prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.article-prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .article-prose :is(th,td) { border: 1px solid var(--line); padding: .5em .9em; min-width: 100px; }
 .article-prose th { background: var(--panel); text-align: left; }
 .article-prose hr { border-color: var(--line); }
 .article-prose .hljs-comment { color: var(--dim); }
 .article-prose :is(.hljs-keyword,.hljs-selector-tag,.hljs-title) { color: var(--glow); }
 .article-prose :is(.hljs-string,.hljs-number,.hljs-literal) { color: var(--ember); }
-.writing-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid var(--line); border-radius: 3px; padding: 8px 16px; font-size: 13px; color: var(--text); }
+.writing-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--line); border-radius: 4px; padding: 8px 16px; font-size: 13px; color: var(--text); font-variant-numeric: tabular-nums; transition: border-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.15s var(--ease); }
 .writing-button:hover:not(:disabled), .writing-button[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); }
+.writing-button:active:not(:disabled) { transform: scale(0.98); }
 .writing-button:disabled { opacity: .5; cursor: not-allowed; }
-.writing-input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 3px; background: var(--ink); color: var(--text); padding: 10px 12px; font-size: 16px; }
+.writing-input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 4px; background: var(--ink); color: var(--text); padding: 10px 12px; font-size: 15px; transition: border-color 0.25s var(--ease); }
 .writing-input:focus-visible, .writing-button:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; }
 @media (max-width: 640px) {
   .article-prose { font-size: 16px; }

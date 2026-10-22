@@ -3,8 +3,6 @@ import { useTranslations } from 'next-intl';
 import type { LocalizedProject } from '@/lib/data/projects';
 import ProjectThumb from './ProjectThumb';
 
-export const pad = (n: number) => String(n + 1).padStart(2, '0');
-
 interface Props {
   project: LocalizedProject;
   onOpen: (id: string) => void;
@@ -21,7 +19,7 @@ export default function ProjectCard({ project: p, onOpen }: Props) {
     <a
       id={`card-${p.id}`}
       href={`#${p.id}`}
-      className="pj-card group flex flex-col border border-line bg-panel text-left transition-[border-color,transform] duration-[350ms] ease-scene hover:-translate-y-[3px] hover:border-glow focus-visible:-translate-y-[3px] focus-visible:border-glow"
+      className="pj-card group flex flex-col overflow-hidden rounded-[4px] border border-line bg-panel text-left transition-[border-color,transform,box-shadow] duration-[350ms] ease-scene hover:-translate-y-[2px] hover:border-glow hover:shadow-[0_12px_28px_-14px_rgba(4,7,13,0.45)] focus-visible:-translate-y-[2px] focus-visible:border-glow active:scale-[0.99]"
       aria-haspopup="dialog"
       onClick={(e) => {
         // 保留 Ctrl/⌘/中键 在新标签页打开的行为
@@ -36,35 +34,34 @@ export default function ProjectCard({ project: p, onOpen }: Props) {
             src={p.image}
             alt={p.title}
             fill
-            className="object-cover object-top transition-transform duration-500 ease-scene group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-500 ease-scene group-hover:scale-[1.035]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
           />
         ) : (
           <ProjectThumb hue={p.hue} seed={p.seed} />
         )}
       </div>
-      <div className="flex flex-1 flex-col px-4 pb-4 pt-3.5">
-        <div className="mb-2 flex items-center justify-between gap-3 text-[11px] tracking-[0.1em] text-dim">
-          <span>{pad(p.index)}</span>
-          <span>{p.year}</span>
+      <div className="flex flex-1 flex-col px-5 pb-4 pt-4">
+        <div className="mb-1.5 flex items-baseline justify-between gap-3">
+          <h3 className="m-0 font-serif text-[18px] font-medium leading-[1.3] transition-colors duration-300 ease-scene group-hover:text-glow">
+            {p.title}
+          </h3>
+          <time className="flex-none text-[12px] tabular-nums tracking-[0.04em] text-dim">{p.year}</time>
         </div>
-        <h3 className="mb-1.5 font-serif text-[17px] font-medium transition-colors duration-300 ease-scene group-hover:text-glow">
-          {p.title}
-        </h3>
-        <p className="mb-3 line-clamp-3 text-[13px] leading-[1.65] text-dim">{p.summary}</p>
-        <div className="mt-auto flex items-end justify-between gap-3">
+        <p className="mb-4 line-clamp-3 text-[13.5px] leading-[1.68] text-dim">{p.summary}</p>
+        <div className="mt-auto flex items-end justify-between gap-3 pt-1">
           <ul className="flex flex-wrap gap-1.5">
             {p.tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-[2px] border border-line px-2 py-[3px] text-[11px] tracking-[0.04em] text-dim"
+                className="rounded-[3px] border border-line px-2 py-[3px] text-[11px] tracking-[0.02em] text-dim"
               >
                 {tag}
               </li>
             ))}
           </ul>
           <span
-            className="flex-none whitespace-nowrap text-[11.5px] tracking-[0.06em] text-dim transition-colors duration-300 ease-scene group-hover:text-glow"
+            className="flex-none whitespace-nowrap text-[12px] tracking-[0.03em] text-dim transition-colors duration-300 ease-scene group-hover:text-glow"
             aria-hidden="true"
           >
             {t('open')} →

@@ -97,7 +97,7 @@ export default function ToolExplorer({ tools, tags }: Props) {
   return (
     <div>
       <ToolSearch value={query} onChange={changeQuery} />
-      <div role="group" aria-label={t('filterLabel')} className="mb-2 flex flex-wrap gap-[7px]">
+      <div role="group" aria-label={t('filterLabel')} className="mb-3 flex flex-wrap gap-2">
         {options.map((o) => {
           const active = o.id === filter;
           return (
@@ -107,14 +107,14 @@ export default function ToolExplorer({ tools, tags }: Props) {
               aria-pressed={active}
               onClick={() => changeFilter(o.id)}
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-full border px-[13px] py-1.5 text-[12.5px] transition-colors duration-300 ease-scene',
+                'inline-flex items-center gap-1.5 rounded-[4px] border px-3 py-1.5 text-[12.5px] transition-[color,border-color,background-color,transform] duration-300 ease-scene active:scale-[0.98]',
                 active
                   ? 'border-glow bg-[var(--glow-soft)] text-glow'
-                  : 'border-line text-dim hover:text-[var(--text)]'
+                  : 'border-line text-dim hover:border-glow/60 hover:text-[var(--text)]'
               )}
             >
               {o.label}
-              <span className={cn('text-[10.5px] tabular-nums', active ? 'opacity-80' : 'opacity-60')}>
+              <span className={cn('text-[11px] tabular-nums', active ? 'opacity-85' : 'opacity-65')}>
                 {counts[o.id]}
               </span>
             </button>
@@ -123,7 +123,7 @@ export default function ToolExplorer({ tools, tags }: Props) {
       </div>
 
       {/* 读屏软件播报结果数；视觉上只在筛选时显示 */}
-      <p aria-live="polite" className={cn('mb-0 mt-3 text-[12px] tracking-[0.04em] text-dim', !filtered && 'sr-only')}>
+      <p aria-live="polite" className={cn('mb-0 mt-3 text-[12px] tabular-nums tracking-[0.04em] text-dim', !filtered && 'sr-only')}>
         {t('resultCount', { count: list.length, total: tools.length })}
       </p>
 
@@ -133,7 +133,7 @@ export default function ToolExplorer({ tools, tags }: Props) {
           <button
             type="button"
             onClick={reset}
-            className="rounded-[3px] border border-line px-[15px] py-2 text-[12.5px] text-[var(--text)] transition-colors duration-300 ease-scene hover:border-glow hover:text-glow"
+            className="rounded-[4px] border border-line px-[15px] py-2 text-[12.5px] text-[var(--text)] transition-[color,border-color,transform] duration-300 ease-scene hover:border-glow hover:text-glow active:scale-[0.98]"
           >
             {t('reset')}
           </button>
@@ -143,7 +143,7 @@ export default function ToolExplorer({ tools, tags }: Props) {
         // 输入关键词时不重挂载，只有新出现的卡片浮现，避免每敲一个字全体闪一下
         <div
           key={filter}
-          className="mt-[10px] grid grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-4"
+          className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(min(260px,100%),1fr))] gap-4"
         >
           {list.map((x, i) => (
             <ToolCard

@@ -40,13 +40,13 @@ export default function ToolCard({ tool: x, terms, className, style }: Props) {
   return (
     <article
       className={cn(
-        'tk-card group relative flex flex-col gap-3 rounded-lg border border-line bg-panel px-[22px] pb-[18px] pt-5',
+        'tk-card group relative flex flex-col gap-3 rounded-[4px] border border-line bg-panel px-5 pb-4 pt-5',
         className
       )}
       style={style}
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 className="m-0 font-serif text-[19px] font-semibold leading-[1.3]">
+        <h2 className="m-0 font-serif text-[19px] font-medium leading-[1.3]">
           <a
             href={x.url}
             target="_blank"
@@ -57,15 +57,15 @@ export default function ToolCard({ tool: x, terms, className, style }: Props) {
             <span className="sr-only"> {t('opensInNewTab')}</span>
           </a>
         </h2>
-        <span className="tk-tag flex-none whitespace-nowrap rounded-full border border-line px-2.5 py-[3px] font-mono text-[10.5px] uppercase tracking-[0.08em] text-dim">
+        <span className="tk-tag flex-none whitespace-nowrap rounded-[3px] border border-line px-2 py-[2px] font-sans text-[11px] tracking-[0.03em] text-dim">
           {x.tagLabel}
         </span>
       </div>
-      <p className="m-0 flex-1 text-[13.5px] leading-[1.7] text-dim">
+      <p className="m-0 flex-1 text-[13.5px] leading-[1.72] text-dim">
         <Highlight text={x.description} terms={terms} />
       </p>
-      <div className="flex items-center justify-between gap-3 text-[11px] tracking-[0.05em] text-dim">
-        <span className="inline-flex min-w-0 items-center gap-1 opacity-80 transition-[color,opacity] duration-300 ease-scene group-hover:text-glow group-hover:opacity-100">
+      <div className="flex items-center justify-between gap-3 pt-1 text-[11.5px] tabular-nums tracking-[0.03em] text-dim">
+        <span className="inline-flex min-w-0 items-center gap-1 opacity-85 transition-[color,opacity] duration-300 ease-scene group-hover:text-glow group-hover:opacity-100">
           <span className="truncate">{x.host}</span>
           <ArrowUpRight
             aria-hidden="true"

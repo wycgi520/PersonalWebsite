@@ -39,8 +39,8 @@ export default function LanguageToggle() {
       aria-label={t('switchLang')}
       title={t('switchLang')}
       className={cn(
-        'h-8 rounded-[3px] border border-line bg-transparent px-[11px] font-sans text-xs tracking-[0.06em] text-dim',
-        'transition-colors duration-300 ease-scene hover:border-glow hover:text-glow',
+        'h-8 rounded-[4px] border border-line bg-transparent px-[11px] font-sans text-xs tracking-[0.04em] text-dim',
+        'transition-[color,border-color,transform] duration-300 ease-scene hover:border-glow hover:text-glow active:scale-[0.98]',
         isPending && 'opacity-60'
       )}
     >

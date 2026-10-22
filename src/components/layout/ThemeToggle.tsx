@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Moon, Sun } from 'lucide-react';
 
 const BTN =
-  'grid h-8 w-8 place-items-center rounded-[3px] border border-line text-dim transition-colors duration-300 ease-scene hover:border-glow hover:text-glow';
+  'grid h-8 w-8 place-items-center rounded-[4px] border border-line text-dim transition-[color,border-color,transform] duration-300 ease-scene hover:border-glow hover:text-glow active:scale-[0.98]';
 
 export default function ThemeToggle() {
   const t = useTranslations('nav');
@@ -28,7 +28,7 @@ export default function ThemeToggle() {
       aria-label={t('switchTheme')}
       title={t('switchTheme')}
     >
-      {isDark ? <Moon size={14} aria-hidden="true" /> : <Sun size={14} aria-hidden="true" />}
+      {isDark ? <Moon size={14} strokeWidth={1.75} aria-hidden="true" /> : <Sun size={14} strokeWidth={1.75} aria-hidden="true" />}
     </button>
   );
 }

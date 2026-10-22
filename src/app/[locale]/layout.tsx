@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, Inter, Noto_Serif_SC } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans, Noto_Serif_SC } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -19,10 +19,10 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -95,7 +95,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={HTML_LANG[locale]}
       suppressHydrationWarning
-      className={`${cormorant.variable} ${inter.variable} ${notoSerifSC.variable}`}
+      className={`${cormorant.variable} ${jakarta.variable} ${notoSerifSC.variable}`}
     >
       <body>
         {/* 绘制前恢复手动选择的动态效果偏好 */}
@@ -114,7 +114,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <main
               id="main"
               tabIndex={-1}
-              className="stage relative z-10 min-h-screen outline-none"
+              className="stage relative z-10 min-h-[100dvh] outline-none"
             >
               {children}
             </main>

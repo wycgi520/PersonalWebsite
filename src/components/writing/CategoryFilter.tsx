@@ -17,7 +17,7 @@ export default function CategoryFilter({ categories, counts, value, onChange }: 
   const options: { id: Filter; label: string }[] = [{ id: 'all', label: t('all') }, ...categories];
 
   return (
-    <div role="group" aria-label={t('filterLabel')} className="mb-2 flex flex-wrap gap-[7px]">
+    <div role="group" aria-label={t('filterLabel')} className="mb-2 flex flex-wrap gap-2">
       {options.map((o) => {
         const active = o.id === value;
         return (
@@ -27,14 +27,14 @@ export default function CategoryFilter({ categories, counts, value, onChange }: 
             aria-pressed={active}
             onClick={() => onChange(o.id)}
             className={cn(
-              'inline-flex items-center gap-1.5 rounded-full border px-[13px] py-1.5 text-[12.5px] transition-colors duration-300 ease-scene',
+              'inline-flex items-center gap-1.5 rounded-[4px] border px-3 py-1.5 text-[12.5px] transition-[color,border-color,background-color,transform] duration-300 ease-scene active:scale-[0.98]',
               active
                 ? 'border-glow bg-[var(--glow-soft)] text-glow'
-                : 'border-line text-dim hover:text-[var(--text)]'
+                : 'border-line text-dim hover:border-glow/60 hover:text-[var(--text)]'
             )}
           >
             {o.label}
-            <span className={cn('text-[10.5px] tabular-nums', active ? 'opacity-80' : 'opacity-60')}>
+            <span className={cn('text-[11px] tabular-nums', active ? 'opacity-85' : 'opacity-65')}>
               {counts[o.id]}
             </span>
           </button>

@@ -14,7 +14,7 @@ export const alt = OG_ALT;
 export const size = OG_SIZE;
 export const contentType = 'image/png';
 
-const INK = '#070B14', LINE = '#1E2E4A', GLOW = '#63D2E8', DIM = '#8CA3C7', TEXT = '#E9EFF8';
+const INK = '#070B14', LINE = '#1E2E4A', GLOW = '#63D2E8', DIM = '#92A8C9', TEXT = '#EBF0F8';
 
 // 星图缩放进右侧 560×520 的区域
 const SX = 0.86, OX = 600, OY = 60;
@@ -48,16 +48,15 @@ export default function OpengraphImage() {
         </svg>
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 0 0 80px', width: 600 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, color: DIM, fontSize: 22, letterSpacing: 4 }}>
-            <div style={{ width: 12, height: 12, borderRadius: 12, background: GLOW, boxShadow: `0 0 16px ${GLOW}` }} />
-            GY · OBSERVATORY
+          <div style={{ display: 'flex', alignItems: 'center', color: DIM, fontSize: 22, letterSpacing: 2 }}>
+            Observatory
           </div>
-          <div style={{ marginTop: 34, color: TEXT, fontSize: 76, lineHeight: 1.05 }}>Guo Yi</div>
-          <div style={{ marginTop: 22, color: DIM, fontSize: 30, lineHeight: 1.4 }}>
-            Full-stack engineer crafting resilient, high-craft web systems.
+          <div style={{ marginTop: 28, color: TEXT, fontSize: 76, lineHeight: 1.05 }}>Guo Yi</div>
+          <div style={{ marginTop: 22, color: DIM, fontSize: 29, lineHeight: 1.45 }}>
+            Full-stack developer building web applications, business systems, and mobile apps.
           </div>
-          <div style={{ marginTop: 40, color: GLOW, fontSize: 22, letterSpacing: 1 }}>
-            TypeScript · Next.js · PostgreSQL
+          <div style={{ marginTop: 38, color: GLOW, fontSize: 21, letterSpacing: 0.5 }}>
+            TypeScript / Next.js / Java / PHP / C++
           </div>
         </div>
       </div>

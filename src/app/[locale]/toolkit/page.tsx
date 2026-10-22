@@ -24,12 +24,12 @@ export default async function ToolkitPage({ params }: Props) {
   const tags = localizeToolTags(locale as Locale);
 
   return (
-    <section className="scene px-[18px] pb-10 pt-[118px] min-[861px]:px-10 min-[861px]:pb-12 min-[861px]:pt-[104px]">
+    <section className="scene px-[18px] pb-12 pt-[118px] min-[861px]:px-10 min-[861px]:pb-16 min-[861px]:pt-[104px]">
       <div className="mx-auto max-w-[1180px]">
         <BackLink className="mb-[26px]" />
-        <header className="mb-[34px] flex flex-col items-start gap-3 border-b border-line pb-5 min-[721px]:flex-row min-[721px]:items-end min-[721px]:justify-between min-[721px]:gap-7">
-          <h1 className="m-0 font-serif text-[clamp(30px,3.2vw,42px)] font-medium leading-[1.12]">{t('title')}</h1>
-          <p className="m-0 max-w-[42ch] text-[13.5px] leading-[1.7] text-dim">{t('lede')}</p>
+        <header className="mb-9 border-b border-line pb-6">
+          <h1 className="m-0 font-serif text-[clamp(30px,3.2vw,42px)] font-medium leading-[1.15]">{t('title')}</h1>
+          <p className="m-0 mt-2.5 max-w-[64ch] text-[14.5px] leading-[1.75] text-dim">{t('lede')}</p>
         </header>
         <ToolExplorer tools={items} tags={tags} />
       </div>

@@ -48,11 +48,11 @@ export default function Newsletter() {
   const done = status === 'ok' || status === 'mail';
 
   return (
-    <div className="border border-line border-t-2 border-t-glow bg-panel p-[21px]">
-      <h2 className="mb-[7px] font-serif text-[19px] font-medium">{t('subTitle')}</h2>
-      <p className="mb-[15px] text-[12.5px] leading-[1.7] text-dim">{t('subBody')}</p>
+    <div className="rounded-[4px] border border-line bg-panel p-5">
+      <h2 className="mb-2 font-serif text-[19px] font-medium">{t('subTitle')}</h2>
+      <p className="mb-4 text-[13px] leading-[1.7] text-dim">{t('subBody')}</p>
       {done ? (
-        <p role="status" className="m-0 text-[12.5px] leading-[1.7] text-glow">
+        <p role="status" className="m-0 text-[13px] leading-[1.7] text-glow">
           {t(status === 'ok' ? 'subOk' : 'subMailOk')}
         </p>
       ) : (
@@ -60,7 +60,7 @@ export default function Newsletter() {
           action={`mailto:${CONTACT_EMAIL}`}
           method="get"
           onSubmit={submit}
-          className="flex flex-col gap-[9px]"
+          className="flex flex-col gap-2.5"
         >
           <input
             type="email"
@@ -79,11 +79,11 @@ export default function Newsletter() {
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="rounded-[3px] border border-glow bg-[var(--glow-soft)] px-[17px] py-[9px] text-[13px] text-glow transition-colors duration-300 ease-scene hover:bg-transparent disabled:opacity-60"
+            className="rounded-[4px] border border-glow bg-[var(--glow-soft)] px-4 py-2 text-[13px] font-medium text-glow transition-[background-color,transform] duration-300 ease-scene hover:bg-transparent active:scale-[0.98] disabled:opacity-60"
           >
             {status === 'sending' ? t('subSending') : t('subButton')}
           </button>
-          <p role="status" className="m-0 text-[11px] text-dim">
+          <p role="status" className="m-0 text-[11.5px] leading-[1.5] text-dim">
             {status === 'error' ? <span className="text-ember">{t('subError')}</span> : t('subNote')}
           </p>
         </form>

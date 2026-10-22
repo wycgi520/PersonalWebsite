@@ -32,8 +32,8 @@ export default function ArticleDiscussion({slug, children}: {slug: string; child
         try { const result = await api<{likes: number; liked: boolean}>(`${base}/like`, {method: 'PUT', body: JSON.stringify({liked: !before.liked})}); setReaction({...before, ...result}); }
         catch (e) { setReaction(before); setError(e instanceof Error && e.message === '429' ? t('rateLimited') : t('serviceError')); }
         finally { setBusy(false); }
-      }}>♥ {t('like')} {reaction?.likes ?? '—'}</button>
-      <a href="#comments" className="text-sm text-dim hover:text-glow">{t('comments', {count: reaction?.comments ?? 0})}</a>
+      }}>♥ {t('like')}{reaction ? ` ${reaction.likes}` : ''}</button>
+      <a href="#comments" className="text-sm tabular-nums text-dim hover:text-glow">{t('comments', {count: reaction?.comments ?? 0})}</a>
     </div>
     {children}
     <section id="comments" className="scroll-mt-[140px] pb-8" aria-labelledby="comments-heading">
@@ -42,7 +42,7 @@ export default function ArticleDiscussion({slug, children}: {slug: string; child
       {!ready && !error && <p className="text-sm text-dim">{t('loading')}</p>}
       {ready && !items.length && <p className="my-5 text-sm text-dim">{t('noComments')}</p>}
       <ol className="divide-y divide-line">{items.map(c => <li key={c.id} className="py-5">
-        <div className="mb-2 flex flex-wrap items-baseline gap-3"><b className="text-sm font-medium">{c.nickname}</b><time className="text-xs text-dim" dateTime={c.createdAt}>{new Date(c.createdAt).toLocaleDateString(locale)}</time></div>
+        <div className="mb-2 flex flex-wrap items-baseline gap-3"><b className="text-sm font-medium">{c.nickname}</b><time className="text-xs tabular-nums text-dim" dateTime={c.createdAt}>{new Date(c.createdAt).toLocaleDateString(locale)}</time></div>
         <p className="whitespace-pre-wrap break-words text-sm leading-7 text-dim">{c.text}</p>
       </li>)}</ol>
       {cursor && <button type="button" disabled={paging} className="writing-button mb-6" onClick={async () => {
@@ -51,7 +51,7 @@ export default function ArticleDiscussion({slug, children}: {slug: string; child
           setItems(old => [...old, ...result.items.filter(c => !old.some(o => o.id === c.id))]); setCursor(result.nextCursor);
         } catch { setError(t('serviceError')); } finally { setPaging(false); }
       }}>{t('loadMore')}</button>}
-      <form className="grid gap-4 border border-line bg-panel p-5" onSubmit={async e => {
+      <form className="grid gap-4 rounded-[4px] border border-line bg-panel p-5" onSubmit={async e => {
         e.preventDefault(); setBusy(true); setError(''); setSent(false);
         try { await api(`${base}/comments`, {method: 'POST', body: JSON.stringify({nickname, text})}); setText(''); setSent(true); }
         catch (e) { setError(e instanceof Error && e.message === '429' ? t('rateLimited') : t('serviceError')); }
@@ -59,7 +59,10 @@ export default function ArticleDiscussion({slug, children}: {slug: string; child
       }}>
         <label className="grid gap-2 text-sm">{t('nickname')}<input className="writing-input" autoComplete="nickname" required maxLength={30} value={nickname} onChange={e => setNickname(e.target.value)} /></label>
         <label className="grid gap-2 text-sm">{t('commentInputLabel')}<textarea className="writing-input min-h-32 resize-y" required maxLength={500} value={text} onChange={e => {setText(e.target.value); setSent(false);}} /></label>
-        <p className="text-xs text-dim">{t('moderationNote')} · {text.length}/500</p>
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-dim">
+          <span>{t('moderationNote')}</span>
+          <span className="tabular-nums">{text.length}/500</span>
+        </div>
         <button type="submit" className="writing-button justify-self-start" disabled={!ready || busy || !nickname.trim() || !text.trim()}>{busy ? t('sending') : t('commentSend')}</button>
         {sent && <p role="status" className="text-sm text-glow">{t('pendingComment')}</p>}
       </form>
