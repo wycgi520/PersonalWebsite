@@ -30,7 +30,7 @@ export default function Identity() {
         {t.rich('bio1', { strong })}
       </p>
       <p className="ident-bio mb-3.5 text-[14.5px] leading-[1.85] text-dim min-[861px]:text-[15px]">
-        {t('bio2')}
+        {t.rich('bio2', { strong })}
       </p>
 
       <div className="mt-[30px] rounded-r-[3px] border border-l-2 border-line border-l-glow bg-panel px-4 py-3.5 text-[13px] leading-[1.7] text-dim">

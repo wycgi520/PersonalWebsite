@@ -21,7 +21,7 @@ export default function Biography() {
 
       <ProfilePortrait className="rv" />
 
-      <h1 className="rv mb-5 font-serif text-[clamp(32px,3.4vw,46px)] font-medium leading-[1.14]">
+      <h1 className="rv mb-5 font-serif text-[clamp(26px,2.6vw,36px)] font-medium leading-[1.2]">
         {t('title')}
       </h1>
 

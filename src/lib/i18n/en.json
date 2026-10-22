@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Observatory · Guo Yi — Full-Stack Engineer & Digital Craftsman",
-    "description": "Guo Yi's digital garden & portfolio. 7+ years of engineering experience crafting production-grade web systems, high-concurrency backends, and creative interactive experiences with TypeScript and Next.js."
+    "title": "Observatory · Guo Yi — Full-Stack Developer",
+    "description": "Guo Yi's personal website. 7+ years of software development across TypeScript, Java, PHP, C/C++, network protocols, WordPress, mini-programs, and mobile apps — building e-commerce platforms, forums, admin systems, and web portals."
   },
   "common": {
     "backHome": "Back to Star Chart",
@@ -28,11 +28,11 @@
   "home": {
     "coord": "N 23°08′ · E 113°16′ · Local UTC+8",
     "name": "Guo Yi",
-    "role": "Full-stack engineer",
-    "bio1": "I build resilient, production-grade applications with <strong>TypeScript, Next.js, and PostgreSQL</strong>. Deeply focused on content platforms, fine-grained permission architectures, and backend services engineered to thrive under real-world traffic.",
-    "bio2": "Habitual in dissecting edge cases and performance boundaries before shipping, while weaving subtle, crafted interactions that reward curiosity.",
-    "statusTitle": "Open to full-time roles & project collaboration",
-    "statusBody": "Currently available for remote full-time engineering roles and end-to-end project contracting. Explore the star chart to the right, or get in touch via the contact page.",
+    "role": "Full-stack developer",
+    "bio1": "Over the past seven years, I've built <strong>e-commerce platforms, community forums, admin dashboards, and corporate portals</strong>, as well as <strong>mini-programs and mobile apps</strong>. I work comfortably across TypeScript / React / Next.js, Java, PHP, and WordPress, as well as C/C++ and network protocol stacks.",
+    "bio2": "I prefer a practical, straightforward approach — thinking through business logic and edge cases early, and taking projects all the way from database design to front-end UI and deployment.",
+    "statusTitle": "Open to full-time roles & freelance projects",
+    "statusBody": "Available for remote or full-time positions, as well as contract work on websites, mini-programs, mobile apps, and custom business systems. Pick a star on the chart to look around, or reach out via the contact page.",
     "chartLabel": "Constellation navigation",
     "plate": "Observatory celestial chart",
     "nodes": {
@@ -45,25 +45,25 @@
   },
   "about": {
     "metaTitle": "About",
-    "metaDescription": "Guo Yi — 7+ years of full-stack engineering expertise, specializing in content platforms, dynamic RBAC systems, full-text search, and creative Canvas engineering.",
-    "title": "Engineering ethos, craft, and what I build",
-    "p1": "I am Guo Yi, a full-stack engineer with 7 years of production experience. Most of my career has been dedicated to engineering <strong>domain-rich, content-driven systems</strong> — enterprise CMS, multi-tenant RBAC engines, full-text search, and recommendation pipelines. Here, the frontend demands effortless interaction and accessibility, the backend must guarantee high throughput and strict consistency, and data models cannot afford sloppy compromises on day one.",
-    "p2": "In technical choices, I practice pragmatic discipline: <strong>Next.js for cohesive end-to-end product experiences</strong>, Hono for ultra-fast, independently scalable API microservices, and Prisma with PostgreSQL for ironclad data contracts. Redis caching and BullMQ job queues are introduced precisely where performance demands them — resisting premature abstractions that solve non-existent problems.",
-    "p3": "Outside day-to-day work, I write deep-dive technical articles dissecting real architectural trade-offs, curate an everyday toolkit, and experiment with creative coding across Canvas and SVG. The Observatory you are exploring — blending celestial charts with a living campfire simulation — is a tangible reflection of that craft.",
+    "metaDescription": "Guo Yi — 7+ years of full-stack development across C/C++, Java, PHP, TypeScript, WordPress, mini-programs, and mobile apps, building forums, e-commerce sites, admin systems, and portals.",
+    "title": "Who I am and what I do",
+    "p1": "I'm Guo Yi, a full-stack developer with over seven years of hands-on experience. Over the years I've worked on a wide range of projects — from <strong>e-commerce platforms, community forums, and back-office management systems</strong> to <strong>corporate portals, WeChat mini-programs, and mobile applications</strong>. What matters most to me is whether a system is easy to use, reliable in production, and straightforward to maintain.",
+    "p2": "I don't limit myself to a single tech stack, choosing whatever fits the job best. For modern web apps, I frequently use <strong>TypeScript, React, Next.js, Vue, and Node.js</strong>; for enterprise backends, content sites, or secondary development, I regularly work with <strong>Java, PHP, and WordPress</strong>; and when a project involves lower-level services or custom communication, I write <strong>C/C++</strong> and work directly with network protocol stacks.",
+    "p3": "Outside of client and day-to-day work, I jot down practical technical notes from real debugging sessions, keep a curated list of everyday tools, and occasionally tinker with Canvas and SVG animations. This website is where I keep my past project cases and notes.",
     "f1k": "Experience",
     "f1v": "7+ years",
-    "f2k": "Core stack",
-    "f2v": "TypeScript",
+    "f2k": "Scope",
+    "f2v": "Web & Mobile",
     "f3k": "Based in",
     "f3v": "Guangzhou · Remote",
     "f4k": "Status",
-    "f4v": "Open",
+    "f4v": "Open to work",
     "fireLabel": "Interactive campfire simulation: mouse movement tilts the flame with spring physics, click or tap to stoke the embers.",
     "stokeFire": "Stoke the campfire",
     "portraitLabel": "Portrait of Guo Yi and his child",
     "portraitExpandTip": "Click to view full photo",
     "portraitModalTitle": "Lotus Pond & Family Moments",
-    "portraitModalDesc": "Beyond code and architecture: spending quiet hours exploring nature with family, staying grounded, observant, and genuinely curious.",
+    "portraitModalDesc": "When I'm away from the keyboard, I spend most of my time walking outdoors with family and enjoying everyday life.",
     "portraitModalTag": "Guangzhou · Midsummer",
     "portraitClose": "Close photo preview"
   },
