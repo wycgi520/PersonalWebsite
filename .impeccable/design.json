@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-14T23:45:00+08:00",
+  "title": "Design System: 观星台 Observatory",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Night Ink", "canonical": "#070B14", "tonalRamp": ["#03050a", "#070B14", "#0e1626", "#18233a", "#2a3956", "#4a5b7a", "#8592ab", "#d1d7e3"] },
+      "panel": { "role": "neutral", "displayName": "Watch Panel", "canonical": "#0C1424", "tonalRamp": ["#060a13", "#0C1424", "#142036", "#1f2e4b", "#334666", "#566a8c", "#94a3bd", "#d8dfeb"] },
+      "grid": { "role": "neutral", "displayName": "Chart Grid", "canonical": "#16233C", "tonalRamp": ["#0a1120", "#16233C", "#22324f", "#304263", "#4a5f82", "#6f83a5", "#a8b7cf", "#e0e6f0"] },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#1E2E4A", "tonalRamp": ["#0d1526", "#1E2E4A", "#2b3d5d", "#3a4e71", "#566b8f", "#7a8eae", "#b0bfd6", "#e3e9f2"] },
+      "glow": { "role": "primary", "displayName": "Starlight Cyan", "canonical": "#63D2E8", "tonalRamp": ["#0b3640", "#115463", "#156A84", "#1f8ea8", "#36b3cc", "#63D2E8", "#9ee3f1", "#d8f5fa"] },
+      "glow-soft": { "role": "primary", "displayName": "Starlight Haze", "canonical": "rgba(99, 210, 232, 0.16)" },
+      "dim": { "role": "neutral", "displayName": "Dusk Text", "canonical": "#92A8C9", "tonalRamp": ["#2a3448", "#3d4b63", "#4C5C75", "#677a98", "#7f93b2", "#92A8C9", "#bccbe0", "#e6edf6"] },
+      "text": { "role": "neutral", "displayName": "Moonlit Text", "canonical": "#EBF0F8", "tonalRamp": ["#121B2B", "#2d384c", "#4f5b70", "#7a8599", "#a7b0c0", "#cdd4e0", "#EBF0F8", "#f8fafd"] },
+      "ember": { "role": "secondary", "displayName": "Campfire Ember", "canonical": "#F2A24B", "tonalRamp": ["#4a2604", "#7a4108", "#B5610C", "#d67d1c", "#ea922f", "#F2A24B", "#f7c68d", "#fde9d1"] },
+      "ink-light": { "role": "neutral", "displayName": "Night Ink (light)", "canonical": "#EEF1F6" },
+      "panel-light": { "role": "neutral", "displayName": "Watch Panel (light)", "canonical": "#F7F9FC" },
+      "grid-light": { "role": "neutral", "displayName": "Chart Grid (light)", "canonical": "#D3DCE9" },
+      "line-light": { "role": "neutral", "displayName": "Hairline (light)", "canonical": "#C2CEDF" },
+      "glow-light": { "role": "primary", "displayName": "Starlight Cyan (light)", "canonical": "#156A84" },
+      "glow-soft-light": { "role": "primary", "displayName": "Starlight Haze (light)", "canonical": "rgba(21, 106, 132, 0.12)" },
+      "dim-light": { "role": "neutral", "displayName": "Dusk Text (light)", "canonical": "#4C5C75" },
+      "text-light": { "role": "neutral", "displayName": "Moonlit Text (light)", "canonical": "#121B2B" },
+      "ember-light": { "role": "secondary", "displayName": "Campfire Ember (light)", "canonical": "#B5610C" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The name on the home page and page-level headings." },
+      "headline": { "displayName": "Headline", "purpose": "Card titles for projects, tools, posts; article headings." },
+      "title": { "displayName": "Title", "purpose": "StarMap node labels and the nav brand." },
+      "body": { "displayName": "Body", "purpose": "All running copy, bio, summaries, article text." },
+      "label": { "displayName": "Label", "purpose": "Nav links, toggles, chips, sub-labels, dates and metadata." }
+    },
+    "shadows": [
+      { "name": "hover-lift", "value": "0 12px 28px -14px rgba(4, 7, 13, 0.45)", "purpose": "Project and tool cards on hover/focus, paired with translateY(-2px)." },
+      { "name": "floating-control", "value": "0 10px 24px -10px rgba(4, 7, 13, 0.45)", "purpose": "Reading-tool pills floating beside an article." },
+      { "name": "drawer", "value": "-24px 0 60px rgba(4, 7, 13, 0.42)", "purpose": "Project detail drawer sliding in from the right." },
+      { "name": "lightbox", "value": "0 24px 50px rgba(4, 7, 13, 0.48)", "purpose": "Enlarged portrait lightbox." },
+      { "name": "inset-focus", "value": "inset 0 0 0 2px var(--glow)", "purpose": "Focus ring for contact cells, kept inside the seams." }
+    ],
+    "motion": [
+      { "name": "ease-scene", "value": "cubic-bezier(0.22, 0.61, 0.24, 1)", "purpose": "The single shared easing curve for every transition." },
+      { "name": "duration-hover", "value": "300ms", "purpose": "Hover and focus state changes on controls and cards." },
+      { "name": "duration-scene", "value": "760ms", "purpose": "Page-to-page scene transitions." },
+      { "name": "press-scale", "value": "scale(0.98)", "purpose": "Active/press feedback on every clickable control." }
+    ],
+    "breakpoints": [
+      { "name": "contact-2col", "value": "561px" },
+      { "name": "gallery-grid", "value": "641px" },
+      { "name": "dialog-wide", "value": "721px" },
+      { "name": "nav-desktop", "value": "861px" },
+      { "name": "contact-3col", "value": "901px" },
+      { "name": "two-column", "value": "1041px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Key action, e.g. opening a live demo. Haze fill with a cyan outline.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Live demo</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--glow, #63D2E8); background: var(--glow-soft, rgba(99,210,232,0.16)); color: var(--glow, #63D2E8); border-radius: 4px; padding: 6.5px 14px; font: 500 12.5px/1.4 var(--sans, 'Plus Jakarta Sans', sans-serif); text-decoration: none; transition: background-color 300ms cubic-bezier(0.22,0.61,0.24,1), transform 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-btn-primary:hover { background: transparent; } .ds-btn-primary:focus-visible { outline: 2px solid var(--glow, #63D2E8); outline-offset: 3px; } .ds-btn-primary:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action, e.g. view source. Hairline outline turning cyan.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Source</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line, #1E2E4A); background: transparent; color: var(--text, #EBF0F8); border-radius: 4px; padding: 6.5px 14px; font: 500 12.5px/1.4 var(--sans, 'Plus Jakarta Sans', sans-serif); text-decoration: none; transition: color 300ms cubic-bezier(0.22,0.61,0.24,1), border-color 300ms cubic-bezier(0.22,0.61,0.24,1), transform 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-btn-secondary:hover { border-color: var(--glow, #63D2E8); color: var(--glow, #63D2E8); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--glow, #63D2E8); outline-offset: 3px; } .ds-btn-secondary:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Icon Toggle",
+      "kind": "button",
+      "refersTo": "icon-toggle",
+      "description": "Theme / motion toggle in the header. 32px square, hairline border.",
+      "html": "<button class=\"ds-icon-toggle\" type=\"button\" aria-label=\"Toggle theme\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></button>",
+      "css": ".ds-icon-toggle { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--line, #1E2E4A); background: transparent; color: var(--dim, #92A8C9); border-radius: 4px; cursor: pointer; transition: color 300ms cubic-bezier(0.22,0.61,0.24,1), border-color 300ms cubic-bezier(0.22,0.61,0.24,1), transform 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-icon-toggle:hover { border-color: var(--glow, #63D2E8); color: var(--glow, #63D2E8); } .ds-icon-toggle:focus-visible { outline: 2px solid var(--glow, #63D2E8); outline-offset: 3px; } .ds-icon-toggle:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Header nav links. Haze on hover; active link gets cyan text and a 1px underline bar.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\">观星台</a><div class=\"ds-nav-links\"><a class=\"ds-nav-link\" href=\"#\">About</a><a class=\"ds-nav-link is-active\" href=\"#\" aria-current=\"page\">Projects</a><a class=\"ds-nav-link\" href=\"#\">Writing</a><a class=\"ds-nav-link\" href=\"#\">Toolkit</a></div></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 24px; padding: 0 24px; height: 72px; background: linear-gradient(to bottom, var(--ink, #070B14) 24%, transparent); } .ds-nav-brand { font: 500 21px/1 var(--serif, 'Cormorant Garamond', serif); color: var(--text, #EBF0F8); text-decoration: none; } .ds-nav-links { display: flex; gap: 2px; } .ds-nav-link { position: relative; padding: 8px 14px; border-radius: 4px; font: 400 13.5px/1.4 var(--sans, 'Plus Jakarta Sans', sans-serif); color: var(--text, #EBF0F8); text-decoration: none; transition: background-color 300ms cubic-bezier(0.22,0.61,0.24,1), color 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-nav-link:hover { background: var(--glow-soft, rgba(99,210,232,0.16)); } .ds-nav-link:focus-visible { outline: 2px solid var(--glow, #63D2E8); outline-offset: 3px; } .ds-nav-link.is-active { color: var(--glow, #63D2E8); } .ds-nav-link.is-active::after { content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 1px; background: var(--glow, #63D2E8); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Project / tool card. Flat at rest; lifts with a cyan border and soft shadow on hover.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-meta\">2024</span><h3 class=\"ds-card-title\">Immigration Consultancy Site &amp; Scoring Tool</h3><p class=\"ds-card-body\">A bilingual site with an eligibility scoring tool and content managed by the client team.</p></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 8px; max-width: 360px; padding: 20px 20px 16px; background: var(--panel, #0C1424); border: 1px solid var(--line, #1E2E4A); border-radius: 4px; transition: transform 350ms cubic-bezier(0.22,0.61,0.24,1), border-color 350ms cubic-bezier(0.22,0.61,0.24,1), box-shadow 350ms cubic-bezier(0.22,0.61,0.24,1); } .ds-card:hover, .ds-card:focus-within { transform: translateY(-2px); border-color: var(--glow, #63D2E8); box-shadow: 0 12px 28px -14px rgba(4,7,13,0.45); } .ds-card-meta { font: 500 11.5px/1 var(--sans, 'Plus Jakarta Sans', sans-serif); letter-spacing: 0.08em; color: var(--dim, #92A8C9); } .ds-card-title { margin: 0; font: 500 22px/1.2 var(--serif, 'Cormorant Garamond', serif); color: var(--text, #EBF0F8); } .ds-card-body { margin: 0; font: 400 14px/1.6 var(--sans, 'Plus Jakarta Sans', sans-serif); color: var(--dim, #92A8C9); }"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "chip-category",
+      "description": "Writing category chip. Haze fill, cyan text, 3px corners.",
+      "html": "<span class=\"ds-chip\">Tech</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 3px; background: var(--glow-soft, rgba(99,210,232,0.16)); color: var(--glow, #63D2E8); font: 500 11.5px/1.3 var(--sans, 'Plus Jakarta Sans', sans-serif); letter-spacing: 0.04em; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Newsletter / comment field. Ink fill, hairline border turning cyan on focus.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\" aria-label=\"Email\" />",
+      "css": ".ds-input { width: 280px; padding: 10px 12px; background: var(--ink, #070B14); color: var(--text, #EBF0F8); border: 1px solid var(--line, #1E2E4A); border-radius: 4px; font: 400 14px/1.4 var(--sans, 'Plus Jakarta Sans', sans-serif); caret-color: var(--glow, #63D2E8); outline: none; transition: border-color 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-input::placeholder { color: var(--dim, #92A8C9); } .ds-input:focus { border-color: var(--glow, #63D2E8); } .ds-input:focus-visible { outline: 2px solid var(--glow, #63D2E8); outline-offset: 3px; }"
+    },
+    {
+      "name": "StarMap Node",
+      "kind": "custom",
+      "refersTo": "starmap",
+      "description": "Signature constellation node: a star with halo, ring and serif label that lights cyan on hover/focus.",
+      "html": "<svg class=\"ds-star\" viewBox=\"0 0 200 120\" width=\"200\" height=\"120\" role=\"img\" aria-label=\"Projects star\"><defs><radialGradient id=\"ds-hg\"><stop offset=\"0\" stop-color=\"#63D2E8\" stop-opacity=\"0.55\"/><stop offset=\"1\" stop-color=\"#63D2E8\" stop-opacity=\"0\"/></radialGradient></defs><line class=\"ds-star-edge\" x1=\"10\" y1=\"100\" x2=\"60\" y2=\"50\"/><a href=\"#\" class=\"ds-star-node\"><rect x=\"20\" y=\"20\" width=\"160\" height=\"60\" fill=\"transparent\"/><circle class=\"ds-star-halo\" cx=\"60\" cy=\"50\" r=\"44\" fill=\"url(#ds-hg)\"/><circle class=\"ds-star-ring\" cx=\"60\" cy=\"50\" r=\"17\"/><circle class=\"ds-star-dot\" cx=\"60\" cy=\"50\" r=\"5.6\"/><text class=\"ds-star-lbl\" x=\"84\" y=\"50\">Projects</text><text class=\"ds-star-sub\" x=\"84\" y=\"66\">CASES</text></a></svg>",
+      "css": ".ds-star { background: var(--ink, #070B14); } .ds-star-edge { stroke: var(--glow, #63D2E8); stroke-width: 0.9; opacity: 0.26; transition: opacity 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-star:hover .ds-star-edge { opacity: 0.75; } .ds-star-halo { opacity: 0; transition: opacity 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-star-ring { fill: none; stroke: var(--glow, #63D2E8); stroke-width: 0.8; opacity: 0; transition: opacity 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-star-dot { fill: var(--text, #EBF0F8); transition: fill 300ms cubic-bezier(0.22,0.61,0.24,1), r 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-star-lbl { font: 500 21px var(--serif, 'Cormorant Garamond', serif); fill: var(--text, #EBF0F8); transition: fill 300ms cubic-bezier(0.22,0.61,0.24,1); } .ds-star-sub { font: 400 11.5px var(--sans, 'Plus Jakarta Sans', sans-serif); letter-spacing: 0.08em; fill: var(--dim, #92A8C9); } .ds-star-node:hover .ds-star-halo, .ds-star-node:focus-visible .ds-star-halo { opacity: 0.22; } .ds-star-node:hover .ds-star-ring { opacity: 0.6; } .ds-star-node:focus-visible .ds-star-ring { opacity: 0.9; stroke-width: 1.4; } .ds-star-node:hover .ds-star-dot, .ds-star-node:focus-visible .ds-star-dot { fill: var(--glow, #63D2E8); r: 7; } .ds-star-node:hover .ds-star-lbl, .ds-star-node:focus-visible .ds-star-lbl { fill: var(--glow, #63D2E8); } .ds-star-node:focus { outline: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Watch",
+    "overview": "The site is a watch kept through the night: a dark, still field of sky, a star chart drawn with an instrument-maker's care, and a campfire that answers when you lean toward it. Nothing shouts. The quiet is the point, and inside that quiet the details are alive. Stars twinkle on their own phase, meteors fall in evenly-spaced places so no pattern repeats, and the flame sways with the pointer and grows when stoked. The warmth is in the hand-made physics, not in the palette.\n\nDensity is low and deliberate. Surfaces are near-black navy in two tiers (page and raised panel), bounded by hairline 1px lines and a faint chart grid. A single cool accent, Starlight Cyan, marks everything interactive; a single warm accent, Campfire Ember, is held back for fire and for failure. Serif display type (Cormorant Garamond, with Noto Serif SC for Chinese) gives headings a literary, hand-lettered voice; Plus Jakarta Sans keeps body and controls plain and readable.\n\nMotion is one grammar everywhere: one easing curve, short hover transitions, and a slower \"scene\" transition between pages that feels like moving from one place to another rather than loading a new screen. Every ambient animation respects reduced motion and the site's own motion toggle, and drops to a single still frame when asked.",
+    "keyCharacteristics": [
+      "Dark-first, bilingual (zh/en), with a full light theme driven by the same tokens.",
+      "One cool accent (Starlight Cyan) for interaction, one warm accent (Campfire Ember) held in reserve.",
+      "Flat at rest; shadow appears only as a response to state.",
+      "Hairline 1px borders and a 4px corner as the near-universal form.",
+      "Signature canvas/SVG worlds (StarMap, SkyCanvas, Campfire) carry the personality; the chrome around them stays restrained."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Starlight Cyan means \"this responds to you.\" Never use it for decoration, static headings, or illustration fills that aren't interactive.", "section": "colors" },
+      { "name": "The Ember in Reserve Rule", "body": "Campfire Ember is not a second brand color. It appears for fire, for code literals, and for failure states. Never as a button, link, or general highlight.", "section": "colors" },
+      { "name": "The Token Flip Rule", "body": "Themes switch by flipping CSS custom properties under [data-theme=\"light\"]. Components consume tokens and never branch per theme; only canvas code and non-color assets (gradients, shadows) carry explicit light overrides.", "section": "colors" },
+      { "name": "The Serif Speaks, Sans Works Rule", "body": "Serif is for names and titles only. Controls, labels, metadata, and body copy are always sans.", "section": "typography" },
+      { "name": "The Shadow-Is-State Rule", "body": "No surface carries a resting shadow. If something casts a shadow, it is hovered, focused, or floating above the page.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Starlight Cyan (glow) for every interactive state and nothing else.",
+      "Do keep surfaces flat at rest and add the Hover lift (0 12px 28px -14px rgba(4,7,13,0.45) with translateY(-2px)) only on hover/focus.",
+      "Do use 4px corners and 1px Hairline borders as the default form for new cards, controls, and inputs.",
+      "Do use the shared easing cubic-bezier(0.22, 0.61, 0.24, 1): about 300ms for hover states, 760ms for scene transitions.",
+      "Do add new theme-dependent color as a token flipped under [data-theme=\"light\"], not as per-component theme branches.",
+      "Do give every ambient animation a still state that honors prefers-reduced-motion and the site's motion toggle.",
+      "Do set names and titles in the serif and everything operable in the sans."
+    ],
+    "donts": [
+      "Don't use Campfire Ember (ember) for buttons, links, or general highlights.",
+      "Don't add resting shadows to cards or panels.",
+      "Don't use solid filled accent buttons; the primary action is a haze fill with a cyan outline.",
+      "Don't introduce a second cool accent or a gradient brand color.",
+      "Don't use Tailwind dark: variants for theming; consume the flipping tokens instead.",
+      "Don't set controls, labels, or body copy in the serif."
+    ]
+  }
+}
