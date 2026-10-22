@@ -47,6 +47,7 @@
     "metaTitle": "About",
     "metaDescription": "Guo Yi — 7+ years of full-stack development across C/C++, Java, PHP, TypeScript, WordPress, mini-programs, and mobile apps, building forums, e-commerce sites, admin systems, and portals.",
     "title": "Who I am and what I do",
+    "subtitle": "Guo Yi · Full-stack Developer",
     "p1": "I'm Guo Yi, a full-stack developer with over seven years of hands-on experience. Over the years I've worked on a wide range of projects — from <strong>e-commerce platforms, community forums, and back-office management systems</strong> to <strong>corporate portals, WeChat mini-programs, and mobile applications</strong>. What matters most to me is whether a system is easy to use, reliable in production, and straightforward to maintain.",
     "p2": "I don't limit myself to a single tech stack, choosing whatever fits the job best. For modern web apps, I frequently use <strong>TypeScript, React, Next.js, Vue, and Node.js</strong>; for enterprise backends, content sites, or secondary development, I regularly work with <strong>Java, PHP, and WordPress</strong>; and when a project involves lower-level services or custom communication, I write <strong>C/C++</strong> and work directly with network protocol stacks.",
     "p3": "Outside of client and day-to-day work, I jot down practical technical notes from real debugging sessions, keep a curated list of everyday tools, and occasionally tinker with Canvas and SVG animations. This website is where I keep my past project cases and notes.",

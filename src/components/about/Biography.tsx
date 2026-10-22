@@ -19,11 +19,18 @@ export default function Biography() {
     <div className="about-bio max-w-[60ch]">
       <BackLink className="mb-7" />
 
-      <ProfilePortrait className="rv" />
-
-      <h1 className="rv mb-5 font-serif text-[clamp(26px,2.6vw,36px)] font-medium leading-[1.2]">
-        {t('title')}
-      </h1>
+      {/* 头像在左，主副标题在右，纵向高度与圆头像自然对齐 */}
+      <div className="rv mb-7 flex items-center gap-5 min-[861px]:gap-6">
+        <ProfilePortrait className="mb-0 h-20 w-20 shrink-0 min-[861px]:h-24 min-[861px]:w-24" />
+        <div className="min-w-0">
+          <h1 className="mb-1.5 font-serif text-[clamp(26px,2.6vw,36px)] font-medium leading-[1.18]">
+            {t('title')}
+          </h1>
+          <p className="m-0 font-serif text-[clamp(16px,1.4vw,19px)] italic text-glow">
+            {t('subtitle')}
+          </p>
+        </div>
+      </div>
 
       {(['p1', 'p2', 'p3'] as const).map((key) => (
         <p key={key} className="rv mb-[18px] text-[14.5px] leading-[1.9] text-dim min-[861px]:text-[15px]">
@@ -34,9 +41,9 @@ export default function Biography() {
       {/* 四个条目只用 2 或 4 列，避免落单格子露出底色 */}
       <dl className="rv mt-[34px] grid grid-cols-2 gap-px border border-line bg-line min-[561px]:max-[1040px]:grid-cols-4 min-[1280px]:grid-cols-4">
         {FACTS.map(([k, v]) => (
-          <div key={k} className="bg-ink px-4 py-[15px]">
+          <div key={k} className="bg-ink px-3 py-[15px] text-center">
             <dt className="mb-1.5 text-[11px] tracking-[0.1em] text-dim">{t(k)}</dt>
-            <dd className="m-0 font-serif text-[17px] text-[var(--text)]">{t(v)}</dd>
+            <dd className="m-0 whitespace-nowrap font-serif text-[17px] text-[var(--text)]">{t(v)}</dd>
           </div>
         ))}
       </dl>
